@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>YNOT Tasks Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Handlee&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "brand-yellow": "#FFD600",
+                        "brand-black": "#121212",
+                        "postit-yellow": "#fff7d1",
+                        "postit-blue": "#d1eaff",
+                        "postit-pink": "#ffd1e3",
+                        "postit-green": "#e3ffd1",
+                        "surface-grey": "#F8F8F6",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "hand": ["Handlee", "cursive"]
+                    },
+                    boxShadow: {
+                        "postit": "2px 3px 5px rgba(0,0,0,0.1)",
+                        "postit-hover": "4px 6px 12px rgba(0,0,0,0.15)",
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .rotate-random-1 { transform: rotate(-1deg); }
+            .rotate-random-2 { transform: rotate(1.5deg); }
+            .rotate-random-3 { transform: rotate(-0.5deg); }
+            .rotate-random-4 { transform: rotate(2deg); }
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white font-display text-brand-black overflow-hidden h-screen flex">
+<aside class="w-64 bg-surface-grey border-r border-stone-200 flex flex-col h-full shrink-0">
+<div class="p-6 pb-2">
+<div class="flex gap-3 items-center mb-8">
+<div class="flex items-center justify-center bg-brand-yellow rounded-lg size-10 shadow-sm border-2 border-brand-black text-brand-black font-black text-xl rotate-3">
+                    Y
+                </div>
+<div class="flex flex-col">
+<h1 class="text-brand-black text-xl font-bold leading-none tracking-tight font-hand">YNOT</h1>
+<p class="text-stone-500 text-xs font-medium mt-1">Hackathon Org</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-brand-yellow border border-brand-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-transform active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]" href="#">
+<span class="material-symbols-outlined text-[20px] font-medium text-brand-black">dashboard</span>
+<span class="text-sm font-bold text-brand-black">Board</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-stone-600 hover:bg-stone-200 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-brand-black">view_kanban</span>
+<span class="text-sm font-medium group-hover:text-brand-black">Timeline</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-stone-600 hover:bg-stone-200 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-brand-black">group</span>
+<span class="text-sm font-medium group-hover:text-brand-black">Team</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-stone-600 hover:bg-stone-200 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-brand-black">calendar_month</span>
+<span class="text-sm font-medium group-hover:text-brand-black">Calendar</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-stone-600 hover:bg-stone-200 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-brand-black">settings</span>
+<span class="text-sm font-medium group-hover:text-brand-black">Settings</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-4 border-t border-stone-200">
+<button class="w-full flex items-center justify-center gap-2 rounded-lg h-9 px-4 hover:bg-stone-200 text-stone-500 hover:text-red-500 text-sm font-semibold transition-colors">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+<span>Log Out</span>
+</button>
+</div>
+</aside>
+<main class="flex-1 flex flex-col min-w-0 overflow-hidden h-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+<header class="px-8 py-6 flex flex-col gap-6 shrink-0 z-10 bg-white/80 backdrop-blur-sm border-b border-stone-200">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<h2 class="text-brand-black text-3xl font-black tracking-tight font-hand">Hackathon Prep Board</h2>
+<p class="text-stone-500 text-sm">Track tasks, deadlines, and progress for YNOT 2024</p>
+</div>
+<button class="flex items-center gap-2 bg-brand-black hover:bg-gray-800 text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-lg transition-all hover:-translate-y-0.5">
+<span class="material-symbols-outlined text-[20px] text-brand-yellow">add</span>
+                    Create Task
+                </button>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center flex-1 gap-4 max-w-2xl">
+<div class="relative flex-1 group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-brand-black transition-colors">search</span>
+<input class="w-full bg-white border border-stone-200 rounded-lg py-2.5 pl-10 pr-4 text-sm text-brand-black placeholder:text-stone-400 focus:ring-2 focus:ring-brand-yellow/50 focus:border-brand-yellow transition-all shadow-sm" placeholder="Search tasks..." type="text"/>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<button class="px-4 py-1.5 rounded-full bg-white border border-stone-200 text-stone-600 hover:border-brand-black hover:text-brand-black text-xs font-bold transition-all shadow-sm">
+                            My Tasks
+                        </button>
+<button class="px-4 py-1.5 rounded-full bg-white border border-stone-200 text-stone-600 hover:border-brand-black hover:text-brand-black text-xs font-bold transition-all shadow-sm">
+                            Due Soon
+                        </button>
+<button class="px-4 py-1.5 rounded-full bg-white border border-stone-200 text-stone-600 hover:border-brand-black hover:text-brand-black text-xs font-bold transition-all shadow-sm">
+                            High Priority
+                        </button>
+</div>
+</div>
+<div class="flex items-center -space-x-2">
+<div class="size-9 rounded-full ring-2 ring-white bg-cover bg-center shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBq5hlEybmc0yuiKKbCHaSS6Zt36ABPfqiWtAdz48dQ8wgnUn0WCuo_ZBu95W3-7Bw8a7I79Hx_zYjl-YL2xWVpKwER7b7VCDC5VEY0vmjgGJNyAz-UU7Mn0ZU-m5kBBDJG4V_YhJ4pJf7mCOwXjheSEGu5HZM6rjxSwBD9J1oVCILhauQYwT8Ho1LM-aDv1gyOpb03Eu21CV7MvGgqCUi4sl5OBvReOcdT4RiIhc9LKJHfECiml7Q-A-eUFwohriziJg-z98jqhw");'></div>
+<div class="size-9 rounded-full ring-2 ring-white bg-cover bg-center shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCyyTjuXN6IP69WLcjv1fIXN7B1xce9CPvUGpQbmkz8d_VGbyoxQVERa2CIIw8YY8Cage5AM3rgZafJAW4cQf1GKw_HeGvH86JKcvDdpav2zMAzEMtVQvRpvglDIdNSobT6evBElRUQm7ZcpnhUrMzlCEf3KePF4AYc8ImI9fa_ZWp03QZq_tPUnws4O4fPXv7JvCIWtQ15-XovREBWf1pQK9_mIzg_HhcnMcv8dz9mu172lO8pjH1iUDQNtgxn8cT85kG-Zp7nzg");'></div>
+<div class="size-9 rounded-full ring-2 ring-white bg-cover bg-center shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDYtYcEndhBcFx_3TQ-UzOISsM3RRRCXqAhZq-QASpvOJOvvCKQoQd3xqY8XacypGUp6SeDhKkZhrGun-r33ENDd1aF40Ggs3DXOlskm61Jf6kjFJyz20yvUIdgD_n97TNixjBoLsExe0iJ5zc3ynrrx0Grz_72a9SK5bkZ_0WKL6e26DLSYCsE20PzmimpLmTWVjLXr0_Pr7fGbZ5YHnxok2_zJQmP70kFUk6qMmQ9GJeD7zcuN5E5BM-yVzqI7_Ucm6y2kBUWpg");'></div>
+<div class="size-9 rounded-full ring-2 ring-white bg-brand-yellow flex items-center justify-center text-xs font-bold text-brand-black cursor-pointer shadow-sm border border-brand-black/10">
+                        +5
+                    </div>
+</div>
+</div>
+</header>
+<div class="flex-1 overflow-x-auto overflow-y-hidden p-8 pt-4">
+<div class="flex h-full gap-8 min-w-max pb-4">
+<div class="flex flex-col w-80 shrink-0 h-full">
+<div class="flex items-center justify-between mb-4 px-2 border-b-2 border-brand-black pb-2">
+<div class="flex items-center gap-2">
+<h3 class="text-lg font-black text-brand-black font-hand">To Do</h3>
+<span class="bg-stone-200 text-stone-600 text-xs px-2 py-0.5 rounded-full font-bold">3</span>
+</div>
+<button class="text-stone-400 hover:text-brand-black">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<div class="flex-1 flex flex-col gap-4 overflow-y-auto px-1 pb-4 scrollbar-hide">
+<div class="group bg-postit-yellow p-4 shadow-postit rotate-random-1 hover:rotate-0 hover:scale-105 hover:shadow-postit-hover transition-all duration-300 cursor-grab active:cursor-grabbing relative">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] rotate-1 shadow-sm border-l border-r border-white/60"></div>
+<div class="flex items-start justify-between mb-3">
+<span class="text-stone-500 text-[11px] font-bold uppercase tracking-wider font-hand">Logistics</span>
+<span class="material-symbols-outlined text-stone-400 text-[18px] opacity-0 group-hover:opacity-100 transition-opacity">edit</span>
+</div>
+<h4 class="text-brand-black font-semibold text-lg mb-4 leading-tight font-hand">Secure main venue for opening ceremony</h4>
+<div class="flex items-center justify-between mt-auto pt-2 border-t border-black/5">
+<div class="flex items-center gap-2">
+<div class="size-7 rounded-full bg-cover bg-center border border-black/10 shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA5Mo4j7kWzUUf2FwrjDoz0TnBrtFBKB1qz6frCk6rQ40x3Sk70WLLntumIBIy6Pj6pLjMl4oQ6fQFNQyPdeVJcrx6W2qNiBEt5fVFgRP_BHxpeH5BmPUvcnO-tWbGBykAVBIlH3YCnDO8iBi55DE1a9hOUKTf6GfKGpf3pSiWbIDDqOXFeTET4JQmSZozf2M2sacZtq6iBy1AZAgUOvfzO2kIBAjrDru4ukmL2vnUEulD1UIVzxP4uLqRYuvMToFvsu77Ob8pP8Q");'></div>
+</div>
+<div class="flex items-center gap-3 text-stone-600">
+<div class="flex items-center gap-1 text-xs font-bold">
+<span class="material-symbols-outlined text-[16px]">attachment</span> 2
+                                    </div>
+<div class="flex items-center gap-1 text-xs font-bold text-orange-600 bg-orange-100 px-1.5 py-0.5 rounded">
+                                        Oct 12
+                                    </div>
+</div>
+</div>
+</div>
+<div class="group bg-postit-blue p-4 shadow-postit rotate-random-2 hover:rotate-0 hover:scale-105 hover:shadow-postit-hover transition-all duration-300 cursor-grab active:cursor-grabbing relative">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] -rotate-1 shadow-sm border-l border-r border-white/60"></div>
+<div class="flex items-start justify-between mb-3">
+<span class="text-stone-500 text-[11px] font-bold uppercase tracking-wider font-hand">Sponsors</span>
+</div>
+<h4 class="text-brand-black font-semibold text-lg mb-4 leading-tight font-hand">Finalize gold tier sponsor packages</h4>
+<div class="flex items-center justify-between mt-auto pt-2 border-t border-black/5">
+<div class="flex items-center gap-2">
+<div class="size-7 rounded-full bg-indigo-500 flex items-center justify-center text-[10px] text-white font-bold border border-white shadow-sm">JD</div>
+</div>
+<div class="flex items-center gap-3 text-stone-600">
+<div class="flex items-center gap-1 text-xs font-bold">
+<span class="material-symbols-outlined text-[16px]">chat_bubble</span> 5
+                                    </div>
+<div class="flex items-center gap-1 text-xs font-bold">
+                                        Oct 15
+                                    </div>
+</div>
+</div>
+</div>
+<div class="group bg-postit-pink p-4 shadow-postit rotate-random-3 hover:rotate-0 hover:scale-105 hover:shadow-postit-hover transition-all duration-300 cursor-grab active:cursor-grabbing relative">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] rotate-2 shadow-sm border-l border-r border-white/60"></div>
+<div class="flex items-start justify-between mb-3">
+<span class="text-stone-500 text-[11px] font-bold uppercase tracking-wider font-hand">Swag</span>
+</div>
+<h4 class="text-brand-black font-semibold text-lg mb-4 leading-tight font-hand">Order T-shirts (500 units)</h4>
+<div class="flex items-center justify-between mt-auto pt-2 border-t border-black/5">
+<div class="flex items-center gap-2">
+<div class="size-7 rounded-full bg-cover bg-center border border-black/10 shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBLW47eiEiUXpnGejH-i1_kHKQTHNiShbTNTLqTTuwBCBBsmsYPCR2fRRReBIuaSNLZtWfHaX7pGn_zCChgJDWwShhLl-B7n1yAzReGedk3WsTbIQ44nlz0ErfG4-7n2gF8_li7BjlL7rFimmbvdd9CCJWLfYV7HFw6a9Ce1eRMTlf4BW58IaKiXisdNCWKZHBLWPBQoDcbLj0ZNd2vbPsTRApmUQhr9wS4qjqH9MpU-d9YYcs9ecFMyT0blWs1RAgrmZRaKpHZbQ");'></div>
+</div>
+<div class="flex items-center gap-3 text-stone-600">
+<div class="flex items-center gap-1 text-xs font-bold">
+                                        Oct 20
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+<button class="mt-2 flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border-2 border-dashed border-stone-300 text-stone-400 hover:border-brand-black hover:text-brand-black hover:bg-white transition-all text-sm font-bold">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+                        Add Note
+                    </button>
+</div>
+<div class="flex flex-col w-80 shrink-0 h-full">
+<div class="flex items-center justify-between mb-4 px-2 border-b-2 border-brand-black pb-2">
+<div class="flex items-center gap-2">
+<h3 class="text-lg font-black text-brand-black font-hand">In Progress</h3>
+<span class="bg-brand-yellow text-brand-black text-xs px-2 py-0.5 rounded-full font-bold">2</span>
+</div>
+<button class="text-stone-400 hover:text-brand-black">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<div class="flex-1 flex flex-col gap-4 overflow-y-auto px-1 pb-4 scrollbar-hide">
+<div class="group bg-white p-4 shadow-postit border border-stone-200 rotate-random-4 hover:rotate-0 hover:scale-105 hover:shadow-postit-hover transition-all duration-300 cursor-grab active:cursor-grabbing relative">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] rotate-1 shadow-sm border-l border-r border-white/60"></div>
+<div class="flex items-start justify-between mb-3">
+<div class="flex gap-1">
+<span class="text-stone-500 text-[11px] font-bold uppercase tracking-wider font-hand">Tech</span>
+<span class="text-red-500 text-[11px] font-bold uppercase tracking-wider font-hand ml-2">Urgent</span>
+</div>
+</div>
+<h4 class="text-brand-black font-semibold text-lg mb-3 leading-tight font-hand">Devpost submission page configuration</h4>
+<div class="w-full bg-stone-100 rounded-full h-2 mb-4 overflow-hidden border border-stone-200">
+<div class="bg-brand-yellow h-2 rounded-full w-3/4 border-r border-stone-300"></div>
+</div>
+<div class="flex items-center justify-between mt-auto pt-2 border-t border-stone-100">
+<div class="flex items-center gap-2">
+<div class="size-7 rounded-full bg-cover bg-center border border-white shadow-sm ring-1 ring-stone-200" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCjgddjpgrVOJQlHLNI5iwKrD-_zE8DAqN2NLCDnS6PI-Z1PAHl3xOVG29UcWf-v2y8_zYQAxnRzHnfgWhe3Hy2spmjeB7TV8kyTZph6OVeJZM79FOTff0JOI2hXLM0QM0BPk7cS7WuqwNxExo5Igvmq1D0oFExHN6buphpHJuVJtZnE9nQLY5VZz1naGu8NK-67AFq8yQ1WXOzWW8QDdmVs-3gSaISdcnF9S6yL8T4SONLPWUSrPhFx2UeopYYmw_4uyEVvJQKFg");'></div>
+<div class="size-7 rounded-full bg-cover bg-center border border-white shadow-sm ring-1 ring-stone-200 -ml-3" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuACBj2I_v0rM3fcRQEgI51N1nbAtRBFovLccM-2DfCsiXY_1DtS8olpbkaKflvF2U5G0R5VHJ77YnrvNQ-SZLSXfWWNb3cMz6lSnS-ZzHsiIZW3906qyh3nIhMorhPa2sKaaemDQe_539R_vy3ugrg5fx4mQR6YmmuhzUAnIKrWnwcP0wGNCjL3_lIZa8ZGqA4kqqecCbC9IjWZALYjfTrksZdRjy9BSaSfiYOrTuKqHBfeB7pz7JBrmRWW1ehIyoreBQ5wTsZ0iQ");'></div>
+</div>
+<div class="flex items-center gap-3 text-stone-600">
+<div class="flex items-center gap-1 text-xs font-bold text-red-600 bg-red-50 px-1.5 py-0.5 rounded">
+                                        Due Tmrw
+                                    </div>
+</div>
+</div>
+</div>
+<div class="group bg-postit-yellow p-4 shadow-postit rotate-random-1 hover:rotate-0 hover:scale-105 hover:shadow-postit-hover transition-all duration-300 cursor-grab active:cursor-grabbing relative">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] -rotate-1 shadow-sm border-l border-r border-white/60"></div>
+<div class="flex items-start justify-between mb-3">
+<span class="text-stone-500 text-[11px] font-bold uppercase tracking-wider font-hand">Marketing</span>
+</div>
+<h4 class="text-brand-black font-semibold text-lg mb-4 leading-tight font-hand">Keynote speaker outreach email campaign</h4>
+<div class="flex items-center justify-between mt-auto pt-2 border-t border-black/5">
+<div class="flex items-center gap-2">
+<div class="size-7 rounded-full bg-teal-600 flex items-center justify-center text-[10px] text-white font-bold border border-white shadow-sm">AK</div>
+</div>
+<div class="flex items-center gap-3 text-stone-600">
+<div class="flex items-center gap-1 text-xs font-bold">
+                                        Oct 18
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+<button class="mt-2 flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border-2 border-dashed border-stone-300 text-stone-400 hover:border-brand-black hover:text-brand-black hover:bg-white transition-all text-sm font-bold">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+                        Add Note
+                    </button>
+</div>
+<div class="flex flex-col w-80 shrink-0 h-full">
+<div class="flex items-center justify-between mb-4 px-2 border-b-2 border-brand-black pb-2">
+<div class="flex items-center gap-2">
+<h3 class="text-lg font-black text-brand-black font-hand">Review</h3>
+<span class="bg-stone-200 text-stone-600 text-xs px-2 py-0.5 rounded-full font-bold">1</span>
+</div>
+<button class="text-stone-400 hover:text-brand-black">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<div class="flex-1 flex flex-col gap-4 overflow-y-auto px-1 pb-4 scrollbar-hide">
+<div class="group bg-postit-green p-4 shadow-postit rotate-random-2 hover:rotate-0 hover:scale-105 hover:shadow-postit-hover transition-all duration-300 cursor-grab active:cursor-grabbing relative">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] rotate-2 shadow-sm border-l border-r border-white/60"></div>
+<div class="flex items-start justify-between mb-3">
+<span class="text-stone-500 text-[11px] font-bold uppercase tracking-wider font-hand">Design</span>
+</div>
+<h4 class="text-brand-black font-semibold text-lg mb-3 leading-tight font-hand">Hackathon landing page hero illustration</h4>
+<div class="w-full h-32 mb-4 rounded bg-cover bg-center relative border border-black/10 shadow-inner group-hover:opacity-95 transition-opacity" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCAscno6wDz42nrqCV4vF_TaV13MB46r5vlVz1x47QhCH0DHDtM4hme-lpenWWra2y2cbSSu-W9RABu8WwhmZawddFF5bbpc4PwJ2TfNgmn6YPqCnLX31EXMDCLHDIkARKemq3D7p5nqbFwG2dAsy4_Ij1NuNTEcBkbcK_fi8ZwGRgRvLDD4Vozw4krvwva4237ssPCT24luh6aVR9eTNbPM0eNEZpV0PYfkMwCpAEhqZ1GEIDgHdglZEsF0u4JnqCpG99gOxTGIw");'>
+<div class="absolute bottom-2 right-2 bg-brand-black text-white text-[10px] px-1.5 py-0.5 rounded font-bold shadow-md">v3.png</div>
+</div>
+<div class="flex items-center justify-between mt-auto pt-2 border-t border-black/5">
+<div class="flex items-center gap-2">
+<div class="size-7 rounded-full bg-cover bg-center border border-black/10 shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA7C0j4nML4wrN2YJG45_T5H1DjxD37EdwVHVIAUQQ37Nep7Ion1R12sik4jPa_0q4kk-HCkX1x9AWNNzRVqbbAHsDuAteln5ZbMlQcmMVdY-UQ-4OPRvyrM8UZRsaavFeXyglY3naaPnc_fcZxonpv8RV4HOuZ2tyH8xhHdtYPucBiyajzILXpI7TPgp7GNgBJWhe8OFUnXTNYKgFsTabqTVF8ivptYlcz7rWY-hGkJj6-RLY4uEC2LUGRPqZD3uGt6bjfuou32g");'></div>
+</div>
+<div class="flex items-center gap-3 text-stone-600">
+<div class="flex items-center gap-1 text-xs font-bold bg-white/50 px-2 py-0.5 rounded-full border border-black/5">
+<span class="material-symbols-outlined text-[16px]">visibility</span> Review
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+<button class="mt-2 flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border-2 border-dashed border-stone-300 text-stone-400 hover:border-brand-black hover:text-brand-black hover:bg-white transition-all text-sm font-bold">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+                        Add Note
+                    </button>
+</div>
+<div class="flex flex-col w-80 shrink-0 h-full">
+<div class="flex items-center justify-between mb-4 px-2 border-b-2 border-brand-black pb-2">
+<div class="flex items-center gap-2">
+<h3 class="text-lg font-black text-brand-black font-hand">Done</h3>
+<span class="bg-stone-200 text-stone-600 text-xs px-2 py-0.5 rounded-full font-bold">2</span>
+</div>
+<button class="text-stone-400 hover:text-brand-black">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<div class="flex-1 flex flex-col gap-4 overflow-y-auto px-1 pb-4 scrollbar-hide">
+<div class="group bg-stone-100 p-4 shadow-sm border border-stone-200 rotate-random-3 hover:rotate-0 hover:shadow-md transition-all duration-300 opacity-80 hover:opacity-100 relative grayscale-[0.5] hover:grayscale-0">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] -rotate-2 shadow-sm border-l border-r border-white/60"></div>
+<div class="flex items-start justify-between mb-2">
+<span class="text-stone-500 text-[10px] font-bold uppercase tracking-wide">Finance</span>
+<span class="material-symbols-outlined text-green-600 text-[20px]">check_circle</span>
+</div>
+<h4 class="text-stone-400 font-medium text-lg mb-3 leading-tight line-through font-hand decoration-2 decoration-stone-400">Initial budget approval</h4>
+<div class="flex items-center justify-between mt-auto pt-2 border-t border-stone-200">
+<div class="flex items-center gap-2">
+<div class="size-7 rounded-full bg-cover bg-center border border-white grayscale opacity-70" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDInMabkcrhD3mZTmL4W3EEmyCHicF4furE2BfykJ7K4j2hNw3ekBrXCoGFSxx378dvL_aI_seJHMZNLLwo6n-N_rpBNY3-4RVRX0PqqvAvaNZiMsVTrdZUaXpQf-Nx4gX5OlTe5fkhEpAa0T4d_6yck58Ii4_j2F8gAeyPt6zZw1G_s3_zPAOl9UwpJMU18A2wUqBlLNYrdUg8GJPldLaaLsNaQSm-WhljBc9jynudRIKXKXvzDxK7Hb_FRsgJJRHgDPlIeDJ55Q");'></div>
+</div>
+<div class="flex items-center gap-3 text-stone-400">
+<div class="flex items-center gap-1 text-xs font-medium">
+                                        Oct 01
+                                    </div>
+</div>
+</div>
+</div>
+<div class="group bg-stone-100 p-4 shadow-sm border border-stone-200 rotate-random-1 hover:rotate-0 hover:shadow-md transition-all duration-300 opacity-80 hover:opacity-100 relative grayscale-[0.5] hover:grayscale-0">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] rotate-1 shadow-sm border-l border-r border-white/60"></div>
+<div class="flex items-start justify-between mb-2">
+<span class="text-stone-500 text-[10px] font-bold uppercase tracking-wide">Tech</span>
+<span class="material-symbols-outlined text-green-600 text-[20px]">check_circle</span>
+</div>
+<h4 class="text-stone-400 font-medium text-lg mb-3 leading-tight line-through font-hand decoration-2 decoration-stone-400">Website V1 Launch</h4>
+<div class="flex items-center justify-between mt-auto pt-2 border-t border-stone-200">
+<div class="flex items-center gap-2">
+<div class="size-7 rounded-full bg-cover bg-center border border-white grayscale opacity-70" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDeC4XRgPPyX1QS2WW_xjWtfbptAhh_oYRP7t-02Wgoy7yBwPMCzPq01VuLxOD5jAVWVdxHtTbsSswTgweO_rliG8AKxEx7x1JazFQoQ3ReGGaaeJsWzDSRtnDqQ3W91u8hQ-dfYc81iMc8HXnrJGbNoJ5uR5Sx_spiCvIi79WqXGBr7zxomf9Q-2quS7W4sVMH6DwsOjVSbTdYF3M7Heojp31uXjiEniYgPxPUoDdbVABslvwmftV_Y5zFRPKi4Ceznzek9bTZjg");'></div>
+</div>
+<div class="flex items-center gap-3 text-stone-400">
+<div class="flex items-center gap-1 text-xs font-medium">
+                                        Sep 28
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>YNOT - Create Task</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "ynot-yellow": "#FFD600",
+                        "ynot-black": "#121212",
+                        "ynot-dark": "#1A1A1A",
+                        "ynot-gray": "#F4F4F4",
+                        "ynot-border": "#E5E5E5",
+                    },
+                    fontFamily: {
+                        "sans": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    boxShadow: {
+                        'brutal': '4px 4px 0px 0px #000000',
+                        'brutal-sm': '2px 2px 0px 0px #000000',
+                        'brutal-lg': '6px 6px 0px 0px #000000',
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .brutal-border {
+                @apply border-2 border-black;
+            }
+            .brutal-input {
+                @apply w-full bg-white border-2 border-black rounded-lg px-4 py-3 text-ynot-black placeholder:text-gray-400 focus:outline-none focus:ring-0 focus:shadow-brutal transition-all;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white font-sans text-ynot-black min-h-screen flex flex-col overflow-x-hidden selection:bg-ynot-yellow selection:text-black">
+<header class="flex items-center justify-between whitespace-nowrap border-b-2 border-black bg-white px-6 py-4 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-ynot-black">
+<div class="size-10 rounded-lg bg-ynot-yellow border-2 border-black flex items-center justify-center shadow-brutal-sm">
+<span class="material-symbols-outlined text-[24px] font-bold">dataset</span>
+</div>
+<h2 class="text-2xl font-extrabold tracking-tight">YNOT</h2>
+</div>
+<nav class="hidden md:flex items-center gap-1 bg-gray-100 p-1 rounded-lg border-2 border-transparent">
+<a class="text-gray-600 hover:text-black hover:bg-white px-4 py-1.5 rounded-md text-sm font-bold transition-all" href="#">Dashboard</a>
+<a class="text-black bg-white shadow-sm border border-gray-200 px-4 py-1.5 rounded-md text-sm font-bold" href="#">Projects</a>
+<a class="text-gray-600 hover:text-black hover:bg-white px-4 py-1.5 rounded-md text-sm font-bold transition-all" href="#">Team</a>
+<a class="text-gray-600 hover:text-black hover:bg-white px-4 py-1.5 rounded-md text-sm font-bold transition-all" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<label class="hidden sm:flex flex-col min-w-40 h-10 max-w-64 relative group">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400 group-focus-within:text-black">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="w-full min-w-0 flex-1 resize-none overflow-hidden rounded-full border-2 border-gray-200 bg-gray-50 h-full placeholder:text-gray-400 px-4 pl-10 text-sm font-medium focus:border-black focus:ring-0 transition-all" placeholder="Search tasks..." value=""/>
+</label>
+<div class="flex items-center gap-3">
+<button class="size-10 rounded-full flex items-center justify-center text-black border-2 border-transparent hover:border-black hover:bg-ynot-yellow transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-black cursor-pointer shadow-brutal-sm hover:translate-y-0.5 hover:shadow-none transition-all" data-alt="User profile picture showing a young professional" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAYl7OUgcGNo5duI_U--N6qdiemGPi7GNN1cwJt8KiUPuzjnwI-8PaVGaLzT-6VclBEvbaXZ7gXYuvnVqteBzmPR-FbyVzrGBwbe0Gc6LOZWzRRb2RAburQc-0I89YAsSO45dAvl9PJ0ymRqhKJM21FruDo3rKkVbJ7GfPNOgUsCrn8KlhVNONAspcp631k7k151G8sK-dVYmmXjAyfEgyk7oElmV9dz8cKXXFYQRbQ4WMsVQ5a5kqvuDwsKdxCgm-Wm--LDXVIaw");'></div>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 py-10">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 h-full">
+<div class="lg:col-span-8 flex flex-col gap-8">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-2 text-sm font-bold mb-1">
+<span class="px-2 py-1 bg-gray-100 rounded text-gray-500">Projects</span>
+<span class="material-symbols-outlined text-[16px] text-gray-400">arrow_forward_ios</span>
+<span class="px-2 py-1 bg-gray-100 rounded text-gray-500">Hackathon 2024</span>
+<span class="material-symbols-outlined text-[16px] text-gray-400">arrow_forward_ios</span>
+<span class="px-2 py-1 bg-ynot-yellow border border-black rounded shadow-[2px_2px_0px_0px_#000]">New Issue</span>
+</div>
+<div>
+<h1 class="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-black mb-2">Create Issue <span class="text-gray-400">#1024</span></h1>
+<p class="text-gray-600 text-lg font-medium max-w-2xl">Let's get this done. Fill in the details to create a new task for the upcoming hackathon sprint.</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 group">
+<label class="text-base font-bold text-black flex items-center gap-2">
+                        Task Summary
+                        <span class="text-red-500">*</span>
+</label>
+<input class="brutal-input text-xl font-bold placeholder:font-normal" placeholder="e.g. Design Hackathon Landing Page" type="text"/>
+</div>
+<div class="flex flex-col gap-3">
+<label class="text-base font-bold text-black">Description</label>
+<div class="w-full bg-white border-2 border-black rounded-lg overflow-hidden shadow-brutal focus-within:translate-x-[2px] focus-within:translate-y-[2px] focus-within:shadow-none transition-all">
+<div class="flex items-center gap-2 p-2 border-b-2 border-black bg-gray-50">
+<button class="p-2 rounded hover:bg-white hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] border border-transparent hover:border-black text-black transition-all">
+<span class="material-symbols-outlined text-[20px]">format_bold</span>
+</button>
+<button class="p-2 rounded hover:bg-white hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] border border-transparent hover:border-black text-black transition-all">
+<span class="material-symbols-outlined text-[20px]">format_italic</span>
+</button>
+<button class="p-2 rounded hover:bg-white hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] border border-transparent hover:border-black text-black transition-all">
+<span class="material-symbols-outlined text-[20px]">link</span>
+</button>
+<div class="w-0.5 h-6 bg-gray-300 mx-1"></div>
+<button class="p-2 rounded hover:bg-white hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] border border-transparent hover:border-black text-black transition-all">
+<span class="material-symbols-outlined text-[20px]">format_list_bulleted</span>
+</button>
+<button class="p-2 rounded hover:bg-white hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] border border-transparent hover:border-black text-black transition-all">
+<span class="material-symbols-outlined text-[20px]">format_list_numbered</span>
+</button>
+</div>
+<textarea class="w-full bg-transparent border-none p-6 min-h-[200px] text-black placeholder:text-gray-400 focus:ring-0 resize-y text-lg leading-relaxed" placeholder="What needs to be done? Add details, requirements, and useful links..."></textarea>
+</div>
+</div>
+<div class="bg-gray-50 border-2 border-black rounded-xl p-6 shadow-brutal relative mt-2">
+<div class="absolute -top-3 -right-3 bg-black text-white px-3 py-1 rounded-lg font-bold text-sm transform rotate-2">
+                        Progress: 66%
+                    </div>
+<div class="flex flex-col gap-6">
+<div class="flex items-center justify-between border-b-2 border-gray-200 pb-4">
+<h3 class="text-xl font-bold text-black flex items-center gap-2">
+<span class="material-symbols-outlined">flag</span>
+                                Milestones
+                            </h3>
+<span class="text-sm font-bold text-gray-500">2 of 3 Completed</span>
+</div>
+<div class="space-y-4">
+<div class="group flex items-center gap-4 bg-white border-2 border-black p-4 rounded-lg hover:shadow-brutal transition-all cursor-pointer">
+<button class="text-gray-300 hover:text-black transition-colors">
+<span class="material-symbols-outlined text-[28px]">check_box_outline_blank</span>
+</button>
+<input class="bg-transparent border-none p-0 w-full text-black focus:ring-0 text-base font-bold" type="text" value="Draft Wireframes"/>
+<div class="flex items-center gap-3">
+<span class="text-xs font-bold text-black bg-ynot-yellow border border-black px-2 py-1 rounded whitespace-nowrap shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">Due Oct 24</span>
+<button class="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all p-1">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+<div class="group flex items-center gap-4 bg-gray-100 border-2 border-gray-300 p-4 rounded-lg opacity-80">
+<button class="text-green-600 cursor-default">
+<span class="material-symbols-outlined text-[28px] font-bold">check_box</span>
+</button>
+<input class="bg-transparent border-none p-0 w-full text-gray-500 focus:ring-0 text-base font-medium line-through decoration-2" disabled="" type="text" value="Competitor Analysis"/>
+<div class="flex items-center gap-3">
+<span class="text-xs font-bold text-green-800 bg-green-100 border border-green-200 px-2 py-1 rounded whitespace-nowrap">Done</span>
+</div>
+</div>
+<div class="group flex items-center gap-4 bg-white border-2 border-dashed border-gray-400 p-4 rounded-lg focus-within:border-black focus-within:border-solid focus-within:shadow-brutal transition-all">
+<button class="text-gray-300 hover:text-black transition-colors">
+<span class="material-symbols-outlined text-[28px]">check_box_outline_blank</span>
+</button>
+<input class="bg-transparent border-none p-0 w-full text-black focus:ring-0 text-base font-medium placeholder:text-gray-400" placeholder="Add a new milestone..." type="text"/>
+<div class="flex items-center gap-2">
+<button class="text-gray-400 hover:text-black p-2 rounded hover:bg-gray-100 transition-all" title="Set Date">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-white border-2 border-black rounded-xl p-6 flex flex-col gap-6 shadow-brutal sticky top-24">
+<div class="flex items-center gap-2 pb-4 border-b-2 border-gray-100">
+<span class="material-symbols-outlined text-ynot-yellow bg-black rounded p-1">tune</span>
+<h3 class="text-lg font-extrabold uppercase tracking-wide text-black">Details</h3>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold uppercase tracking-wider text-gray-500">Project Track</label>
+<div class="relative">
+<select class="w-full bg-white border-2 border-black rounded-lg px-4 py-3 text-black text-sm font-bold focus:shadow-brutal focus:outline-none appearance-none cursor-pointer transition-all">
+<option>Hackathon Logistics</option>
+<option>Sponsorship</option>
+<option>Marketing</option>
+<option>Web Development</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-black">
+<span class="material-symbols-outlined text-[24px]">expand_more</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold uppercase tracking-wider text-gray-500">Assignee</label>
+<div class="group relative flex items-center gap-3 bg-white border-2 border-gray-200 hover:border-black rounded-lg p-3 cursor-pointer transition-all hover:shadow-brutal-sm">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-black" data-alt="Assignee avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAlU1oq5vknfvnEhzfB5cikZQ7QwC_yZLskI-gvR95QJ5N8g94SvtHfCFcPGjRYV7xSAJIW8M7GB9m5uLvuXld1lKixtrHim9pjyho2pzm9Dcn4tW76hfzMoe5IYHns4aLJvHxJbPjumtpSQ650ZaSsszhzVl0mdOfo9AHInDDYdTFp28lNFBrLctt86XdbimBR74biXm5YKmqH_isxOxdJ92mWfLYzwyYcjB8Lvxs8CJoTngejB6M8UHOrJuUnqVyIp2_1IY3UdA");'></div>
+<div class="flex flex-col flex-1 min-w-0">
+<span class="text-sm font-bold text-black truncate">Sarah Jenkins</span>
+<span class="text-xs text-gray-500 font-medium truncate">Product Lead</span>
+</div>
+<span class="material-symbols-outlined text-gray-400 group-hover:text-black transition-colors">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold uppercase tracking-wider text-gray-500">Priority</label>
+<div class="flex flex-wrap gap-2">
+<label class="cursor-pointer flex-1">
+<input class="peer sr-only" name="priority" type="radio"/>
+<div class="flex items-center justify-center px-3 py-2 rounded-lg border-2 border-transparent bg-red-50 text-red-700 text-sm font-bold peer-checked:bg-red-500 peer-checked:text-white peer-checked:border-black peer-checked:shadow-brutal-sm transition-all text-center">High</div>
+</label>
+<label class="cursor-pointer flex-1">
+<input checked="" class="peer sr-only" name="priority" type="radio"/>
+<div class="flex items-center justify-center px-3 py-2 rounded-lg border-2 border-transparent bg-yellow-50 text-yellow-700 text-sm font-bold peer-checked:bg-ynot-yellow peer-checked:text-black peer-checked:border-black peer-checked:shadow-brutal-sm transition-all text-center">Medium</div>
+</label>
+<label class="cursor-pointer flex-1">
+<input class="peer sr-only" name="priority" type="radio"/>
+<div class="flex items-center justify-center px-3 py-2 rounded-lg border-2 border-transparent bg-blue-50 text-blue-700 text-sm font-bold peer-checked:bg-blue-500 peer-checked:text-white peer-checked:border-black peer-checked:shadow-brutal-sm transition-all text-center">Low</div>
+</label>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold uppercase tracking-wider text-gray-500">Due Date</label>
+<div class="relative">
+<input class="w-full bg-white border-2 border-black rounded-lg px-4 py-3 text-black text-sm font-bold focus:shadow-brutal focus:outline-none" type="date"/>
+</div>
+</div>
+<div class="flex flex-col gap-2 pt-4 border-t-2 border-dashed border-gray-200">
+<label class="text-xs font-bold uppercase tracking-wider text-gray-500">Collaborators</label>
+<div class="flex items-center gap-2">
+<div class="flex -space-x-3 hover:space-x-1 transition-all duration-300">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9 ring-2 ring-white border border-black shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDq1kAUwzIDukdHQhfD4MZhslTWRGUDBTsj-R4MzTHXcFlt3FQqOTgnIEnTL9Q3q8asv-IZl5nnC88ZK52OzrzAel6dsdjrtqNtj2jIcp5nDO8BZeaXjdPYBqXf2_UFVhy5WrDt2RQCOr8S8NOwgaCBHjys9oJOweFg9MdeCsnVSONnHLr98RqhjanJzX7aHCN2B_0Rcp5xSWIWsSg9FZfEg_cppDy91RrtiV1uuf6ka_WzENF6ISqkL-ehtbtq-qday2SIK7q9rQ");'></div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9 ring-2 ring-white border border-black shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCGQCi6ZKkKvtrXD6e5MgX4X451ARb4yzRZlZrTBN145bBFJYDsqgHK5bG6gLDU5H5nhJyXr_ZQoI3Vr_12StjWFnBby81KGsn6kjaZsbYC7XoodLlBMPQ7EuZVMvfdG0ANFGO_vQmj-SKu7HmcD8fEoXChKVvkLSAe2T2UrC2GL4P7bLKQNyXoAgU59NKKVWwhY_XNx8SjlpIv0jQ_MI3oDlsNw3dB3w3zHpWX7HeOHiVJCoLYq3zj0foCf9t9RE0ryV4QDgx3zQ");'></div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9 ring-2 ring-white border border-black shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA8I8fLcTdw5qIPPg5QwfX2wllflCeok-UzjYMb8ibRrJoxVxf27bp-EqSlJp7GuBw77TZNmdquvY-bHkXeqmDEiCEVQ40RQNpzmUBHah-VXsK-vQGNVRR0NRt2Usojby35i4O4kTf-9Gm8AzFoZiEqC-iCfMPpXus4BTkwzX1sw2XY3-5cbZzpBW8WCYDfskdtWC_AytRiK9z8ExYrzjc-7IcjYH5s2sHdY0lko6KFSjIbDciBqNQ9tWARc8kNQ_duWtT9TAhi5w");'></div>
+</div>
+<button class="size-9 rounded-full bg-white border-2 border-dashed border-gray-400 hover:border-black flex items-center justify-center text-gray-500 hover:text-black transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-2 pt-2">
+<label class="text-xs font-bold uppercase tracking-wider text-gray-500">Labels</label>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gray-100 text-black text-xs font-bold border border-gray-300 hover:bg-white hover:border-black transition-colors cursor-pointer">
+                                #design
+                                <button class="hover:text-red-500 transition-colors flex items-center"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gray-100 text-black text-xs font-bold border border-gray-300 hover:bg-white hover:border-black transition-colors cursor-pointer">
+                                #ui-ux
+                                <button class="hover:text-red-500 transition-colors flex items-center"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+<button class="inline-flex items-center gap-1 px-3 py-1 rounded-full border border-dashed border-gray-400 text-gray-500 hover:border-black hover:text-black hover:bg-ynot-yellow transition-all text-xs font-bold">
+<span class="material-symbols-outlined text-[14px]">add</span>
+                                Add Label
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div class="sticky bottom-0 z-40 bg-white border-t-2 border-black px-6 py-4 shadow-[0px_-4px_10px_rgba(0,0,0,0.05)]">
+<div class="max-w-[1440px] mx-auto flex items-center justify-between">
+<div class="hidden sm:flex text-sm text-gray-500 font-medium">
+<span class="text-black font-bold mr-2">💡 ProTip:</span> Press <kbd class="px-2 py-0.5 rounded-md border border-gray-300 bg-gray-50 font-mono text-xs mx-1 text-black font-bold">Cmd</kbd> + <kbd class="px-2 py-0.5 rounded-md border border-gray-300 bg-gray-50 font-mono text-xs mx-1 text-black font-bold">Enter</kbd> to quick create.
+            </div>
+<div class="flex items-center gap-4 w-full sm:w-auto justify-end">
+<button class="px-6 py-3 rounded-lg text-black font-bold hover:bg-gray-100 transition-colors text-sm">Cancel</button>
+<button class="px-8 py-3 rounded-lg bg-black hover:bg-ynot-yellow hover:text-black text-white font-bold shadow-brutal-sm hover:shadow-brutal hover:-translate-y-0.5 transition-all text-sm flex items-center gap-2 active:translate-y-0 active:shadow-none">
+<span class="material-symbols-outlined text-[20px]">add_task</span>
+                    Create Task
+                </button>
+</div>
+</div>
+</div>
+
+</body></html>

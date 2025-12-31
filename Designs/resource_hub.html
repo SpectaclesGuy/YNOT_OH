@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>YNOT - Central Resources</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;family=Noto+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#fbbf24","primary-hover": "#f59e0b",
+                        "dark-base": "#18181b","light-base": "#ffffff",
+                        "surface": "#f4f4f5",},
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "xl": "1rem",
+                        "2xl": "1.5rem",
+                        "3xl": "2rem",
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'crisp': '0 2px 0px 0px #18181b', 
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e4e4e7;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4d4d8;
+        }
+    </style>
+</head>
+<body class="font-body bg-light-base text-dark-base antialiased overflow-x-hidden selection:bg-primary selection:text-black">
+<div class="flex min-h-screen w-full flex-col lg:flex-row">
+<aside class="w-full lg:w-72 shrink-0 border-b lg:border-b-0 lg:border-r border-zinc-200 bg-white p-6 flex flex-col justify-between z-10">
+<div class="flex flex-col gap-10">
+<div class="flex items-center gap-3">
+<div class="bg-primary flex items-center justify-center rounded-xl size-12 text-black shadow-sm transform -rotate-3 transition-transform hover:rotate-0">
+<span class="material-symbols-outlined filled text-3xl">code_blocks</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-black text-2xl font-black tracking-tight leading-none">YNOT</h1>
+<p class="text-zinc-500 text-xs font-bold uppercase tracking-wide mt-0.5">Org Team</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-2xl text-zinc-600 hover:bg-zinc-100 transition-all group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">dashboard</span>
+<span class="text-sm font-bold">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-2xl text-zinc-600 hover:bg-zinc-100 transition-all group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">assignment</span>
+<span class="text-sm font-bold">Tasks</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-2xl bg-primary text-black shadow-soft font-bold transform scale-[1.02]" href="#">
+<span class="material-symbols-outlined filled text-2xl">folder_open</span>
+<span class="text-sm">Resources</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-2xl text-zinc-600 hover:bg-zinc-100 transition-all group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">settings</span>
+<span class="text-sm font-bold">Settings</span>
+</a>
+</nav>
+</div>
+<div class="mt-8 pt-6 border-t border-zinc-100">
+<div class="flex items-center gap-3 p-2 rounded-2xl hover:bg-zinc-50 transition-colors cursor-pointer">
+<div class="relative">
+<div class="size-10 rounded-full bg-cover bg-center border-2 border-white shadow-sm" data-alt="User profile picture of current logged in admin" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCAtMzQaEIDQ-kSezVE-igch8QWPeUSzq79ERwRc3fr0ax1rXG_MQs3xAPq1UXtGWp_vmat3SncSgFTjE7hHlRY2bPh6XGIAhXMMo5nR97koElLUlUt8G228V5yde9xDLPp3Jer_q4AgMH_xPLX28UjWsoqp6t9GKQynRBC5UUiVXotE9UvZy8tBARbjcTxxYDC8dgR1Jl1sxfiDjlYnz8I56MJJmzPHzrIa_gtjL8msp_JTMBLDr6aXq1VfQeWTzuqJEvqrBF06A');"></div>
+<div class="absolute bottom-0 right-0 size-3 rounded-full bg-green-500 border-2 border-white"></div>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-black">Alex Morgan</p>
+<p class="text-xs text-zinc-500 font-medium">Administrator</p>
+</div>
+<span class="material-symbols-outlined ml-auto text-zinc-400">expand_more</span>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col min-h-0 overflow-y-auto bg-white">
+<div class="flex-1 w-full max-w-[1400px] mx-auto p-4 lg:p-10 flex flex-col gap-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2 border-b border-zinc-100">
+<div class="flex flex-col gap-2 max-w-2xl">
+<h2 class="text-4xl md:text-5xl font-black tracking-tight text-black">Central Resources</h2>
+<p class="text-zinc-500 text-lg font-medium">Manage and share assets for the upcoming hackathon.</p>
+</div>
+<button class="flex shrink-0 items-center gap-2 bg-black hover:bg-zinc-800 text-white px-6 py-3.5 rounded-2xl font-bold shadow-xl transition-all active:scale-95 group">
+<span class="material-symbols-outlined text-primary group-hover:rotate-12 transition-transform">cloud_upload</span>
+<span>Upload Resource</span>
+</button>
+</div>
+<div class="flex flex-col xl:flex-row gap-4 items-stretch xl:items-center justify-between">
+<div class="relative flex-1 max-w-lg group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-zinc-400 group-focus-within:text-black transition-colors">search</span>
+</div>
+<input class="block w-full pl-12 pr-4 py-3.5 border-2 border-zinc-100 rounded-2xl bg-zinc-50 text-black placeholder-zinc-400 font-medium focus:border-black focus:ring-0 focus:bg-white transition-all sm:text-sm shadow-sm" placeholder="Search by file name, uploader, or date..." type="text"/>
+</div>
+<div class="flex gap-2 overflow-x-auto pb-2 xl:pb-0 no-scrollbar items-center">
+<span class="text-xs font-bold text-zinc-400 uppercase tracking-wider pl-2 hidden sm:block mr-2">Filters:</span>
+<button class="whitespace-nowrap px-5 py-2 rounded-xl bg-primary text-black text-sm font-bold border-2 border-transparent shadow-sm">
+                            All Files
+                        </button>
+<button class="whitespace-nowrap px-5 py-2 rounded-xl bg-white hover:bg-zinc-50 text-zinc-600 hover:text-black text-sm font-bold transition-colors border-2 border-zinc-100 hover:border-zinc-300">
+                            Decks (PDF)
+                        </button>
+<button class="whitespace-nowrap px-5 py-2 rounded-xl bg-white hover:bg-zinc-50 text-zinc-600 hover:text-black text-sm font-bold transition-colors border-2 border-zinc-100 hover:border-zinc-300">
+                            Images
+                        </button>
+<button class="whitespace-nowrap px-5 py-2 rounded-xl bg-white hover:bg-zinc-50 text-zinc-600 hover:text-black text-sm font-bold transition-colors border-2 border-zinc-100 hover:border-zinc-300">
+                            Spreadsheets
+                        </button>
+</div>
+</div>
+<div class="w-full overflow-hidden rounded-3xl border-2 border-zinc-100 bg-white shadow-soft">
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm whitespace-nowrap">
+<thead class="bg-zinc-50 border-b-2 border-zinc-100 uppercase tracking-wider text-xs font-bold text-zinc-500">
+<tr>
+<th class="px-6 py-5 w-16 text-center" scope="col">Type</th>
+<th class="px-6 py-5" scope="col">File Name</th>
+<th class="px-6 py-5" scope="col">Uploaded By</th>
+<th class="px-6 py-5" scope="col">Date Added</th>
+<th class="px-6 py-5" scope="col">Size</th>
+<th class="px-6 py-5 text-right" scope="col">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-zinc-100">
+<tr class="group hover:bg-yellow-50/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center justify-center size-12 rounded-2xl bg-white border-2 border-zinc-100 text-red-500 shadow-sm group-hover:border-red-200 group-hover:scale-105 transition-all">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col gap-0.5">
+<span class="text-black font-bold text-base">Sponsorship_Deck_v3.pdf</span>
+<span class="text-xs text-zinc-500 font-medium">Version 3.2 - Final Draft</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-cover bg-center ring-2 ring-white shadow-sm" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCDW44eUO40zgNnBi_n5qi6ZMThcGjkFnwo-lmzM4exYKLe0G91cQgET5eBq_JqfM4cJ9djBPumHidMXJ8VgtCVosai5ujpkVR4bAf9BD-8tmSdQJoFigHybLYO6-kTyloXwGt4djRMAOc83qdsgiOkm1XyVNFhp4SasuaeE6c7tf08bmgJKIk8iHATOM9PjFHLLrQOfELft4cWfUTq78AGVjYAs6_44XdduIMMs4MaTkke9CZ27Xe8XIl6Qr9mvftcbNyhKAcxbQ');"></div>
+<span class="text-zinc-700 font-semibold">Sarah Chen</span>
+</div>
+</td>
+<td class="px-6 py-4 text-zinc-500 font-medium">Oct 24, 2023</td>
+<td class="px-6 py-4 text-zinc-500 font-mono text-xs bg-zinc-100 px-2 py-1 rounded-md w-fit mx-6 text-center">2.4 MB</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-black bg-primary hover:bg-primary-hover p-2.5 rounded-xl transition-colors shadow-sm" title="Download">
+<span class="material-symbols-outlined text-lg">download</span>
+</button>
+<button class="text-zinc-400 hover:text-black hover:bg-zinc-100 p-2.5 rounded-xl transition-colors" title="More options">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="group hover:bg-yellow-50/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center justify-center size-12 rounded-2xl bg-white border-2 border-zinc-100 text-blue-500 shadow-sm group-hover:border-blue-200 group-hover:scale-105 transition-all">
+<span class="material-symbols-outlined">image</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col gap-0.5">
+<span class="text-black font-bold text-base">Venue_Map_Final.png</span>
+<span class="text-xs text-zinc-500 font-medium">Floor 1 &amp; 2 layout</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-cover bg-center ring-2 ring-white shadow-sm" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB-wzCiKaSGbd7yZiREMG9cgBAp55VpZ5zQoJDg67FVvFCrQ4E52a3wVrS2ISd_3YhUClTj3ux8wjl2dljQ97m-U2VkyRC6CL8BD6V_Ag9rZrem3GyrW2jp1pptcqkR76G6EOSYnBoIfapzM4kDsunqnGD_mQXSyp0AXe6mlB5mSqFuIFyrNvFBKqztSJaGY5njU7714WJ9GWO44ET7npuRXB6oXb1SBPIkUJpv5sKOeEIE7F_syATw4brMz1LwTiWfPgIzWIxEvw');"></div>
+<span class="text-zinc-700 font-semibold">Mike Ross</span>
+</div>
+</td>
+<td class="px-6 py-4 text-zinc-500 font-medium">Oct 22, 2023</td>
+<td class="px-6 py-4 text-zinc-500 font-mono text-xs bg-zinc-100 px-2 py-1 rounded-md w-fit mx-6 text-center">4.1 MB</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-black bg-primary hover:bg-primary-hover p-2.5 rounded-xl transition-colors shadow-sm" title="Download">
+<span class="material-symbols-outlined text-lg">download</span>
+</button>
+<button class="text-zinc-400 hover:text-black hover:bg-zinc-100 p-2.5 rounded-xl transition-colors" title="More options">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="group hover:bg-yellow-50/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center justify-center size-12 rounded-2xl bg-white border-2 border-zinc-100 text-green-600 shadow-sm group-hover:border-green-200 group-hover:scale-105 transition-all">
+<span class="material-symbols-outlined">table_chart</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col gap-0.5">
+<span class="text-black font-bold text-base">Volunteer_Schedule.xlsx</span>
+<span class="text-xs text-zinc-500 font-medium">Shift assignments Q4</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-cover bg-center ring-2 ring-white shadow-sm" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAcTBkqvHr62n-_RmkQtNeGQlk_Ha0H0ehtv0JEL_Kczp1Kc_w8SwXZiGv330omFxLnxGAoxbPJJevb8J824pUfvto86hMET8LYtxF1c04wiqO3CudiQYoxKjNFM_tV0kjP-mmRCKXq3zIk2DeZ0_Kp_ghS_nkpcDFVbDWF_2qnLSfsqCAbPan97S_IQtMjnXvwAVPeW6aZrVsgKIGmRIXJNE95UrvXCYFXPenFjK1tmkoxB6YNiFjXvXar1tw5-9fwr-u9shLzng');"></div>
+<span class="text-zinc-700 font-semibold">Jessica Pearson</span>
+</div>
+</td>
+<td class="px-6 py-4 text-zinc-500 font-medium">Oct 20, 2023</td>
+<td class="px-6 py-4 text-zinc-500 font-mono text-xs bg-zinc-100 px-2 py-1 rounded-md w-fit mx-6 text-center">1.2 MB</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-black bg-primary hover:bg-primary-hover p-2.5 rounded-xl transition-colors shadow-sm" title="Download">
+<span class="material-symbols-outlined text-lg">download</span>
+</button>
+<button class="text-zinc-400 hover:text-black hover:bg-zinc-100 p-2.5 rounded-xl transition-colors" title="More options">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="group hover:bg-yellow-50/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center justify-center size-12 rounded-2xl bg-white border-2 border-zinc-100 text-orange-500 shadow-sm group-hover:border-orange-200 group-hover:scale-105 transition-all">
+<span class="material-symbols-outlined">folder_zip</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col gap-0.5">
+<span class="text-black font-bold text-base">Assets_Bundle_2024.zip</span>
+<span class="text-xs text-zinc-500 font-medium">Logos and fonts package</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-cover bg-center ring-2 ring-white shadow-sm" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBm6NSqLTXituMZL0cc_HGU1np1XNKQd8ABO4nmX_EfObCgukk0cZK9GReioAO9Kluayl0XJZMQqBunW3IZtwW0xFs1BtF-Lnd_mRpzT_l1Q97qWPvcmGAds-pEIQG6ibXfo_jm3Y2rflbFAjF9DPicOZXCQPjD7D4opA9pU-JfVwJ638Tk9ENm8KxbxaTjydLFWgR0t5Fy0j-_QPRV1-mkFQa2pMubjXflxg_ET-NZOWxtUEl0CrnZ8GiQ6oOeZlvTuIVZ9vpqfg');"></div>
+<span class="text-zinc-700 font-semibold">David Kim</span>
+</div>
+</td>
+<td class="px-6 py-4 text-zinc-500 font-medium">Oct 18, 2023</td>
+<td class="px-6 py-4 text-zinc-500 font-mono text-xs bg-zinc-100 px-2 py-1 rounded-md w-fit mx-6 text-center">15.8 MB</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-black bg-primary hover:bg-primary-hover p-2.5 rounded-xl transition-colors shadow-sm" title="Download">
+<span class="material-symbols-outlined text-lg">download</span>
+</button>
+<button class="text-zinc-400 hover:text-black hover:bg-zinc-100 p-2.5 rounded-xl transition-colors" title="More options">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="group hover:bg-yellow-50/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center justify-center size-12 rounded-2xl bg-white border-2 border-zinc-100 text-blue-600 shadow-sm group-hover:border-blue-200 group-hover:scale-105 transition-all">
+<span class="material-symbols-outlined">description</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col gap-0.5">
+<span class="text-black font-bold text-base">Judging_Criteria.docx</span>
+<span class="text-xs text-zinc-500 font-medium">Official Rubric</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-cover bg-center ring-2 ring-white shadow-sm" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCNxtw0CM0P20AfCDTRnn0Dyg7FaCSbYdXCSDAN8tq64zlUNYwsZ4WQQgcFyXjhc-omg2VGLlW1QAzqehoeiNzv-iSyqbFyvQe-CHHphnl_A0Gmz-ZjMFjC6UHCATVzpNu9tuhl1UDP5dC1cfs4onWRIIp-ju6PyC_6cKRV2dA1-B-tqCo-S6VvqFxEmA-SoRts1vcq2Jm8VnHtIpeB03wyw8kMwt-TfEzGo3cQyS8P8Vom-n0xWRWRajyj9cCkHxbuNxMpbgPZig');"></div>
+<span class="text-zinc-700 font-semibold">Sarah Chen</span>
+</div>
+</td>
+<td class="px-6 py-4 text-zinc-500 font-medium">Oct 15, 2023</td>
+<td class="px-6 py-4 text-zinc-500 font-mono text-xs bg-zinc-100 px-2 py-1 rounded-md w-fit mx-6 text-center">0.8 MB</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-black bg-primary hover:bg-primary-hover p-2.5 rounded-xl transition-colors shadow-sm" title="Download">
+<span class="material-symbols-outlined text-lg">download</span>
+</button>
+<button class="text-zinc-400 hover:text-black hover:bg-zinc-100 p-2.5 rounded-xl transition-colors" title="More options">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="flex items-center justify-between px-6 py-5 border-t border-zinc-100 bg-zinc-50">
+<p class="text-sm text-zinc-500 font-medium">Showing <span class="text-black font-bold">1</span> to <span class="text-black font-bold">5</span> of <span class="text-black font-bold">128</span> results</p>
+<div class="flex gap-3">
+<button class="px-4 py-2 text-sm font-bold rounded-xl border border-zinc-200 text-zinc-500 bg-white hover:bg-zinc-50 hover:text-black hover:border-zinc-300 disabled:opacity-50 transition-all" disabled="">Previous</button>
+<button class="px-4 py-2 text-sm font-bold rounded-xl border border-zinc-200 text-zinc-500 bg-white hover:bg-zinc-50 hover:text-black hover:border-zinc-300 transition-all">Next</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>
