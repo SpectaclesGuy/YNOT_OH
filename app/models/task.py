@@ -69,3 +69,7 @@ class TaskListResponse(BaseModel):
 
 class DeleteResponse(BaseModel):
     data: dict
+
+
+class NextIssueResponse(BaseModel):
+    data: dict

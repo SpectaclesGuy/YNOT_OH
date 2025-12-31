@@ -49,8 +49,8 @@
         }
     </style>
 </head>
-<body class="bg-white font-display text-brand-black overflow-hidden h-screen flex">
-<aside class="w-64 bg-surface-grey border-r border-stone-200 flex flex-col h-full shrink-0">
+<body class="bg-white font-display text-brand-black min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+<aside class="hidden md:flex w-64 bg-surface-grey border-r border-stone-200 flex-col h-full shrink-0">
 <div class="p-6 pb-2">
 <div class="flex gap-3 items-center mb-8">
 <div class="flex items-center justify-center bg-brand-yellow rounded-lg size-10 shadow-sm border-2 border-brand-black text-brand-black font-black text-xl rotate-3">
@@ -91,23 +91,23 @@
 </button>
 </div>
 </aside>
-<main class="flex-1 flex flex-col min-w-0 overflow-hidden h-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
-<header class="px-8 py-6 flex flex-col gap-6 shrink-0 z-10 bg-white/80 backdrop-blur-sm border-b border-stone-200">
-<div class="flex justify-between items-start">
+<main class="flex-1 flex flex-col min-w-0 min-h-0 overflow-x-hidden md:overflow-hidden h-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+<header class="px-4 sm:px-6 md:px-8 py-6 flex flex-col gap-6 shrink-0 z-10 bg-white/80 backdrop-blur-sm border-b border-stone-200">
+<div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
 <div class="flex flex-col gap-1">
 <h2 class="text-brand-black text-3xl font-black tracking-tight font-hand">Hackathon Prep Board</h2>
-<p class="text-stone-500 text-sm">Track tasks, deadlines, and progress for YNOT 2024</p>
+<p class="text-stone-500 text-sm">Track tasks, deadlines, and progress</p>
 </div>
-<button class="flex items-center gap-2 bg-brand-black hover:bg-gray-800 text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-lg transition-all hover:-translate-y-0.5">
+<a class="flex items-center gap-2 bg-brand-black hover:bg-gray-800 text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-lg transition-all hover:-translate-y-0.5" href="create_task.html">
 <span class="material-symbols-outlined text-[20px] text-brand-yellow">add</span>
                     Create Task
-                </button>
+                </a>
 </div>
 <div class="flex flex-wrap items-center justify-between gap-4">
 <div class="flex items-center flex-1 gap-4 max-w-2xl">
 <div class="relative flex-1 group">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-brand-black transition-colors">search</span>
-<input class="w-full bg-white border border-stone-200 rounded-lg py-2.5 pl-10 pr-4 text-sm text-brand-black placeholder:text-stone-400 focus:ring-2 focus:ring-brand-yellow/50 focus:border-brand-yellow transition-all shadow-sm" placeholder="Search tasks..." type="text"/>
+<input class="w-full bg-white border border-stone-200 rounded-lg py-2.5 pl-10 pr-4 text-sm text-brand-black placeholder:text-stone-400 focus:ring-2 focus:ring-brand-yellow/50 focus:border-brand-yellow transition-all shadow-sm" id="search-input" placeholder="Search tasks..." type="text"/>
 </div>
 <div class="flex items-center gap-2 shrink-0">
 <button class="px-4 py-1.5 rounded-full bg-white border border-stone-200 text-stone-600 hover:border-brand-black hover:text-brand-black text-xs font-bold transition-all shadow-sm">
@@ -121,6 +121,18 @@
                         </button>
 </div>
 </div>
+<div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+<div class="flex flex-col gap-1 w-full sm:w-auto">
+<div class="flex items-center gap-2 w-full sm:w-auto">
+<label class="text-xs font-bold text-stone-500 uppercase tracking-wide hidden sm:block" for="current-user-email">User</label>
+<input class="w-full sm:w-64 bg-white border border-stone-200 rounded-lg py-2 px-3 text-sm text-brand-black placeholder:text-stone-400 focus:ring-2 focus:ring-brand-yellow/50 focus:border-brand-yellow transition-all shadow-sm" id="current-user-email" placeholder="you@ynot.org" type="email"/>
+</div>
+<p class="text-xs text-red-600 hidden" id="error-message">Add your email to load tasks.</p>
+</div>
+<button class="px-3 py-2 rounded-lg bg-white border border-stone-200 text-stone-600 hover:border-brand-black hover:text-brand-black text-xs font-bold transition-all shadow-sm" id="refresh-btn" type="button">
+                        Refresh
+                    </button>
+</div>
 <div class="flex items-center -space-x-2">
 <div class="size-9 rounded-full ring-2 ring-white bg-cover bg-center shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBq5hlEybmc0yuiKKbCHaSS6Zt36ABPfqiWtAdz48dQ8wgnUn0WCuo_ZBu95W3-7Bw8a7I79Hx_zYjl-YL2xWVpKwER7b7VCDC5VEY0vmjgGJNyAz-UU7Mn0ZU-m5kBBDJG4V_YhJ4pJf7mCOwXjheSEGu5HZM6rjxSwBD9J1oVCILhauQYwT8Ho1LM-aDv1gyOpb03Eu21CV7MvGgqCUi4sl5OBvReOcdT4RiIhc9LKJHfECiml7Q-A-eUFwohriziJg-z98jqhw");'></div>
 <div class="size-9 rounded-full ring-2 ring-white bg-cover bg-center shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCyyTjuXN6IP69WLcjv1fIXN7B1xce9CPvUGpQbmkz8d_VGbyoxQVERa2CIIw8YY8Cage5AM3rgZafJAW4cQf1GKw_HeGvH86JKcvDdpav2zMAzEMtVQvRpvglDIdNSobT6evBElRUQm7ZcpnhUrMzlCEf3KePF4AYc8ImI9fa_ZWp03QZq_tPUnws4O4fPXv7JvCIWtQ15-XovREBWf1pQK9_mIzg_HhcnMcv8dz9mu172lO8pjH1iUDQNtgxn8cT85kG-Zp7nzg");'></div>
@@ -131,229 +143,259 @@
 </div>
 </div>
 </header>
-<div class="flex-1 overflow-x-auto overflow-y-hidden p-8 pt-4">
-<div class="flex h-full gap-8 min-w-max pb-4">
-<div class="flex flex-col w-80 shrink-0 h-full">
+<div class="flex-1 overflow-x-auto md:overflow-y-hidden p-4 sm:p-6 md:p-8 pt-4">
+<div class="flex flex-col md:flex-row h-auto md:h-full gap-6 md:gap-8 min-w-0 md:min-w-max pb-4">
+<div class="flex flex-col w-full md:w-80 shrink-0 h-full">
 <div class="flex items-center justify-between mb-4 px-2 border-b-2 border-brand-black pb-2">
 <div class="flex items-center gap-2">
 <h3 class="text-lg font-black text-brand-black font-hand">To Do</h3>
-<span class="bg-stone-200 text-stone-600 text-xs px-2 py-0.5 rounded-full font-bold">3</span>
+<span class="bg-stone-200 text-stone-600 text-xs px-2 py-0.5 rounded-full font-bold" id="todo-count">0</span>
 </div>
 <button class="text-stone-400 hover:text-brand-black">
 <span class="material-symbols-outlined">more_horiz</span>
 </button>
 </div>
-<div class="flex-1 flex flex-col gap-4 overflow-y-auto px-1 pb-4 scrollbar-hide">
-<div class="group bg-postit-yellow p-4 shadow-postit rotate-random-1 hover:rotate-0 hover:scale-105 hover:shadow-postit-hover transition-all duration-300 cursor-grab active:cursor-grabbing relative">
-<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] rotate-1 shadow-sm border-l border-r border-white/60"></div>
-<div class="flex items-start justify-between mb-3">
-<span class="text-stone-500 text-[11px] font-bold uppercase tracking-wider font-hand">Logistics</span>
-<span class="material-symbols-outlined text-stone-400 text-[18px] opacity-0 group-hover:opacity-100 transition-opacity">edit</span>
+<div class="flex-1 flex flex-col gap-4 overflow-y-auto px-1 pb-4 scrollbar-hide" id="todo-list">
+<div class="text-xs text-stone-400 font-semibold" data-empty="todo">No tasks yet.</div>
 </div>
-<h4 class="text-brand-black font-semibold text-lg mb-4 leading-tight font-hand">Secure main venue for opening ceremony</h4>
-<div class="flex items-center justify-between mt-auto pt-2 border-t border-black/5">
-<div class="flex items-center gap-2">
-<div class="size-7 rounded-full bg-cover bg-center border border-black/10 shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA5Mo4j7kWzUUf2FwrjDoz0TnBrtFBKB1qz6frCk6rQ40x3Sk70WLLntumIBIy6Pj6pLjMl4oQ6fQFNQyPdeVJcrx6W2qNiBEt5fVFgRP_BHxpeH5BmPUvcnO-tWbGBykAVBIlH3YCnDO8iBi55DE1a9hOUKTf6GfKGpf3pSiWbIDDqOXFeTET4JQmSZozf2M2sacZtq6iBy1AZAgUOvfzO2kIBAjrDru4ukmL2vnUEulD1UIVzxP4uLqRYuvMToFvsu77Ob8pP8Q");'></div>
-</div>
-<div class="flex items-center gap-3 text-stone-600">
-<div class="flex items-center gap-1 text-xs font-bold">
-<span class="material-symbols-outlined text-[16px]">attachment</span> 2
-                                    </div>
-<div class="flex items-center gap-1 text-xs font-bold text-orange-600 bg-orange-100 px-1.5 py-0.5 rounded">
-                                        Oct 12
-                                    </div>
-</div>
-</div>
-</div>
-<div class="group bg-postit-blue p-4 shadow-postit rotate-random-2 hover:rotate-0 hover:scale-105 hover:shadow-postit-hover transition-all duration-300 cursor-grab active:cursor-grabbing relative">
-<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] -rotate-1 shadow-sm border-l border-r border-white/60"></div>
-<div class="flex items-start justify-between mb-3">
-<span class="text-stone-500 text-[11px] font-bold uppercase tracking-wider font-hand">Sponsors</span>
-</div>
-<h4 class="text-brand-black font-semibold text-lg mb-4 leading-tight font-hand">Finalize gold tier sponsor packages</h4>
-<div class="flex items-center justify-between mt-auto pt-2 border-t border-black/5">
-<div class="flex items-center gap-2">
-<div class="size-7 rounded-full bg-indigo-500 flex items-center justify-center text-[10px] text-white font-bold border border-white shadow-sm">JD</div>
-</div>
-<div class="flex items-center gap-3 text-stone-600">
-<div class="flex items-center gap-1 text-xs font-bold">
-<span class="material-symbols-outlined text-[16px]">chat_bubble</span> 5
-                                    </div>
-<div class="flex items-center gap-1 text-xs font-bold">
-                                        Oct 15
-                                    </div>
-</div>
-</div>
-</div>
-<div class="group bg-postit-pink p-4 shadow-postit rotate-random-3 hover:rotate-0 hover:scale-105 hover:shadow-postit-hover transition-all duration-300 cursor-grab active:cursor-grabbing relative">
-<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] rotate-2 shadow-sm border-l border-r border-white/60"></div>
-<div class="flex items-start justify-between mb-3">
-<span class="text-stone-500 text-[11px] font-bold uppercase tracking-wider font-hand">Swag</span>
-</div>
-<h4 class="text-brand-black font-semibold text-lg mb-4 leading-tight font-hand">Order T-shirts (500 units)</h4>
-<div class="flex items-center justify-between mt-auto pt-2 border-t border-black/5">
-<div class="flex items-center gap-2">
-<div class="size-7 rounded-full bg-cover bg-center border border-black/10 shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBLW47eiEiUXpnGejH-i1_kHKQTHNiShbTNTLqTTuwBCBBsmsYPCR2fRRReBIuaSNLZtWfHaX7pGn_zCChgJDWwShhLl-B7n1yAzReGedk3WsTbIQ44nlz0ErfG4-7n2gF8_li7BjlL7rFimmbvdd9CCJWLfYV7HFw6a9Ce1eRMTlf4BW58IaKiXisdNCWKZHBLWPBQoDcbLj0ZNd2vbPsTRApmUQhr9wS4qjqH9MpU-d9YYcs9ecFMyT0blWs1RAgrmZRaKpHZbQ");'></div>
-</div>
-<div class="flex items-center gap-3 text-stone-600">
-<div class="flex items-center gap-1 text-xs font-bold">
-                                        Oct 20
-                                    </div>
-</div>
-</div>
-</div>
-</div>
-<button class="mt-2 flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border-2 border-dashed border-stone-300 text-stone-400 hover:border-brand-black hover:text-brand-black hover:bg-white transition-all text-sm font-bold">
+<a class="mt-2 flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border-2 border-dashed border-stone-300 text-stone-400 hover:border-brand-black hover:text-brand-black hover:bg-white transition-all text-sm font-bold" href="create_task.html">
 <span class="material-symbols-outlined text-[20px]">add_circle</span>
                         Add Note
-                    </button>
+                    </a>
 </div>
-<div class="flex flex-col w-80 shrink-0 h-full">
+<div class="flex flex-col w-full md:w-80 shrink-0 h-full">
 <div class="flex items-center justify-between mb-4 px-2 border-b-2 border-brand-black pb-2">
 <div class="flex items-center gap-2">
 <h3 class="text-lg font-black text-brand-black font-hand">In Progress</h3>
-<span class="bg-brand-yellow text-brand-black text-xs px-2 py-0.5 rounded-full font-bold">2</span>
+<span class="bg-brand-yellow text-brand-black text-xs px-2 py-0.5 rounded-full font-bold" id="in-progress-count">0</span>
 </div>
 <button class="text-stone-400 hover:text-brand-black">
 <span class="material-symbols-outlined">more_horiz</span>
 </button>
 </div>
-<div class="flex-1 flex flex-col gap-4 overflow-y-auto px-1 pb-4 scrollbar-hide">
-<div class="group bg-white p-4 shadow-postit border border-stone-200 rotate-random-4 hover:rotate-0 hover:scale-105 hover:shadow-postit-hover transition-all duration-300 cursor-grab active:cursor-grabbing relative">
-<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] rotate-1 shadow-sm border-l border-r border-white/60"></div>
-<div class="flex items-start justify-between mb-3">
-<div class="flex gap-1">
-<span class="text-stone-500 text-[11px] font-bold uppercase tracking-wider font-hand">Tech</span>
-<span class="text-red-500 text-[11px] font-bold uppercase tracking-wider font-hand ml-2">Urgent</span>
+<div class="flex-1 flex flex-col gap-4 overflow-y-auto px-1 pb-4 scrollbar-hide" id="in-progress-list">
+<div class="text-xs text-stone-400 font-semibold" data-empty="in-progress">No tasks yet.</div>
 </div>
-</div>
-<h4 class="text-brand-black font-semibold text-lg mb-3 leading-tight font-hand">Devpost submission page configuration</h4>
-<div class="w-full bg-stone-100 rounded-full h-2 mb-4 overflow-hidden border border-stone-200">
-<div class="bg-brand-yellow h-2 rounded-full w-3/4 border-r border-stone-300"></div>
-</div>
-<div class="flex items-center justify-between mt-auto pt-2 border-t border-stone-100">
-<div class="flex items-center gap-2">
-<div class="size-7 rounded-full bg-cover bg-center border border-white shadow-sm ring-1 ring-stone-200" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCjgddjpgrVOJQlHLNI5iwKrD-_zE8DAqN2NLCDnS6PI-Z1PAHl3xOVG29UcWf-v2y8_zYQAxnRzHnfgWhe3Hy2spmjeB7TV8kyTZph6OVeJZM79FOTff0JOI2hXLM0QM0BPk7cS7WuqwNxExo5Igvmq1D0oFExHN6buphpHJuVJtZnE9nQLY5VZz1naGu8NK-67AFq8yQ1WXOzWW8QDdmVs-3gSaISdcnF9S6yL8T4SONLPWUSrPhFx2UeopYYmw_4uyEVvJQKFg");'></div>
-<div class="size-7 rounded-full bg-cover bg-center border border-white shadow-sm ring-1 ring-stone-200 -ml-3" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuACBj2I_v0rM3fcRQEgI51N1nbAtRBFovLccM-2DfCsiXY_1DtS8olpbkaKflvF2U5G0R5VHJ77YnrvNQ-SZLSXfWWNb3cMz6lSnS-ZzHsiIZW3906qyh3nIhMorhPa2sKaaemDQe_539R_vy3ugrg5fx4mQR6YmmuhzUAnIKrWnwcP0wGNCjL3_lIZa8ZGqA4kqqecCbC9IjWZALYjfTrksZdRjy9BSaSfiYOrTuKqHBfeB7pz7JBrmRWW1ehIyoreBQ5wTsZ0iQ");'></div>
-</div>
-<div class="flex items-center gap-3 text-stone-600">
-<div class="flex items-center gap-1 text-xs font-bold text-red-600 bg-red-50 px-1.5 py-0.5 rounded">
-                                        Due Tmrw
-                                    </div>
-</div>
-</div>
-</div>
-<div class="group bg-postit-yellow p-4 shadow-postit rotate-random-1 hover:rotate-0 hover:scale-105 hover:shadow-postit-hover transition-all duration-300 cursor-grab active:cursor-grabbing relative">
-<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] -rotate-1 shadow-sm border-l border-r border-white/60"></div>
-<div class="flex items-start justify-between mb-3">
-<span class="text-stone-500 text-[11px] font-bold uppercase tracking-wider font-hand">Marketing</span>
-</div>
-<h4 class="text-brand-black font-semibold text-lg mb-4 leading-tight font-hand">Keynote speaker outreach email campaign</h4>
-<div class="flex items-center justify-between mt-auto pt-2 border-t border-black/5">
-<div class="flex items-center gap-2">
-<div class="size-7 rounded-full bg-teal-600 flex items-center justify-center text-[10px] text-white font-bold border border-white shadow-sm">AK</div>
-</div>
-<div class="flex items-center gap-3 text-stone-600">
-<div class="flex items-center gap-1 text-xs font-bold">
-                                        Oct 18
-                                    </div>
-</div>
-</div>
-</div>
-</div>
-<button class="mt-2 flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border-2 border-dashed border-stone-300 text-stone-400 hover:border-brand-black hover:text-brand-black hover:bg-white transition-all text-sm font-bold">
+<a class="mt-2 flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border-2 border-dashed border-stone-300 text-stone-400 hover:border-brand-black hover:text-brand-black hover:bg-white transition-all text-sm font-bold" href="create_task.html">
 <span class="material-symbols-outlined text-[20px]">add_circle</span>
                         Add Note
-                    </button>
+                    </a>
 </div>
-<div class="flex flex-col w-80 shrink-0 h-full">
-<div class="flex items-center justify-between mb-4 px-2 border-b-2 border-brand-black pb-2">
-<div class="flex items-center gap-2">
-<h3 class="text-lg font-black text-brand-black font-hand">Review</h3>
-<span class="bg-stone-200 text-stone-600 text-xs px-2 py-0.5 rounded-full font-bold">1</span>
-</div>
-<button class="text-stone-400 hover:text-brand-black">
-<span class="material-symbols-outlined">more_horiz</span>
-</button>
-</div>
-<div class="flex-1 flex flex-col gap-4 overflow-y-auto px-1 pb-4 scrollbar-hide">
-<div class="group bg-postit-green p-4 shadow-postit rotate-random-2 hover:rotate-0 hover:scale-105 hover:shadow-postit-hover transition-all duration-300 cursor-grab active:cursor-grabbing relative">
-<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] rotate-2 shadow-sm border-l border-r border-white/60"></div>
-<div class="flex items-start justify-between mb-3">
-<span class="text-stone-500 text-[11px] font-bold uppercase tracking-wider font-hand">Design</span>
-</div>
-<h4 class="text-brand-black font-semibold text-lg mb-3 leading-tight font-hand">Hackathon landing page hero illustration</h4>
-<div class="w-full h-32 mb-4 rounded bg-cover bg-center relative border border-black/10 shadow-inner group-hover:opacity-95 transition-opacity" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCAscno6wDz42nrqCV4vF_TaV13MB46r5vlVz1x47QhCH0DHDtM4hme-lpenWWra2y2cbSSu-W9RABu8WwhmZawddFF5bbpc4PwJ2TfNgmn6YPqCnLX31EXMDCLHDIkARKemq3D7p5nqbFwG2dAsy4_Ij1NuNTEcBkbcK_fi8ZwGRgRvLDD4Vozw4krvwva4237ssPCT24luh6aVR9eTNbPM0eNEZpV0PYfkMwCpAEhqZ1GEIDgHdglZEsF0u4JnqCpG99gOxTGIw");'>
-<div class="absolute bottom-2 right-2 bg-brand-black text-white text-[10px] px-1.5 py-0.5 rounded font-bold shadow-md">v3.png</div>
-</div>
-<div class="flex items-center justify-between mt-auto pt-2 border-t border-black/5">
-<div class="flex items-center gap-2">
-<div class="size-7 rounded-full bg-cover bg-center border border-black/10 shadow-sm" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA7C0j4nML4wrN2YJG45_T5H1DjxD37EdwVHVIAUQQ37Nep7Ion1R12sik4jPa_0q4kk-HCkX1x9AWNNzRVqbbAHsDuAteln5ZbMlQcmMVdY-UQ-4OPRvyrM8UZRsaavFeXyglY3naaPnc_fcZxonpv8RV4HOuZ2tyH8xhHdtYPucBiyajzILXpI7TPgp7GNgBJWhe8OFUnXTNYKgFsTabqTVF8ivptYlcz7rWY-hGkJj6-RLY4uEC2LUGRPqZD3uGt6bjfuou32g");'></div>
-</div>
-<div class="flex items-center gap-3 text-stone-600">
-<div class="flex items-center gap-1 text-xs font-bold bg-white/50 px-2 py-0.5 rounded-full border border-black/5">
-<span class="material-symbols-outlined text-[16px]">visibility</span> Review
-                                    </div>
-</div>
-</div>
-</div>
-</div>
-<button class="mt-2 flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border-2 border-dashed border-stone-300 text-stone-400 hover:border-brand-black hover:text-brand-black hover:bg-white transition-all text-sm font-bold">
-<span class="material-symbols-outlined text-[20px]">add_circle</span>
-                        Add Note
-                    </button>
-</div>
-<div class="flex flex-col w-80 shrink-0 h-full">
+<div class="flex flex-col w-full md:w-80 shrink-0 h-full">
 <div class="flex items-center justify-between mb-4 px-2 border-b-2 border-brand-black pb-2">
 <div class="flex items-center gap-2">
 <h3 class="text-lg font-black text-brand-black font-hand">Done</h3>
-<span class="bg-stone-200 text-stone-600 text-xs px-2 py-0.5 rounded-full font-bold">2</span>
+<span class="bg-stone-200 text-stone-600 text-xs px-2 py-0.5 rounded-full font-bold" id="done-count">0</span>
 </div>
 <button class="text-stone-400 hover:text-brand-black">
 <span class="material-symbols-outlined">more_horiz</span>
 </button>
 </div>
-<div class="flex-1 flex flex-col gap-4 overflow-y-auto px-1 pb-4 scrollbar-hide">
-<div class="group bg-stone-100 p-4 shadow-sm border border-stone-200 rotate-random-3 hover:rotate-0 hover:shadow-md transition-all duration-300 opacity-80 hover:opacity-100 relative grayscale-[0.5] hover:grayscale-0">
-<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] -rotate-2 shadow-sm border-l border-r border-white/60"></div>
-<div class="flex items-start justify-between mb-2">
-<span class="text-stone-500 text-[10px] font-bold uppercase tracking-wide">Finance</span>
-<span class="material-symbols-outlined text-green-600 text-[20px]">check_circle</span>
-</div>
-<h4 class="text-stone-400 font-medium text-lg mb-3 leading-tight line-through font-hand decoration-2 decoration-stone-400">Initial budget approval</h4>
-<div class="flex items-center justify-between mt-auto pt-2 border-t border-stone-200">
-<div class="flex items-center gap-2">
-<div class="size-7 rounded-full bg-cover bg-center border border-white grayscale opacity-70" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDInMabkcrhD3mZTmL4W3EEmyCHicF4furE2BfykJ7K4j2hNw3ekBrXCoGFSxx378dvL_aI_seJHMZNLLwo6n-N_rpBNY3-4RVRX0PqqvAvaNZiMsVTrdZUaXpQf-Nx4gX5OlTe5fkhEpAa0T4d_6yck58Ii4_j2F8gAeyPt6zZw1G_s3_zPAOl9UwpJMU18A2wUqBlLNYrdUg8GJPldLaaLsNaQSm-WhljBc9jynudRIKXKXvzDxK7Hb_FRsgJJRHgDPlIeDJ55Q");'></div>
-</div>
-<div class="flex items-center gap-3 text-stone-400">
-<div class="flex items-center gap-1 text-xs font-medium">
-                                        Oct 01
-                                    </div>
-</div>
-</div>
-</div>
-<div class="group bg-stone-100 p-4 shadow-sm border border-stone-200 rotate-random-1 hover:rotate-0 hover:shadow-md transition-all duration-300 opacity-80 hover:opacity-100 relative grayscale-[0.5] hover:grayscale-0">
-<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] rotate-1 shadow-sm border-l border-r border-white/60"></div>
-<div class="flex items-start justify-between mb-2">
-<span class="text-stone-500 text-[10px] font-bold uppercase tracking-wide">Tech</span>
-<span class="material-symbols-outlined text-green-600 text-[20px]">check_circle</span>
-</div>
-<h4 class="text-stone-400 font-medium text-lg mb-3 leading-tight line-through font-hand decoration-2 decoration-stone-400">Website V1 Launch</h4>
-<div class="flex items-center justify-between mt-auto pt-2 border-t border-stone-200">
-<div class="flex items-center gap-2">
-<div class="size-7 rounded-full bg-cover bg-center border border-white grayscale opacity-70" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDeC4XRgPPyX1QS2WW_xjWtfbptAhh_oYRP7t-02Wgoy7yBwPMCzPq01VuLxOD5jAVWVdxHtTbsSswTgweO_rliG8AKxEx7x1JazFQoQ3ReGGaaeJsWzDSRtnDqQ3W91u8hQ-dfYc81iMc8HXnrJGbNoJ5uR5Sx_spiCvIi79WqXGBr7zxomf9Q-2quS7W4sVMH6DwsOjVSbTdYF3M7Heojp31uXjiEniYgPxPUoDdbVABslvwmftV_Y5zFRPKi4Ceznzek9bTZjg");'></div>
-</div>
-<div class="flex items-center gap-3 text-stone-400">
-<div class="flex items-center gap-1 text-xs font-medium">
-                                        Sep 28
-                                    </div>
-</div>
-</div>
-</div>
+<div class="flex-1 flex flex-col gap-4 overflow-y-auto px-1 pb-4 scrollbar-hide" id="done-list">
+<div class="text-xs text-stone-400 font-semibold" data-empty="done">No tasks yet.</div>
 </div>
 </div>
 </div>
 </div>
 </main>
+<script>
+        const API_BASE = "http://localhost:8000";
+        const colorClasses = ["bg-postit-yellow", "bg-postit-blue", "bg-postit-pink", "bg-postit-green"];
+        const rotateClasses = ["rotate-random-1", "rotate-random-2", "rotate-random-3", "rotate-random-4"];
+        const listConfig = {
+            TODO: { listId: "todo-list", countId: "todo-count" },
+            IN_PROGRESS: { listId: "in-progress-list", countId: "in-progress-count" },
+            DONE: { listId: "done-list", countId: "done-count" }
+        };
 
+        const emailInput = document.getElementById("current-user-email");
+        const searchInput = document.getElementById("search-input");
+        const refreshBtn = document.getElementById("refresh-btn");
+        const errorMessage = document.getElementById("error-message");
+
+        function setError(message) {
+            if (!errorMessage) {
+                return;
+            }
+            if (!message) {
+                errorMessage.classList.add("hidden");
+                errorMessage.textContent = "";
+                return;
+            }
+            errorMessage.textContent = message;
+            errorMessage.classList.remove("hidden");
+        }
+
+        function clearLists() {
+            Object.values(listConfig).forEach((config) => {
+                const list = document.getElementById(config.listId);
+                if (!list) {
+                    return;
+                }
+                list.querySelectorAll("[data-task-card]").forEach((node) => node.remove());
+                const empty = list.querySelector("[data-empty]");
+                if (empty) {
+                    empty.classList.remove("hidden");
+                }
+            });
+        }
+
+        function createCard(task, index) {
+            const card = document.createElement("div");
+            const color = colorClasses[index % colorClasses.length];
+            const rotate = rotateClasses[index % rotateClasses.length];
+            const isDone = task.status === "DONE";
+            card.className = [
+                "group",
+                color,
+                "p-4",
+                "shadow-postit",
+                rotate,
+                "hover:rotate-0",
+                "hover:scale-105",
+                "hover:shadow-postit-hover",
+                "transition-all",
+                "duration-300",
+                "cursor-pointer",
+                "relative",
+                isDone ? "opacity-80" : ""
+            ].join(" ").trim();
+            card.setAttribute("data-task-card", "true");
+
+            const tape = document.createElement("div");
+            tape.className = "absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] rotate-1 shadow-sm border-l border-r border-white/60";
+            card.appendChild(tape);
+
+            const meta = document.createElement("div");
+            meta.className = "flex items-start justify-between mb-3";
+
+            const priority = document.createElement("span");
+            const priorityClass = {
+                HIGH: "text-red-600 bg-red-50",
+                MEDIUM: "text-amber-600 bg-amber-50",
+                LOW: "text-blue-600 bg-blue-50"
+            }[task.priority] || "text-stone-600 bg-stone-100";
+            priority.className = `text-[11px] font-bold uppercase tracking-wider font-hand px-2 py-0.5 rounded ${priorityClass}`;
+            priority.textContent = task.priority.replace("_", " ");
+            meta.appendChild(priority);
+            card.appendChild(meta);
+
+            const title = document.createElement("h4");
+            title.className = "text-brand-black font-semibold text-lg mb-3 leading-tight font-hand";
+            title.textContent = task.title;
+            card.appendChild(title);
+
+            if (task.description) {
+                const desc = document.createElement("p");
+                desc.className = "text-sm text-stone-600 mb-3";
+                desc.textContent = task.description;
+                card.appendChild(desc);
+            }
+
+            const footer = document.createElement("div");
+            footer.className = "flex items-center justify-between mt-auto pt-2 border-t border-black/5 text-xs font-bold text-stone-600";
+
+            const assigned = document.createElement("span");
+            assigned.textContent = task.assigned_to;
+            footer.appendChild(assigned);
+
+            const updatedAt = document.createElement("span");
+            const dateValue = task.updated_at ? new Date(task.updated_at) : null;
+            updatedAt.textContent = dateValue && !Number.isNaN(dateValue.getTime())
+                ? dateValue.toLocaleDateString()
+                : "";
+            footer.appendChild(updatedAt);
+
+            card.appendChild(footer);
+            return card;
+        }
+
+        function renderTasks(tasks) {
+            clearLists();
+            const grouped = { TODO: [], IN_PROGRESS: [], DONE: [] };
+            tasks.forEach((task) => {
+                if (grouped[task.status]) {
+                    grouped[task.status].push(task);
+                }
+            });
+
+            Object.entries(grouped).forEach(([status, items]) => {
+                const config = listConfig[status];
+                const list = document.getElementById(config.listId);
+                const count = document.getElementById(config.countId);
+                if (count) {
+                    count.textContent = String(items.length);
+                }
+                if (!list) {
+                    return;
+                }
+                const empty = list.querySelector("[data-empty]");
+                if (empty && items.length > 0) {
+                    empty.classList.add("hidden");
+                }
+                items.forEach((task, idx) => {
+                    list.appendChild(createCard(task, idx));
+                });
+            });
+        }
+
+        async function loadTasks() {
+            const email = emailInput ? emailInput.value.trim() : "";
+            if (!email) {
+                setError("Add your email to load tasks.");
+                clearLists();
+                return;
+            }
+            setError("");
+            localStorage.setItem("ynot_user_email", email);
+
+            const params = new URLSearchParams();
+            const q = searchInput ? searchInput.value.trim() : "";
+            if (q) {
+                params.set("q", q);
+            }
+            params.set("sort", "-created_at");
+
+            const res = await fetch(`${API_BASE}/api/tasks?${params.toString()}`, {
+                headers: {
+                    "X-User-Email": email
+                }
+            });
+
+            if (!res.ok) {
+                setError(`Failed to load tasks (${res.status}).`);
+                clearLists();
+                return;
+            }
+
+            const payload = await res.json();
+            renderTasks(payload.data || []);
+        }
+
+        let searchTimer;
+        if (searchInput) {
+            searchInput.addEventListener("input", () => {
+                clearTimeout(searchTimer);
+                searchTimer = setTimeout(loadTasks, 300);
+            });
+        }
+
+        if (refreshBtn) {
+            refreshBtn.addEventListener("click", loadTasks);
+        }
+
+        if (emailInput) {
+            const storedEmail = localStorage.getItem("ynot_user_email");
+            if (storedEmail) {
+                emailInput.value = storedEmail;
+            }
+            emailInput.addEventListener("change", loadTasks);
+        }
+
+        window.addEventListener("load", () => {
+            if (emailInput && emailInput.value.trim()) {
+                loadTasks();
+            }
+        });
+    </script>
 </body></html>

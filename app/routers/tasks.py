@@ -7,6 +7,7 @@ from fastapi import APIRouter, Depends, Header, HTTPException, Query, status
 from app.core.db import mongo_client
 from app.models.task import (
     DeleteResponse,
+    NextIssueResponse,
     TaskCreate,
     TaskListResponse,
     TaskOut,
@@ -71,6 +72,16 @@ async def list_tasks(
 
     tasks = await repo.list_tasks(filters, sort=[(sort_field, sort_order)])
     return TaskListResponse(data=[TaskOut(**task) for task in tasks])
+
+
+@router.get("/next-issue", response_model=NextIssueResponse)
+async def next_issue_number(
+    current_user: str = Depends(get_current_user),
+    repo: TaskRepository = Depends(get_repo),
+) -> NextIssueResponse:
+    _ = current_user
+    total = await repo.count_tasks()
+    return NextIssueResponse(data={"next_issue": total + 1})
 
 
 @router.get("/{task_id}", response_model=TaskResponse)

@@ -51,6 +51,15 @@ class TaskRepository:
             doc["_id"] = str(doc["_id"])
         return docs
 
+    async def count_tasks(self, filters: Optional[dict[str, Any]] = None) -> int:
+        return await self._collection.count_documents(filters or {})
+
+    async def list_user_emails(self) -> list[str]:
+        assigned = await self._collection.distinct("assigned_to")
+        created = await self._collection.distinct("created_by")
+        emails = {email for email in assigned + created if email}
+        return sorted(emails)
+
     async def update_task(self, task_id: str, data: TaskUpdate) -> Optional[dict[str, Any]]:
         if not ObjectId.is_valid(task_id):
             return None

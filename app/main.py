@@ -3,13 +3,19 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.db import mongo_client
 from app.routers.tasks import router as tasks_router
+from app.routers.users import router as users_router
 from app.repositories.task_repo import TaskRepository
 
 app = FastAPI(title="YNOT Organising Hub API", version="0.1.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8000", "http://127.0.0.1:8000"],
+    allow_origins=[
+        "http://localhost:8000",
+        "http://127.0.0.1:8000",
+        "http://localhost:8001",
+        "http://127.0.0.1:8001",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -34,3 +40,4 @@ async def health() -> dict:
 
 
 app.include_router(tasks_router)
+app.include_router(users_router)

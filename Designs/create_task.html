@@ -74,27 +74,21 @@
 </div>
 </header>
 <main class="flex-1 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 py-10">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 h-full">
+<form class="grid grid-cols-1 lg:grid-cols-12 gap-10 h-full" id="task-form">
 <div class="lg:col-span-8 flex flex-col gap-8">
 <div class="flex flex-col gap-4">
-<div class="flex items-center gap-2 text-sm font-bold mb-1">
-<span class="px-2 py-1 bg-gray-100 rounded text-gray-500">Projects</span>
-<span class="material-symbols-outlined text-[16px] text-gray-400">arrow_forward_ios</span>
-<span class="px-2 py-1 bg-gray-100 rounded text-gray-500">Hackathon 2024</span>
-<span class="material-symbols-outlined text-[16px] text-gray-400">arrow_forward_ios</span>
-<span class="px-2 py-1 bg-ynot-yellow border border-black rounded shadow-[2px_2px_0px_0px_#000]">New Issue</span>
-</div>
 <div>
-<h1 class="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-black mb-2">Create Issue <span class="text-gray-400">#1024</span></h1>
+<h1 class="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-black mb-2">Create Issue <span class="text-gray-400" id="issue-number">#--</span></h1>
 <p class="text-gray-600 text-lg font-medium max-w-2xl">Let's get this done. Fill in the details to create a new task for the upcoming hackathon sprint.</p>
 </div>
+<p class="text-sm font-bold text-red-600 hidden" id="form-message"></p>
 </div>
 <div class="flex flex-col gap-3 group">
 <label class="text-base font-bold text-black flex items-center gap-2">
                         Task Summary
                         <span class="text-red-500">*</span>
 </label>
-<input class="brutal-input text-xl font-bold placeholder:font-normal" placeholder="e.g. Design Hackathon Landing Page" type="text"/>
+<input class="brutal-input text-xl font-bold placeholder:font-normal" id="title-input" placeholder="e.g. Design Hackathon Landing Page" type="text"/>
 </div>
 <div class="flex flex-col gap-3">
 <label class="text-base font-bold text-black">Description</label>
@@ -117,12 +111,12 @@
 <span class="material-symbols-outlined text-[20px]">format_list_numbered</span>
 </button>
 </div>
-<textarea class="w-full bg-transparent border-none p-6 min-h-[200px] text-black placeholder:text-gray-400 focus:ring-0 resize-y text-lg leading-relaxed" placeholder="What needs to be done? Add details, requirements, and useful links..."></textarea>
+<textarea class="w-full bg-transparent border-none p-6 min-h-[200px] text-black placeholder:text-gray-400 focus:ring-0 resize-y text-lg leading-relaxed" id="description-input" placeholder="What needs to be done? Add details, requirements, and useful links..."></textarea>
 </div>
 </div>
 <div class="bg-gray-50 border-2 border-black rounded-xl p-6 shadow-brutal relative mt-2">
-<div class="absolute -top-3 -right-3 bg-black text-white px-3 py-1 rounded-lg font-bold text-sm transform rotate-2">
-                        Progress: 66%
+<div class="absolute -top-3 -right-3 bg-black text-white px-3 py-1 rounded-lg font-bold text-sm transform rotate-2" id="milestone-progress">
+                        Progress: 0%
                     </div>
 <div class="flex flex-col gap-6">
 <div class="flex items-center justify-between border-b-2 border-gray-200 pb-4">
@@ -130,42 +124,12 @@
 <span class="material-symbols-outlined">flag</span>
                                 Milestones
                             </h3>
-<span class="text-sm font-bold text-gray-500">2 of 3 Completed</span>
+<span class="text-sm font-bold text-gray-500" id="milestone-summary">0 of 0 Completed</span>
 </div>
-<div class="space-y-4">
-<div class="group flex items-center gap-4 bg-white border-2 border-black p-4 rounded-lg hover:shadow-brutal transition-all cursor-pointer">
-<button class="text-gray-300 hover:text-black transition-colors">
-<span class="material-symbols-outlined text-[28px]">check_box_outline_blank</span>
-</button>
-<input class="bg-transparent border-none p-0 w-full text-black focus:ring-0 text-base font-bold" type="text" value="Draft Wireframes"/>
-<div class="flex items-center gap-3">
-<span class="text-xs font-bold text-black bg-ynot-yellow border border-black px-2 py-1 rounded whitespace-nowrap shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">Due Oct 24</span>
-<button class="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all p-1">
-<span class="material-symbols-outlined text-[20px]">delete</span>
-</button>
-</div>
-</div>
-<div class="group flex items-center gap-4 bg-gray-100 border-2 border-gray-300 p-4 rounded-lg opacity-80">
-<button class="text-green-600 cursor-default">
-<span class="material-symbols-outlined text-[28px] font-bold">check_box</span>
-</button>
-<input class="bg-transparent border-none p-0 w-full text-gray-500 focus:ring-0 text-base font-medium line-through decoration-2" disabled="" type="text" value="Competitor Analysis"/>
-<div class="flex items-center gap-3">
-<span class="text-xs font-bold text-green-800 bg-green-100 border border-green-200 px-2 py-1 rounded whitespace-nowrap">Done</span>
-</div>
-</div>
-<div class="group flex items-center gap-4 bg-white border-2 border-dashed border-gray-400 p-4 rounded-lg focus-within:border-black focus-within:border-solid focus-within:shadow-brutal transition-all">
-<button class="text-gray-300 hover:text-black transition-colors">
-<span class="material-symbols-outlined text-[28px]">check_box_outline_blank</span>
-</button>
-<input class="bg-transparent border-none p-0 w-full text-black focus:ring-0 text-base font-medium placeholder:text-gray-400" placeholder="Add a new milestone..." type="text"/>
-<div class="flex items-center gap-2">
-<button class="text-gray-400 hover:text-black p-2 rounded hover:bg-gray-100 transition-all" title="Set Date">
-<span class="material-symbols-outlined text-[20px]">calendar_today</span>
-</button>
-</div>
-</div>
-</div>
+<div class="space-y-4" id="milestone-list"></div>
+<button class="w-full border-2 border-dashed border-gray-400 rounded-lg px-4 py-3 text-sm font-bold text-gray-500 hover:border-black hover:text-black hover:bg-white transition-all" id="add-milestone" type="button">
+                            + Add Milestone
+                        </button>
 </div>
 </div>
 </div>
@@ -174,6 +138,10 @@
 <div class="flex items-center gap-2 pb-4 border-b-2 border-gray-100">
 <span class="material-symbols-outlined text-ynot-yellow bg-black rounded p-1">tune</span>
 <h3 class="text-lg font-extrabold uppercase tracking-wide text-black">Details</h3>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold uppercase tracking-wider text-gray-500">Your Email</label>
+<input class="w-full bg-white border-2 border-black rounded-lg px-4 py-3 text-black text-sm font-bold focus:shadow-brutal focus:outline-none" id="current-user-email" placeholder="you@ynot.org" type="email"/>
 </div>
 <div class="flex flex-col gap-2">
 <label class="text-xs font-bold uppercase tracking-wider text-gray-500">Project Track</label>
@@ -191,30 +159,45 @@
 </div>
 <div class="flex flex-col gap-2">
 <label class="text-xs font-bold uppercase tracking-wider text-gray-500">Assignee</label>
-<div class="group relative flex items-center gap-3 bg-white border-2 border-gray-200 hover:border-black rounded-lg p-3 cursor-pointer transition-all hover:shadow-brutal-sm">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-black" data-alt="Assignee avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAlU1oq5vknfvnEhzfB5cikZQ7QwC_yZLskI-gvR95QJ5N8g94SvtHfCFcPGjRYV7xSAJIW8M7GB9m5uLvuXld1lKixtrHim9pjyho2pzm9Dcn4tW76hfzMoe5IYHns4aLJvHxJbPjumtpSQ650ZaSsszhzVl0mdOfo9AHInDDYdTFp28lNFBrLctt86XdbimBR74biXm5YKmqH_isxOxdJ92mWfLYzwyYcjB8Lvxs8CJoTngejB6M8UHOrJuUnqVyIp2_1IY3UdA");'></div>
-<div class="flex flex-col flex-1 min-w-0">
-<span class="text-sm font-bold text-black truncate">Sarah Jenkins</span>
-<span class="text-xs text-gray-500 font-medium truncate">Product Lead</span>
+<div class="relative">
+<select class="w-full bg-white border-2 border-black rounded-lg px-4 py-3 text-black text-sm font-bold focus:shadow-brutal focus:outline-none appearance-none cursor-pointer transition-all" id="assignee-select">
+<option value="">Select assignee</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-black">
+<span class="material-symbols-outlined text-[24px]">expand_more</span>
 </div>
-<span class="material-symbols-outlined text-gray-400 group-hover:text-black transition-colors">expand_more</span>
 </div>
+<input class="w-full bg-white border-2 border-black rounded-lg px-4 py-3 text-black text-sm font-bold focus:shadow-brutal focus:outline-none hidden" id="assignee-custom" placeholder="assignee@ynot.org" type="email"/>
+<p class="text-xs text-gray-500 font-medium hidden" id="assignee-help">No users found yet. Enter an email above.</p>
 </div>
 <div class="flex flex-col gap-2">
 <label class="text-xs font-bold uppercase tracking-wider text-gray-500">Priority</label>
 <div class="flex flex-wrap gap-2">
 <label class="cursor-pointer flex-1">
-<input class="peer sr-only" name="priority" type="radio"/>
+<input class="peer sr-only" name="priority" type="radio" value="HIGH"/>
 <div class="flex items-center justify-center px-3 py-2 rounded-lg border-2 border-transparent bg-red-50 text-red-700 text-sm font-bold peer-checked:bg-red-500 peer-checked:text-white peer-checked:border-black peer-checked:shadow-brutal-sm transition-all text-center">High</div>
 </label>
 <label class="cursor-pointer flex-1">
-<input checked="" class="peer sr-only" name="priority" type="radio"/>
+<input checked="" class="peer sr-only" name="priority" type="radio" value="MEDIUM"/>
 <div class="flex items-center justify-center px-3 py-2 rounded-lg border-2 border-transparent bg-yellow-50 text-yellow-700 text-sm font-bold peer-checked:bg-ynot-yellow peer-checked:text-black peer-checked:border-black peer-checked:shadow-brutal-sm transition-all text-center">Medium</div>
 </label>
 <label class="cursor-pointer flex-1">
-<input class="peer sr-only" name="priority" type="radio"/>
+<input class="peer sr-only" name="priority" type="radio" value="LOW"/>
 <div class="flex items-center justify-center px-3 py-2 rounded-lg border-2 border-transparent bg-blue-50 text-blue-700 text-sm font-bold peer-checked:bg-blue-500 peer-checked:text-white peer-checked:border-black peer-checked:shadow-brutal-sm transition-all text-center">Low</div>
 </label>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold uppercase tracking-wider text-gray-500">Status</label>
+<div class="relative">
+<select class="w-full bg-white border-2 border-black rounded-lg px-4 py-3 text-black text-sm font-bold focus:shadow-brutal focus:outline-none appearance-none cursor-pointer transition-all" id="status-select">
+<option value="TODO">To Do</option>
+<option value="IN_PROGRESS">In Progress</option>
+<option value="DONE">Done</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-black">
+<span class="material-symbols-outlined text-[24px]">expand_more</span>
+</div>
 </div>
 </div>
 <div class="flex flex-col gap-2">
@@ -256,6 +239,7 @@
 </div>
 </div>
 </div>
+</form>
 </main>
 <div class="sticky bottom-0 z-40 bg-white border-t-2 border-black px-6 py-4 shadow-[0px_-4px_10px_rgba(0,0,0,0.05)]">
 <div class="max-w-[1440px] mx-auto flex items-center justify-between">
@@ -264,12 +248,393 @@
             </div>
 <div class="flex items-center gap-4 w-full sm:w-auto justify-end">
 <button class="px-6 py-3 rounded-lg text-black font-bold hover:bg-gray-100 transition-colors text-sm">Cancel</button>
-<button class="px-8 py-3 rounded-lg bg-black hover:bg-ynot-yellow hover:text-black text-white font-bold shadow-brutal-sm hover:shadow-brutal hover:-translate-y-0.5 transition-all text-sm flex items-center gap-2 active:translate-y-0 active:shadow-none">
+<button class="px-8 py-3 rounded-lg bg-black hover:bg-ynot-yellow hover:text-black text-white font-bold shadow-brutal-sm hover:shadow-brutal hover:-translate-y-0.5 transition-all text-sm flex items-center gap-2 active:translate-y-0 active:shadow-none" form="task-form" id="submit-task" type="submit">
 <span class="material-symbols-outlined text-[20px]">add_task</span>
                     Create Task
                 </button>
 </div>
 </div>
 </div>
+<script>
+        const API_BASE = "http://localhost:8000";
+        const form = document.getElementById("task-form");
+        const titleInput = document.getElementById("title-input");
+        const descriptionInput = document.getElementById("description-input");
+        const statusSelect = document.getElementById("status-select");
+        const currentUserInput = document.getElementById("current-user-email");
+        const formMessage = document.getElementById("form-message");
+        const submitBtn = document.getElementById("submit-task");
+        const issueNumber = document.getElementById("issue-number");
+        const assigneeSelect = document.getElementById("assignee-select");
+        const assigneeCustom = document.getElementById("assignee-custom");
+        const assigneeHelp = document.getElementById("assignee-help");
+        const milestoneList = document.getElementById("milestone-list");
+        const milestoneSummary = document.getElementById("milestone-summary");
+        const milestoneProgress = document.getElementById("milestone-progress");
+        const addMilestoneBtn = document.getElementById("add-milestone");
 
+        function setMessage(text, isError = true) {
+            if (!formMessage) {
+                return;
+            }
+            if (!text) {
+                formMessage.textContent = "";
+                formMessage.classList.add("hidden");
+                return;
+            }
+            formMessage.textContent = text;
+            formMessage.classList.remove("hidden");
+            formMessage.classList.toggle("text-red-600", isError);
+            formMessage.classList.toggle("text-green-600", !isError);
+        }
+
+        function getPriority() {
+            const selected = document.querySelector("input[name='priority']:checked");
+            return selected ? selected.value : "MEDIUM";
+        }
+
+        function getAssignee() {
+            if (!assigneeSelect) {
+                return "";
+            }
+            if (assigneeSelect.classList.contains("hidden")) {
+                return assigneeCustom ? assigneeCustom.value.trim() : "";
+            }
+            const value = assigneeSelect.value;
+            if (value === "__custom__") {
+                return assigneeCustom ? assigneeCustom.value.trim() : "";
+            }
+            return value;
+        }
+
+        function setAssigneeMode(hasUsers) {
+            if (!assigneeSelect || !assigneeCustom || !assigneeHelp) {
+                return;
+            }
+            if (!hasUsers) {
+                assigneeSelect.classList.add("hidden");
+                assigneeCustom.classList.remove("hidden");
+                assigneeHelp.classList.remove("hidden");
+                return;
+            }
+            assigneeSelect.classList.remove("hidden");
+            assigneeCustom.classList.add("hidden");
+            assigneeHelp.classList.add("hidden");
+        }
+
+        function updateMilestoneProgress() {
+            if (!milestoneList) {
+                return;
+            }
+            const rows = Array.from(milestoneList.querySelectorAll("[data-milestone-row='true']"));
+            const activeRows = rows.filter((row) => {
+                const input = row.querySelector("[data-milestone-name]");
+                return input && input.value.trim();
+            });
+            const total = activeRows.length;
+            const doneCount = activeRows.filter((row) => row.getAttribute("data-done") === "true").length;
+            const percent = total === 0 ? 0 : Math.round((doneCount / total) * 100);
+            if (milestoneSummary) {
+                milestoneSummary.textContent = `${doneCount} of ${total} Completed`;
+            }
+            if (milestoneProgress) {
+                milestoneProgress.textContent = `Progress: ${percent}%`;
+            }
+        }
+
+        function setMilestoneState(row, done) {
+            row.setAttribute("data-done", done ? "true" : "false");
+            const nameInput = row.querySelector("[data-milestone-name]");
+            const toggle = row.querySelector("[data-milestone-toggle]");
+            if (nameInput) {
+                nameInput.classList.toggle("line-through", done);
+                nameInput.classList.toggle("decoration-2", done);
+                nameInput.classList.toggle("text-gray-500", done);
+            }
+            if (toggle) {
+                toggle.innerHTML = done
+                    ? '<span class="material-symbols-outlined text-[28px] font-bold">check_box</span>'
+                    : '<span class="material-symbols-outlined text-[28px]">check_box_outline_blank</span>';
+                toggle.classList.toggle("text-green-600", done);
+                toggle.classList.toggle("text-gray-300", !done);
+                toggle.classList.toggle("hover:text-black", !done);
+            }
+            row.classList.toggle("bg-gray-100", done);
+            row.classList.toggle("border-gray-300", done);
+            row.classList.toggle("opacity-80", done);
+            row.classList.toggle("bg-white", !done);
+            row.classList.toggle("border-black", !done);
+        }
+
+        function createMilestoneRow({ name = "", due_date = "", done = false } = {}) {
+            const row = document.createElement("div");
+            row.className = "group flex items-center gap-4 bg-white border-2 border-black p-4 rounded-lg hover:shadow-brutal transition-all";
+            row.setAttribute("data-milestone-row", "true");
+
+            row.innerHTML = `
+                <button class="text-gray-300 hover:text-black transition-colors" data-milestone-toggle type="button">
+                    <span class="material-symbols-outlined text-[28px]">check_box_outline_blank</span>
+                </button>
+                <input class="bg-transparent border-none p-0 w-full text-black focus:ring-0 text-base font-bold" data-milestone-name type="text" placeholder="Milestone name" />
+                <div class="flex items-center gap-2">
+                    <input class="bg-white border-2 border-black rounded px-2 py-1 text-xs font-bold focus:outline-none" data-milestone-date type="date" />
+                    <button class="text-gray-400 hover:text-red-500 transition-all p-1" data-milestone-delete type="button">
+                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                    </button>
+                </div>
+            `;
+
+            const nameInput = row.querySelector("[data-milestone-name]");
+            const dateInput = row.querySelector("[data-milestone-date]");
+            const toggle = row.querySelector("[data-milestone-toggle]");
+            const deleteBtn = row.querySelector("[data-milestone-delete]");
+
+            if (nameInput) {
+                nameInput.value = name;
+                nameInput.addEventListener("input", updateMilestoneProgress);
+            }
+            if (dateInput && due_date) {
+                dateInput.value = due_date;
+            }
+            if (toggle) {
+                toggle.addEventListener("click", () => {
+                    const current = row.getAttribute("data-done") === "true";
+                    setMilestoneState(row, !current);
+                    updateMilestoneProgress();
+                });
+            }
+            if (deleteBtn) {
+                deleteBtn.addEventListener("click", () => {
+                    row.remove();
+                    updateMilestoneProgress();
+                });
+            }
+
+            setMilestoneState(row, done);
+            return row;
+        }
+
+        function addMilestoneRow(data) {
+            if (!milestoneList) {
+                return;
+            }
+            milestoneList.appendChild(createMilestoneRow(data));
+            updateMilestoneProgress();
+        }
+
+        function resetMilestones() {
+            if (!milestoneList) {
+                return;
+            }
+            milestoneList.innerHTML = "";
+            addMilestoneRow();
+        }
+
+        function getMilestones() {
+            if (!milestoneList) {
+                return [];
+            }
+            const rows = milestoneList.querySelectorAll("[data-milestone-row='true']");
+            const milestones = [];
+            rows.forEach((row) => {
+                const nameInput = row.querySelector("[data-milestone-name]");
+                if (!nameInput) {
+                    return;
+                }
+                const name = nameInput.value.trim();
+                if (!name) {
+                    return;
+                }
+                const dateInput = row.querySelector("[data-milestone-date]");
+                const dueDate = dateInput && dateInput.value ? dateInput.value : null;
+                const done = row.getAttribute("data-done") === "true";
+                milestones.push({
+                    name: name,
+                    due_date: dueDate,
+                    done: done
+                });
+            });
+            return milestones;
+        }
+
+        async function loadIssueNumber(email) {
+            if (!issueNumber || !email) {
+                return;
+            }
+            try {
+                const res = await fetch(`${API_BASE}/api/tasks/next-issue`, {
+                    headers: { "X-User-Email": email }
+                });
+                if (!res.ok) {
+                    issueNumber.textContent = "#--";
+                    return;
+                }
+                const payload = await res.json();
+                issueNumber.textContent = `#${payload.data.next_issue}`;
+            } catch (error) {
+                issueNumber.textContent = "#--";
+            }
+        }
+
+        async function loadUsers(email) {
+            if (!assigneeSelect || !email) {
+                setAssigneeMode(false);
+                return;
+            }
+            try {
+                const res = await fetch(`${API_BASE}/api/users`, {
+                    headers: { "X-User-Email": email }
+                });
+                if (!res.ok) {
+                    setAssigneeMode(false);
+                    return;
+                }
+                const payload = await res.json();
+                const users = payload.data || [];
+                assigneeSelect.innerHTML = '<option value="">Select assignee</option>';
+                users.forEach((user) => {
+                    const option = document.createElement("option");
+                    option.value = user.email;
+                    option.textContent = `${user.display_name} (${user.email})`;
+                    assigneeSelect.appendChild(option);
+                });
+                if (users.length > 0) {
+                    const customOption = document.createElement("option");
+                    customOption.value = "__custom__";
+                    customOption.textContent = "Other email...";
+                    assigneeSelect.appendChild(customOption);
+                    setAssigneeMode(true);
+                } else {
+                    setAssigneeMode(false);
+                }
+            } catch (error) {
+                setAssigneeMode(false);
+            }
+        }
+
+        if (assigneeSelect) {
+            assigneeSelect.addEventListener("change", () => {
+                if (!assigneeCustom) {
+                    return;
+                }
+                if (assigneeSelect.value === "__custom__") {
+                    assigneeCustom.classList.remove("hidden");
+                    assigneeCustom.focus();
+                } else {
+                    assigneeCustom.classList.add("hidden");
+                }
+            });
+        }
+
+        if (currentUserInput) {
+            const storedEmail = localStorage.getItem("ynot_user_email");
+            if (storedEmail) {
+                currentUserInput.value = storedEmail;
+            }
+            currentUserInput.addEventListener("change", () => {
+                const email = currentUserInput.value.trim();
+                if (email) {
+                    localStorage.setItem("ynot_user_email", email);
+                    loadUsers(email);
+                    loadIssueNumber(email);
+                }
+            });
+        }
+
+        if (addMilestoneBtn) {
+            addMilestoneBtn.addEventListener("click", () => addMilestoneRow());
+        }
+
+        if (milestoneList && milestoneList.children.length === 0) {
+            resetMilestones();
+        }
+
+        if (form) {
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                setMessage("");
+
+                const title = titleInput ? titleInput.value.trim() : "";
+                const description = descriptionInput ? descriptionInput.value.trim() : "";
+                const assignedTo = getAssignee();
+                const currentUser = currentUserInput ? currentUserInput.value.trim() : "";
+                const status = statusSelect ? statusSelect.value : "TODO";
+                const priority = getPriority();
+                const milestones = getMilestones();
+
+                if (!currentUser) {
+                    setMessage("Add your email so we can set created_by.");
+                    return;
+                }
+                if (!title) {
+                    setMessage("Task Summary is required.");
+                    return;
+                }
+                if (!assignedTo) {
+                    setMessage("Assignee is required.");
+                    return;
+                }
+
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.classList.add("opacity-70", "cursor-not-allowed");
+                }
+
+                try {
+                    const payload = {
+                        title: title,
+                        description: description || null,
+                        assigned_to: assignedTo,
+                        status: status,
+                        priority: priority,
+                        milestones: milestones
+                    };
+
+                    const res = await fetch(`${API_BASE}/api/tasks`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-User-Email": currentUser
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!res.ok) {
+                        const err = await res.json();
+                        const detail = err && err.detail ? err.detail : "Failed to create task.";
+                        setMessage(detail);
+                        return;
+                    }
+
+                    setMessage("Task created successfully.", false);
+                    form.reset();
+                    if (currentUser) {
+                        localStorage.setItem("ynot_user_email", currentUser);
+                    }
+                    if (currentUserInput) {
+                        currentUserInput.value = currentUser;
+                    }
+                    resetMilestones();
+                    loadIssueNumber(currentUser);
+                    loadUsers(currentUser);
+                } catch (error) {
+                    setMessage("Network error while creating task.");
+                } finally {
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.classList.remove("opacity-70", "cursor-not-allowed");
+                    }
+                }
+            });
+        }
+
+        window.addEventListener("load", () => {
+            const email = currentUserInput ? currentUserInput.value.trim() : "";
+            if (email) {
+                loadUsers(email);
+                loadIssueNumber(email);
+            }
+            updateMilestoneProgress();
+        });
+    </script>
 </body></html>
