@@ -26,3 +26,7 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ## Notes
 - All API requests require the `X-User-Email` header.
 - Health check: `GET /health`
+- Landing: `http://localhost:8000/`
+- Dashboard: `http://localhost:8000/dashboard`
+- Create Task: `http://localhost:8000/create-task`
+- Edit Task: `http://localhost:8000/edit-task?id=<task_id>`

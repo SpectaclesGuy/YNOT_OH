@@ -36,6 +36,7 @@ class TaskRepository:
         if not doc:
             return None
         doc["_id"] = str(doc["_id"])
+        doc["id"] = doc["_id"]
         return doc
 
     async def list_tasks(
@@ -49,6 +50,7 @@ class TaskRepository:
         docs = await cursor.to_list(length=200)
         for doc in docs:
             doc["_id"] = str(doc["_id"])
+            doc["id"] = doc["_id"]
         return docs
 
     async def count_tasks(self, filters: Optional[dict[str, Any]] = None) -> int:

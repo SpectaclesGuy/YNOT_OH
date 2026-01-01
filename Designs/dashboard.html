@@ -50,10 +50,11 @@
     </style>
 </head>
 <body class="bg-white font-display text-brand-black min-h-screen flex flex-col md:flex-row overflow-x-hidden">
-<aside class="hidden md:flex w-64 bg-surface-grey border-r border-stone-200 flex-col h-full shrink-0">
-<div class="p-6 pb-2">
+<aside class="hidden md:flex w-64 bg-[linear-gradient(180deg,#fff7d1_0%,#f8f8f6_55%,#ffffff_100%)] border-r border-stone-200 flex-col h-full shrink-0">
+<div class="p-6 pb-2 relative">
+<div class="absolute -right-10 top-16 h-24 w-24 rounded-full bg-brand-yellow/40 blur-2xl"></div>
 <div class="flex gap-3 items-center mb-8">
-<div class="flex items-center justify-center bg-brand-yellow rounded-lg size-10 shadow-sm border-2 border-brand-black text-brand-black font-black text-xl rotate-3">
+<div class="flex items-center justify-center bg-brand-yellow rounded-lg size-10 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] border-2 border-brand-black text-brand-black font-black text-xl rotate-3">
                     Y
                 </div>
 <div class="flex flex-col">
@@ -62,30 +63,18 @@
 </div>
 </div>
 <nav class="flex flex-col gap-2">
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-brand-yellow border border-brand-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-transform active:translate-y-[1px] active:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]" href="#">
-<span class="material-symbols-outlined text-[20px] font-medium text-brand-black">dashboard</span>
-<span class="text-sm font-bold text-brand-black">Board</span>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg border transition-transform active:translate-y-[1px]" href="#" id="board-link" data-nav="board">
+<span class="material-symbols-outlined text-[20px] font-medium">dashboard</span>
+<span class="text-sm font-bold">Board</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-stone-600 hover:bg-stone-200 transition-colors group" href="#">
-<span class="material-symbols-outlined text-[20px] group-hover:text-brand-black">view_kanban</span>
-<span class="text-sm font-medium group-hover:text-brand-black">Timeline</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-stone-600 hover:bg-stone-200 transition-colors group" href="#">
-<span class="material-symbols-outlined text-[20px] group-hover:text-brand-black">group</span>
-<span class="text-sm font-medium group-hover:text-brand-black">Team</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-stone-600 hover:bg-stone-200 transition-colors group" href="#">
-<span class="material-symbols-outlined text-[20px] group-hover:text-brand-black">calendar_month</span>
-<span class="text-sm font-medium group-hover:text-brand-black">Calendar</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-stone-600 hover:bg-stone-200 transition-colors group" href="#">
-<span class="material-symbols-outlined text-[20px] group-hover:text-brand-black">settings</span>
-<span class="text-sm font-medium group-hover:text-brand-black">Settings</span>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg border transition-colors" href="#" id="team-link" data-nav="team">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="text-sm font-semibold">Team</span>
 </a>
 </nav>
 </div>
-<div class="mt-auto p-4 border-t border-stone-200">
-<button class="w-full flex items-center justify-center gap-2 rounded-lg h-9 px-4 hover:bg-stone-200 text-stone-500 hover:text-red-500 text-sm font-semibold transition-colors">
+<div class="mt-auto p-4 border-t border-stone-200/80">
+<button class="w-full flex items-center justify-center gap-2 rounded-lg h-9 px-4 hover:bg-white text-stone-600 hover:text-red-500 text-sm font-semibold transition-colors">
 <span class="material-symbols-outlined text-[18px]">logout</span>
 <span>Log Out</span>
 </button>
@@ -98,7 +87,7 @@
 <h2 class="text-brand-black text-3xl font-black tracking-tight font-hand">Hackathon Prep Board</h2>
 <p class="text-stone-500 text-sm">Track tasks, deadlines, and progress</p>
 </div>
-<a class="flex items-center gap-2 bg-brand-black hover:bg-gray-800 text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-lg transition-all hover:-translate-y-0.5" href="create_task.html">
+<a class="flex items-center gap-2 bg-brand-black hover:bg-gray-800 text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-lg transition-all hover:-translate-y-0.5" href="/create-task">
 <span class="material-symbols-outlined text-[20px] text-brand-yellow">add</span>
                     Create Task
                 </a>
@@ -110,13 +99,13 @@
 <input class="w-full bg-white border border-stone-200 rounded-lg py-2.5 pl-10 pr-4 text-sm text-brand-black placeholder:text-stone-400 focus:ring-2 focus:ring-brand-yellow/50 focus:border-brand-yellow transition-all shadow-sm" id="search-input" placeholder="Search tasks..." type="text"/>
 </div>
 <div class="flex items-center gap-2 shrink-0">
-<button class="px-4 py-1.5 rounded-full bg-white border border-stone-200 text-stone-600 hover:border-brand-black hover:text-brand-black text-xs font-bold transition-all shadow-sm">
+<button class="px-4 py-1.5 rounded-full bg-white border border-stone-200 text-stone-600 hover:border-brand-black hover:text-brand-black text-xs font-bold transition-all shadow-sm" id="filter-my-tasks" type="button">
                             My Tasks
                         </button>
-<button class="px-4 py-1.5 rounded-full bg-white border border-stone-200 text-stone-600 hover:border-brand-black hover:text-brand-black text-xs font-bold transition-all shadow-sm">
+<button class="px-4 py-1.5 rounded-full bg-white border border-stone-200 text-stone-600 hover:border-brand-black hover:text-brand-black text-xs font-bold transition-all shadow-sm" id="filter-due-soon" type="button">
                             Due Soon
                         </button>
-<button class="px-4 py-1.5 rounded-full bg-white border border-stone-200 text-stone-600 hover:border-brand-black hover:text-brand-black text-xs font-bold transition-all shadow-sm">
+<button class="px-4 py-1.5 rounded-full bg-white border border-stone-200 text-stone-600 hover:border-brand-black hover:text-brand-black text-xs font-bold transition-all shadow-sm" id="filter-high-priority" type="button">
                             High Priority
                         </button>
 </div>
@@ -144,6 +133,7 @@
 </div>
 </header>
 <div class="flex-1 overflow-x-auto md:overflow-y-hidden p-4 sm:p-6 md:p-8 pt-4">
+<div id="board-view">
 <div class="flex flex-col md:flex-row h-auto md:h-full gap-6 md:gap-8 min-w-0 md:min-w-max pb-4">
 <div class="flex flex-col w-full md:w-80 shrink-0 h-full">
 <div class="flex items-center justify-between mb-4 px-2 border-b-2 border-brand-black pb-2">
@@ -158,7 +148,7 @@
 <div class="flex-1 flex flex-col gap-4 overflow-y-auto px-1 pb-4 scrollbar-hide" id="todo-list">
 <div class="text-xs text-stone-400 font-semibold" data-empty="todo">No tasks yet.</div>
 </div>
-<a class="mt-2 flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border-2 border-dashed border-stone-300 text-stone-400 hover:border-brand-black hover:text-brand-black hover:bg-white transition-all text-sm font-bold" href="create_task.html">
+<a class="mt-2 flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border-2 border-dashed border-stone-300 text-stone-400 hover:border-brand-black hover:text-brand-black hover:bg-white transition-all text-sm font-bold" href="/create-task">
 <span class="material-symbols-outlined text-[20px]">add_circle</span>
                         Add Note
                     </a>
@@ -176,7 +166,7 @@
 <div class="flex-1 flex flex-col gap-4 overflow-y-auto px-1 pb-4 scrollbar-hide" id="in-progress-list">
 <div class="text-xs text-stone-400 font-semibold" data-empty="in-progress">No tasks yet.</div>
 </div>
-<a class="mt-2 flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border-2 border-dashed border-stone-300 text-stone-400 hover:border-brand-black hover:text-brand-black hover:bg-white transition-all text-sm font-bold" href="create_task.html">
+<a class="mt-2 flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border-2 border-dashed border-stone-300 text-stone-400 hover:border-brand-black hover:text-brand-black hover:bg-white transition-all text-sm font-bold" href="/create-task">
 <span class="material-symbols-outlined text-[20px]">add_circle</span>
                         Add Note
                     </a>
@@ -197,6 +187,23 @@
 </div>
 </div>
 </div>
+<div class="hidden" id="team-view">
+<div class="max-w-4xl">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h3 class="text-2xl font-black text-brand-black font-hand">Team</h3>
+<p class="text-stone-500 text-sm">Registered users from the hub</p>
+</div>
+<button class="px-3 py-2 rounded-lg bg-white border border-stone-200 text-stone-600 hover:border-brand-black hover:text-brand-black text-xs font-bold transition-all shadow-sm" id="team-refresh" type="button">
+                        Refresh
+                    </button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="team-list">
+<div class="text-sm text-stone-400 font-semibold" data-team-empty="true">No users yet.</div>
+</div>
+</div>
+</div>
+</div>
 </main>
 <script>
         const API_BASE = "http://localhost:8000";
@@ -212,6 +219,22 @@
         const searchInput = document.getElementById("search-input");
         const refreshBtn = document.getElementById("refresh-btn");
         const errorMessage = document.getElementById("error-message");
+        const filterMyTasksBtn = document.getElementById("filter-my-tasks");
+        const filterDueSoonBtn = document.getElementById("filter-due-soon");
+        const filterHighPriorityBtn = document.getElementById("filter-high-priority");
+        const boardLink = document.getElementById("board-link");
+        const teamLink = document.getElementById("team-link");
+        const boardView = document.getElementById("board-view");
+        const teamView = document.getElementById("team-view");
+        const teamList = document.getElementById("team-list");
+        const teamRefresh = document.getElementById("team-refresh");
+
+        let allTasks = [];
+        const activeFilters = {
+            myTasks: false,
+            dueSoon: false,
+            highPriority: false
+        };
 
         function setError(message) {
             if (!errorMessage) {
@@ -224,6 +247,10 @@
             }
             errorMessage.textContent = message;
             errorMessage.classList.remove("hidden");
+        }
+
+        function getTaskId(task) {
+            return task ? (task.id || task._id || "") : "";
         }
 
         function clearLists() {
@@ -242,6 +269,7 @@
 
         function createCard(task, index) {
             const card = document.createElement("div");
+            const taskId = getTaskId(task);
             const color = colorClasses[index % colorClasses.length];
             const rotate = rotateClasses[index % rotateClasses.length];
             const isDone = task.status === "DONE";
@@ -261,6 +289,14 @@
                 isDone ? "opacity-80" : ""
             ].join(" ").trim();
             card.setAttribute("data-task-card", "true");
+            if (taskId) {
+                card.setAttribute("data-task-id", taskId);
+            }
+            card.addEventListener("click", () => {
+                if (taskId) {
+                    window.location.href = `/edit-task?id=${taskId}`;
+                }
+            });
 
             const tape = document.createElement("div");
             tape.className = "absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/40 backdrop-blur-[1px] rotate-1 shadow-sm border-l border-r border-white/60";
@@ -278,6 +314,18 @@
             priority.className = `text-[11px] font-bold uppercase tracking-wider font-hand px-2 py-0.5 rounded ${priorityClass}`;
             priority.textContent = task.priority.replace("_", " ");
             meta.appendChild(priority);
+
+            if (task.status !== "DONE") {
+                const advanceBtn = document.createElement("button");
+                advanceBtn.type = "button";
+                advanceBtn.className = "text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border border-stone-200 text-stone-500 hover:border-brand-black hover:text-brand-black";
+                advanceBtn.textContent = task.status === "TODO" ? "Start" : "Complete";
+                advanceBtn.addEventListener("click", (event) => {
+                    event.stopPropagation();
+                    advanceTask(taskId, task.status);
+                });
+                meta.appendChild(advanceBtn);
+            }
             card.appendChild(meta);
 
             const title = document.createElement("h4");
@@ -310,6 +358,22 @@
             return card;
         }
 
+        function applyFilters(tasks) {
+            const email = emailInput ? emailInput.value.trim() : "";
+            return tasks.filter((task) => {
+                if (activeFilters.myTasks && email && task.assigned_to !== email) {
+                    return false;
+                }
+                if (activeFilters.highPriority && task.priority !== "HIGH") {
+                    return false;
+                }
+                if (activeFilters.dueSoon && !isDueSoon(task)) {
+                    return false;
+                }
+                return true;
+            });
+        }
+
         function renderTasks(tasks) {
             clearLists();
             const grouped = { TODO: [], IN_PROGRESS: [], DONE: [] };
@@ -337,6 +401,81 @@
                     list.appendChild(createCard(task, idx));
                 });
             });
+        }
+
+        function isDueSoon(task) {
+            if (!task.milestones || task.milestones.length === 0) {
+                return false;
+            }
+            const upcoming = task.milestones
+                .map((milestone) => milestone.due_date)
+                .filter(Boolean)
+                .map((dateValue) => new Date(dateValue))
+                .filter((dateValue) => !Number.isNaN(dateValue.getTime()));
+            if (upcoming.length === 0) {
+                return false;
+            }
+            const now = new Date();
+            const soon = new Date();
+            soon.setDate(now.getDate() + 7);
+            return upcoming.some((dateValue) => dateValue >= now && dateValue <= soon);
+        }
+
+        function updateFilterStyles() {
+            const setState = (button, isActive) => {
+                if (!button) {
+                    return;
+                }
+                button.classList.toggle("bg-brand-yellow", isActive);
+                button.classList.toggle("border-brand-black", isActive);
+                button.classList.toggle("text-brand-black", isActive);
+                button.classList.toggle("bg-white", !isActive);
+                button.classList.toggle("border-stone-200", !isActive);
+                button.classList.toggle("text-stone-600", !isActive);
+            };
+
+            setState(filterMyTasksBtn, activeFilters.myTasks);
+            setState(filterDueSoonBtn, activeFilters.dueSoon);
+            setState(filterHighPriorityBtn, activeFilters.highPriority);
+        }
+
+        function applyAndRender() {
+            const filtered = applyFilters(allTasks);
+            renderTasks(filtered);
+        }
+
+        async function advanceTask(taskId, currentStatus) {
+            const email = emailInput ? emailInput.value.trim() : "";
+            if (!email || !taskId) {
+                setError("Add your email to update tasks.");
+                return;
+            }
+            const nextStatus = currentStatus === "TODO" ? "IN_PROGRESS" : "DONE";
+            try {
+                const res = await fetch(`${API_BASE}/api/tasks/${taskId}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-User-Email": email
+                    },
+                    body: JSON.stringify({ status: nextStatus })
+                });
+                if (!res.ok) {
+                    setError(`Failed to update task (${res.status}).`);
+                    return;
+                }
+                const payload = await res.json();
+                const updated = payload.data || {};
+                const normalized = {
+                    ...updated,
+                    id: updated.id || updated._id || taskId,
+                    _id: updated._id || updated.id || taskId
+                };
+                allTasks = allTasks.map((task) => (getTaskId(task) === taskId ? normalized : task));
+                applyAndRender();
+            } catch (error) {
+                setError("Network error while updating task.");
+            }
         }
 
         async function loadTasks() {
@@ -369,7 +508,101 @@
             }
 
             const payload = await res.json();
-            renderTasks(payload.data || []);
+            allTasks = payload.data || [];
+            applyAndRender();
+        }
+
+        function setActiveView(view) {
+            if (!boardView || !teamView) {
+                return;
+            }
+            setNavActive(view);
+            if (view === "team") {
+                boardView.classList.add("hidden");
+                teamView.classList.remove("hidden");
+                loadUsers();
+                return;
+            }
+            boardView.classList.remove("hidden");
+            teamView.classList.add("hidden");
+        }
+
+        function setNavActive(view) {
+            const setState = (link, isActive) => {
+                if (!link) {
+                    return;
+                }
+                link.classList.toggle("bg-brand-yellow", isActive);
+                link.classList.toggle("border-brand-black", isActive);
+                link.classList.toggle("text-brand-black", isActive);
+                link.classList.toggle("shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]", isActive);
+                link.classList.toggle("text-stone-600", !isActive);
+                link.classList.toggle("border-transparent", !isActive);
+                link.classList.toggle("hover:bg-white/70", !isActive);
+            };
+
+            setState(boardLink, view === "board");
+            setState(teamLink, view === "team");
+        }
+
+        function clearTeamList() {
+            if (!teamList) {
+                return;
+            }
+            teamList.querySelectorAll("[data-team-card]").forEach((node) => node.remove());
+            const empty = teamList.querySelector("[data-team-empty]");
+            if (empty) {
+                empty.classList.remove("hidden");
+            }
+        }
+
+        function renderUsers(users) {
+            if (!teamList) {
+                return;
+            }
+            clearTeamList();
+            const empty = teamList.querySelector("[data-team-empty]");
+            if (empty && users.length > 0) {
+                empty.classList.add("hidden");
+            }
+            users.forEach((user) => {
+                const card = document.createElement("div");
+                card.className = "bg-white border border-stone-200 rounded-xl p-4 shadow-sm";
+                card.setAttribute("data-team-card", "true");
+                card.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="size-10 rounded-full bg-brand-yellow flex items-center justify-center font-bold text-brand-black shadow-sm border border-brand-black/10">
+                            ${user.display_name ? user.display_name[0].toUpperCase() : "U"}
+                        </div>
+                        <div class="min-w-0">
+                            <p class="text-sm font-bold text-brand-black truncate">${user.display_name || "User"}</p>
+                            <p class="text-xs text-stone-500 truncate">${user.email}</p>
+                        </div>
+                    </div>
+                `;
+                teamList.appendChild(card);
+            });
+        }
+
+        async function loadUsers() {
+            const email = emailInput ? emailInput.value.trim() : "";
+            if (!email) {
+                clearTeamList();
+                return;
+            }
+            try {
+                const res = await fetch(`${API_BASE}/api/users`, {
+                    headers: { "X-User-Email": email }
+                });
+                if (!res.ok) {
+                    clearTeamList();
+                    return;
+                }
+                const payload = await res.json();
+                renderUsers(payload.data || []);
+            } catch (error) {
+                clearTeamList();
+            }
         }
 
         let searchTimer;
@@ -384,18 +617,67 @@
             refreshBtn.addEventListener("click", loadTasks);
         }
 
+        if (filterMyTasksBtn) {
+            filterMyTasksBtn.addEventListener("click", () => {
+                activeFilters.myTasks = !activeFilters.myTasks;
+                updateFilterStyles();
+                applyAndRender();
+            });
+        }
+
+        if (filterDueSoonBtn) {
+            filterDueSoonBtn.addEventListener("click", () => {
+                activeFilters.dueSoon = !activeFilters.dueSoon;
+                updateFilterStyles();
+                applyAndRender();
+            });
+        }
+
+        if (filterHighPriorityBtn) {
+            filterHighPriorityBtn.addEventListener("click", () => {
+                activeFilters.highPriority = !activeFilters.highPriority;
+                updateFilterStyles();
+                applyAndRender();
+            });
+        }
+
+        if (teamLink) {
+            teamLink.addEventListener("click", (event) => {
+                event.preventDefault();
+                setActiveView("team");
+            });
+        }
+
+        if (boardLink) {
+            boardLink.addEventListener("click", (event) => {
+                event.preventDefault();
+                setActiveView("board");
+            });
+        }
+
+        if (teamRefresh) {
+            teamRefresh.addEventListener("click", loadUsers);
+        }
+
         if (emailInput) {
             const storedEmail = localStorage.getItem("ynot_user_email");
             if (storedEmail) {
                 emailInput.value = storedEmail;
             }
-            emailInput.addEventListener("change", loadTasks);
+            emailInput.addEventListener("change", () => {
+                loadTasks();
+                if (teamView && !teamView.classList.contains("hidden")) {
+                    loadUsers();
+                }
+            });
         }
 
         window.addEventListener("load", () => {
             if (emailInput && emailInput.value.trim()) {
                 loadTasks();
             }
+            setActiveView("board");
+            updateFilterStyles();
         });
     </script>
 </body></html>

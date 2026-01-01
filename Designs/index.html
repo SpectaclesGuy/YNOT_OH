@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>YNOT Organising Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Handlee&display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "brand-yellow": "#FFD600",
+                        "brand-black": "#121212",
+                        "surface-grey": "#F8F8F6"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "hand": ["Handlee", "cursive"]
+                    },
+                    boxShadow: {
+                        "brutal": "4px 4px 0px 0px #121212"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-[radial-gradient(circle_at_top,#fff7d1_0%,#ffffff_45%,#f8f8f6_100%)] font-display text-brand-black min-h-screen flex items-center">
+<main class="max-w-5xl mx-auto px-6 py-16 w-full">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center bg-white/70 backdrop-blur border border-stone-200 rounded-[28px] p-10 shadow-[0_18px_60px_rgba(0,0,0,0.08)]">
+<section class="space-y-6">
+<div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-stone-200 bg-white">
+<span class="inline-flex items-center justify-center size-9 rounded-xl bg-brand-yellow border-2 border-brand-black font-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">Y</span>
+<span class="text-sm font-bold tracking-wide">YNOT Organising Hub</span>
+</div>
+<h1 class="text-4xl md:text-5xl font-black tracking-tight font-hand">Get your hackathon tasks moving.</h1>
+<p class="text-stone-600 text-lg leading-relaxed">A focused board for teams to ship faster. Track work, milestones, and progress in one place.</p>
+<div class="flex flex-wrap gap-3">
+<div class="px-4 py-2 rounded-lg border border-stone-200 bg-white text-sm font-semibold">Post-it boards</div>
+<div class="px-4 py-2 rounded-lg border border-stone-200 bg-white text-sm font-semibold">Milestone progress</div>
+<div class="px-4 py-2 rounded-lg border border-stone-200 bg-white text-sm font-semibold">Team visibility</div>
+</div>
+</section>
+<section class="bg-white border border-stone-200 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.12)] p-8">
+<h2 class="text-2xl font-bold mb-2">Create your workspace</h2>
+<p class="text-sm text-stone-500 mb-6">Register with your email to open the dashboard.</p>
+<form class="space-y-4" id="register-form">
+<div>
+<label class="text-xs font-bold uppercase tracking-wide text-stone-500">Email</label>
+<input class="mt-2 w-full rounded-lg border border-stone-200 px-4 py-3 text-sm font-semibold focus:ring-2 focus:ring-brand-yellow/50 focus:border-brand-yellow" id="register-email" placeholder="you@ynot.org" type="email" required/>
+</div>
+<div>
+<label class="text-xs font-bold uppercase tracking-wide text-stone-500">Your Name</label>
+<input class="mt-2 w-full rounded-lg border border-stone-200 px-4 py-3 text-sm font-semibold focus:ring-2 focus:ring-brand-yellow/50 focus:border-brand-yellow" id="register-name" placeholder="Alex Johnson" type="text"/>
+</div>
+<p class="text-xs text-red-600 hidden" id="register-message"></p>
+<button class="w-full rounded-lg bg-brand-black text-white py-3 text-sm font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 transition-all" type="submit">Open Dashboard</button>
+</form>
+</section>
+</div>
+</main>
+<script>
+        const form = document.getElementById("register-form");
+        const emailInput = document.getElementById("register-email");
+        const nameInput = document.getElementById("register-name");
+        const message = document.getElementById("register-message");
+
+        function setMessage(text) {
+            if (!message) {
+                return;
+            }
+            if (!text) {
+                message.textContent = "";
+                message.classList.add("hidden");
+                return;
+            }
+            message.textContent = text;
+            message.classList.remove("hidden");
+        }
+
+        if (form) {
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
+                const email = emailInput ? emailInput.value.trim() : "";
+                const name = nameInput ? nameInput.value.trim() : "";
+                if (!email) {
+                    setMessage("Email is required.");
+                    return;
+                }
+                localStorage.setItem("ynot_user_email", email);
+                if (name) {
+                    localStorage.setItem("ynot_user_name", name);
+                }
+                window.location.href = "/dashboard";
+            });
+        }
+    </script>
+</body>
+</html>

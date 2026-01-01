@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>YNOT - Edit Task</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Handlee&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "brand-yellow": "#FFD600",
+                        "brand-black": "#121212",
+                        "surface-grey": "#F8F8F6"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "hand": ["Handlee", "cursive"]
+                    },
+                    boxShadow: {
+                        "postit": "2px 3px 5px rgba(0,0,0,0.1)",
+                        "postit-hover": "4px 6px 12px rgba(0,0,0,0.15)"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white font-display text-brand-black min-h-screen">
+<header class="px-4 sm:px-6 md:px-8 py-6 border-b border-stone-200 bg-white/80 backdrop-blur-sm">
+<div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+<div>
+<h1 class="text-3xl md:text-4xl font-black tracking-tight font-hand">Edit Task</h1>
+<p class="text-stone-500 text-sm">Update details, milestones, and progress.</p>
+</div>
+<a class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-stone-200 text-stone-600 hover:text-brand-black hover:border-brand-black text-sm font-bold" href="/dashboard">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+Back to Board
+</a>
+</div>
+</header>
+<main class="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 py-8">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<section class="lg:col-span-2 flex flex-col gap-6">
+<div class="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-bold">Task Details</h2>
+<span class="text-xs font-bold text-stone-500" id="task-id"></span>
+</div>
+<div class="flex flex-col gap-4">
+<label class="text-sm font-bold">Title</label>
+<input class="w-full rounded-lg border border-stone-200 px-4 py-3 text-sm font-semibold focus:ring-2 focus:ring-brand-yellow/50 focus:border-brand-yellow" id="title-input" type="text"/>
+<label class="text-sm font-bold">Description</label>
+<textarea class="w-full rounded-lg border border-stone-200 px-4 py-3 text-sm focus:ring-2 focus:ring-brand-yellow/50 focus:border-brand-yellow min-h-[160px]" id="description-input"></textarea>
+</div>
+</div>
+<div class="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-bold">Milestones</h2>
+<div class="text-sm font-bold text-stone-500" id="milestone-summary">0 of 0 Completed</div>
+</div>
+<div class="h-2 rounded-full bg-stone-100 overflow-hidden border border-stone-200 mb-4">
+<div class="h-2 bg-brand-yellow" id="milestone-progress" style="width:0%"></div>
+</div>
+<div class="space-y-3" id="milestone-list"></div>
+<button class="mt-4 w-full border-2 border-dashed border-stone-300 rounded-lg px-4 py-2 text-sm font-bold text-stone-500 hover:border-brand-black hover:text-brand-black" id="add-milestone" type="button">+ Add Milestone</button>
+</div>
+</section>
+<aside class="flex flex-col gap-6">
+<div class="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+<h2 class="text-lg font-bold mb-4">Assignment</h2>
+<div class="flex flex-col gap-3">
+<label class="text-xs font-bold uppercase tracking-wide text-stone-500">Your Email</label>
+<input class="w-full rounded-lg border border-stone-200 px-3 py-2 text-sm" id="current-user-email" placeholder="you@ynot.org" type="email"/>
+<label class="text-xs font-bold uppercase tracking-wide text-stone-500">Assigned To</label>
+<input class="w-full rounded-lg border border-stone-200 px-3 py-2 text-sm" id="assigned-to-input" placeholder="assignee@ynot.org" type="email"/>
+</div>
+</div>
+<div class="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+<h2 class="text-lg font-bold mb-4">Status & Priority</h2>
+<div class="flex flex-col gap-3">
+<label class="text-xs font-bold uppercase tracking-wide text-stone-500">Status</label>
+<select class="w-full rounded-lg border border-stone-200 px-3 py-2 text-sm font-semibold" id="status-select">
+<option value="TODO">To Do</option>
+<option value="IN_PROGRESS">In Progress</option>
+<option value="DONE">Done</option>
+</select>
+<label class="text-xs font-bold uppercase tracking-wide text-stone-500">Priority</label>
+<select class="w-full rounded-lg border border-stone-200 px-3 py-2 text-sm font-semibold" id="priority-select">
+<option value="LOW">Low</option>
+<option value="MEDIUM">Medium</option>
+<option value="HIGH">High</option>
+</select>
+</div>
+</div>
+<div class="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+<h2 class="text-lg font-bold mb-4">Progress</h2>
+<p class="text-sm text-stone-500 mb-2">Based on completed milestones.</p>
+<div class="text-3xl font-black text-brand-black" id="progress-percent">0%</div>
+</div>
+<div class="flex flex-col gap-3">
+<p class="text-sm font-bold text-red-600 hidden" id="form-message"></p>
+<button class="w-full rounded-lg bg-brand-black text-white py-3 text-sm font-bold hover:bg-gray-800" id="save-task" type="button">Save Changes</button>
+</div>
+</aside>
+</div>
+</main>
+<script>
+        const API_BASE = "http://localhost:8000";
+        const titleInput = document.getElementById("title-input");
+        const descriptionInput = document.getElementById("description-input");
+        const assignedToInput = document.getElementById("assigned-to-input");
+        const statusSelect = document.getElementById("status-select");
+        const prioritySelect = document.getElementById("priority-select");
+        const currentUserInput = document.getElementById("current-user-email");
+        const milestoneList = document.getElementById("milestone-list");
+        const milestoneSummary = document.getElementById("milestone-summary");
+        const milestoneProgress = document.getElementById("milestone-progress");
+        const progressPercent = document.getElementById("progress-percent");
+        const addMilestoneBtn = document.getElementById("add-milestone");
+        const saveBtn = document.getElementById("save-task");
+        const formMessage = document.getElementById("form-message");
+        const taskIdLabel = document.getElementById("task-id");
+
+        const params = new URLSearchParams(window.location.search);
+        const taskId = params.get("id");
+
+        function setMessage(text, isError = true) {
+            if (!formMessage) {
+                return;
+            }
+            if (!text) {
+                formMessage.textContent = "";
+                formMessage.classList.add("hidden");
+                return;
+            }
+            formMessage.textContent = text;
+            formMessage.classList.remove("hidden");
+            formMessage.classList.toggle("text-red-600", isError);
+            formMessage.classList.toggle("text-green-600", !isError);
+        }
+
+        function updateProgress() {
+            const rows = milestoneList ? Array.from(milestoneList.querySelectorAll("[data-milestone-row='true']")) : [];
+            const active = rows.filter((row) => {
+                const input = row.querySelector("[data-milestone-name]");
+                return input && input.value.trim();
+            });
+            const total = active.length;
+            const done = active.filter((row) => row.getAttribute("data-done") === "true").length;
+            const percent = total === 0 ? 0 : Math.round((done / total) * 100);
+
+            if (milestoneSummary) {
+                milestoneSummary.textContent = `${done} of ${total} Completed`;
+            }
+            if (milestoneProgress) {
+                milestoneProgress.style.width = `${percent}%`;
+            }
+            if (progressPercent) {
+                progressPercent.textContent = `${percent}%`;
+            }
+        }
+
+        function setMilestoneState(row, done) {
+            row.setAttribute("data-done", done ? "true" : "false");
+            const nameInput = row.querySelector("[data-milestone-name]");
+            if (nameInput) {
+                nameInput.classList.toggle("line-through", done);
+                nameInput.classList.toggle("text-stone-400", done);
+            }
+            const toggle = row.querySelector("[data-milestone-toggle]");
+            if (toggle) {
+                toggle.innerHTML = done
+                    ? '<span class="material-symbols-outlined text-[22px]">check_box</span>'
+                    : '<span class="material-symbols-outlined text-[22px]">check_box_outline_blank</span>';
+                toggle.classList.toggle("text-green-600", done);
+                toggle.classList.toggle("text-stone-300", !done);
+            }
+            row.classList.toggle("bg-stone-50", done);
+        }
+
+        function createMilestoneRow(data = {}) {
+            const row = document.createElement("div");
+            row.className = "flex items-center gap-3 border border-stone-200 rounded-lg px-3 py-2";
+            row.setAttribute("data-milestone-row", "true");
+
+            row.innerHTML = `
+                <button class="text-stone-300 hover:text-brand-black" data-milestone-toggle type="button"></button>
+                <input class="flex-1 text-sm font-semibold bg-transparent focus:ring-0 border-0" data-milestone-name placeholder="Milestone name" type="text" />
+                <input class="text-xs border border-stone-200 rounded px-2 py-1" data-milestone-date type="date" />
+                <button class="text-stone-400 hover:text-red-500" data-milestone-delete type="button">
+                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                </button>
+            `;
+
+            const nameInput = row.querySelector("[data-milestone-name]");
+            const dateInput = row.querySelector("[data-milestone-date]");
+            const toggle = row.querySelector("[data-milestone-toggle]");
+            const deleteBtn = row.querySelector("[data-milestone-delete]");
+
+            if (nameInput) {
+                nameInput.value = data.name || "";
+                nameInput.addEventListener("input", updateProgress);
+            }
+            if (dateInput && data.due_date) {
+                dateInput.value = data.due_date;
+            }
+            if (toggle) {
+                toggle.addEventListener("click", () => {
+                    const current = row.getAttribute("data-done") === "true";
+                    setMilestoneState(row, !current);
+                    updateProgress();
+                });
+            }
+            if (deleteBtn) {
+                deleteBtn.addEventListener("click", () => {
+                    row.remove();
+                    updateProgress();
+                });
+            }
+
+            setMilestoneState(row, data.done || false);
+            return row;
+        }
+
+        function addMilestone(data) {
+            if (!milestoneList) {
+                return;
+            }
+            milestoneList.appendChild(createMilestoneRow(data));
+            updateProgress();
+        }
+
+        function getMilestones() {
+            if (!milestoneList) {
+                return [];
+            }
+            const rows = milestoneList.querySelectorAll("[data-milestone-row='true']");
+            const milestones = [];
+            rows.forEach((row) => {
+                const nameInput = row.querySelector("[data-milestone-name]");
+                if (!nameInput) {
+                    return;
+                }
+                const name = nameInput.value.trim();
+                if (!name) {
+                    return;
+                }
+                const dateInput = row.querySelector("[data-milestone-date]");
+                const dueDate = dateInput && dateInput.value ? dateInput.value : null;
+                const done = row.getAttribute("data-done") === "true";
+                milestones.push({ name: name, due_date: dueDate, done: done });
+            });
+            return milestones;
+        }
+
+        async function loadTask() {
+            if (!taskId || taskId === "undefined") {
+                setMessage("Missing task id in URL.");
+                return;
+            }
+            const email = currentUserInput ? currentUserInput.value.trim() : "";
+            if (!email) {
+                setMessage("Add your email to load the task.");
+                return;
+            }
+            try {
+                const res = await fetch(`${API_BASE}/api/tasks/${taskId}`, {
+                    headers: { "X-User-Email": email }
+                });
+                if (!res.ok) {
+                    setMessage("Failed to load task.");
+                    return;
+                }
+                const payload = await res.json();
+                const task = payload.data;
+                if (taskIdLabel) {
+                    const resolvedId = task.id || task._id || taskId;
+                    taskIdLabel.textContent = `ID: ${resolvedId}`;
+                }
+                titleInput.value = task.title || "";
+                descriptionInput.value = task.description || "";
+                assignedToInput.value = task.assigned_to || "";
+                statusSelect.value = task.status || "TODO";
+                prioritySelect.value = task.priority || "MEDIUM";
+
+                if (milestoneList) {
+                    milestoneList.innerHTML = "";
+                }
+                (task.milestones || []).forEach((milestone) => addMilestone(milestone));
+                if (!task.milestones || task.milestones.length === 0) {
+                    addMilestone();
+                }
+                updateProgress();
+            } catch (error) {
+                setMessage("Network error loading task.");
+            }
+        }
+
+        async function saveTask() {
+            if (!taskId || taskId === "undefined") {
+                setMessage("Missing task id in URL.");
+                return;
+            }
+            const email = currentUserInput ? currentUserInput.value.trim() : "";
+            if (!email) {
+                setMessage("Add your email to save changes.");
+                return;
+            }
+            const payload = {
+                title: titleInput.value.trim(),
+                description: descriptionInput.value.trim() || null,
+                assigned_to: assignedToInput.value.trim(),
+                status: statusSelect.value,
+                priority: prioritySelect.value,
+                milestones: getMilestones()
+            };
+            try {
+                saveBtn.disabled = true;
+                const res = await fetch(`${API_BASE}/api/tasks/${taskId}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-User-Email": email
+                    },
+                    body: JSON.stringify(payload)
+                });
+                if (!res.ok) {
+                    const err = await res.json();
+                    setMessage(err && err.detail ? err.detail : "Failed to save task.");
+                    return;
+                }
+                setMessage("Task updated.", false);
+            } catch (error) {
+                setMessage("Network error saving task.");
+            } finally {
+                saveBtn.disabled = false;
+            }
+        }
+
+        if (addMilestoneBtn) {
+            addMilestoneBtn.addEventListener("click", () => addMilestone());
+        }
+
+        if (saveBtn) {
+            saveBtn.addEventListener("click", saveTask);
+        }
+
+        if (currentUserInput) {
+            const storedEmail = localStorage.getItem("ynot_user_email");
+            if (storedEmail) {
+                currentUserInput.value = storedEmail;
+            }
+            currentUserInput.addEventListener("change", () => {
+                const email = currentUserInput.value.trim();
+                if (email) {
+                    localStorage.setItem("ynot_user_email", email);
+                }
+                loadTask();
+            });
+        }
+
+        window.addEventListener("load", () => {
+            if (currentUserInput && currentUserInput.value.trim()) {
+                loadTask();
+            }
+        });
+    </script>
+</body>
+</html>
