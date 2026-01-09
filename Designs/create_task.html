@@ -52,10 +52,11 @@
 <h2 class="text-2xl font-extrabold tracking-tight">YNOT</h2>
 </div>
 <nav class="hidden md:flex items-center gap-1 bg-gray-100 p-1 rounded-lg border-2 border-transparent">
-<a class="text-gray-600 hover:text-black hover:bg-white px-4 py-1.5 rounded-md text-sm font-bold transition-all" href="#">Dashboard</a>
-<a class="text-black bg-white shadow-sm border border-gray-200 px-4 py-1.5 rounded-md text-sm font-bold" href="#">Projects</a>
-<a class="text-gray-600 hover:text-black hover:bg-white px-4 py-1.5 rounded-md text-sm font-bold transition-all" href="#">Team</a>
-<a class="text-gray-600 hover:text-black hover:bg-white px-4 py-1.5 rounded-md text-sm font-bold transition-all" href="#">Settings</a>
+<a id="nav-dashboard" class="text-gray-600 hover:text-black hover:bg-white px-4 py-1.5 rounded-md text-sm font-bold transition-all" href="/dashboard">Dashboard</a>
+<a id="nav-create" class="text-black bg-white shadow-sm border border-gray-200 px-4 py-1.5 rounded-md text-sm font-bold" href="/create-task">Projects</a>
+<a id="nav-resources" class="text-gray-600 hover:text-black hover:bg-white px-4 py-1.5 rounded-md text-sm font-bold transition-all" href="/resource-hub">Resources</a>
+<a id="nav-team" class="text-gray-600 hover:text-black hover:bg-white px-4 py-1.5 rounded-md text-sm font-bold transition-all" href="/resource-hub">Team</a>
+<a id="nav-settings" class="text-gray-600 hover:text-black hover:bg-white px-4 py-1.5 rounded-md text-sm font-bold transition-all" href="/settings">Settings</a>
 </nav>
 </div>
 <div class="flex flex-1 justify-end gap-6 items-center">
@@ -141,7 +142,7 @@
 </div>
 <div class="flex flex-col gap-2">
 <label class="text-xs font-bold uppercase tracking-wider text-gray-500">Your Email</label>
-<input class="w-full bg-white border-2 border-black rounded-lg px-4 py-3 text-black text-sm font-bold focus:shadow-brutal focus:outline-none" id="current-user-email" placeholder="you@ynot.org" type="email"/>
+<input class="w-full bg-white border-2 border-black rounded-lg px-4 py-3 text-black text-sm font-bold focus:shadow-brutal focus:outline-none" id="current-user-email" placeholder="you@ynot.org" type="email" readonly/>
 </div>
 <div class="flex flex-col gap-2">
 <label class="text-xs font-bold uppercase tracking-wider text-gray-500">Project Track</label>
@@ -272,6 +273,43 @@
         const milestoneSummary = document.getElementById("milestone-summary");
         const milestoneProgress = document.getElementById("milestone-progress");
         const addMilestoneBtn = document.getElementById("add-milestone");
+        const navDashboard = document.getElementById("nav-dashboard");
+        const navCreate = document.getElementById("nav-create");
+        const navResources = document.getElementById("nav-resources");
+        const navTeam = document.getElementById("nav-team");
+        const navSettings = document.getElementById("nav-settings");
+        const logoutBtn = document.getElementById("logout-btn");
+        let currentUser = null;
+
+        function redirectToLogin() {
+            const next = encodeURIComponent(window.location.pathname);
+            window.location.href = `/auth/login?next=${next}`;
+        }
+
+        async function fetchCurrentUser() {
+            const res = await fetch(`${API_BASE}/auth/me`, { credentials: "include" });
+            if (!res.ok) {
+                throw new Error("Not authenticated");
+            }
+            const payload = await res.json();
+            return payload.data;
+        }
+
+        async function ensureAuth() {
+            if (currentUser) {
+                return currentUser;
+            }
+            try {
+                currentUser = await fetchCurrentUser();
+                if (currentUserInput) {
+                    currentUserInput.value = currentUser.email || "";
+                }
+                return currentUser;
+            } catch (error) {
+                redirectToLogin();
+                throw error;
+            }
+        }
 
         function setMessage(text, isError = true) {
             if (!formMessage) {
@@ -457,13 +495,13 @@
             return milestones;
         }
 
-        async function loadIssueNumber(email) {
-            if (!issueNumber || !email) {
+        async function loadIssueNumber() {
+            if (!issueNumber) {
                 return;
             }
             try {
                 const res = await fetch(`${API_BASE}/api/tasks/next-issue`, {
-                    headers: { "X-User-Email": email }
+                    credentials: "include"
                 });
                 if (!res.ok) {
                     issueNumber.textContent = "#--";
@@ -476,14 +514,14 @@
             }
         }
 
-        async function loadUsers(email) {
-            if (!assigneeSelect || !email) {
+        async function loadUsers() {
+            if (!assigneeSelect) {
                 setAssigneeMode(false);
                 return;
             }
             try {
                 const res = await fetch(`${API_BASE}/api/users`, {
-                    headers: { "X-User-Email": email }
+                    credentials: "include"
                 });
                 if (!res.ok) {
                     setAssigneeMode(false);
@@ -527,18 +565,7 @@
         }
 
         if (currentUserInput) {
-            const storedEmail = localStorage.getItem("ynot_user_email");
-            if (storedEmail) {
-                currentUserInput.value = storedEmail;
-            }
-            currentUserInput.addEventListener("change", () => {
-                const email = currentUserInput.value.trim();
-                if (email) {
-                    localStorage.setItem("ynot_user_email", email);
-                    loadUsers(email);
-                    loadIssueNumber(email);
-                }
-            });
+            currentUserInput.setAttribute("readonly", "true");
         }
 
         if (addMilestoneBtn) {
@@ -554,18 +581,15 @@
                 event.preventDefault();
                 setMessage("");
 
+                await ensureAuth();
+
                 const title = titleInput ? titleInput.value.trim() : "";
                 const description = descriptionInput ? descriptionInput.value.trim() : "";
                 const assignedTo = getAssignee();
-                const currentUser = currentUserInput ? currentUserInput.value.trim() : "";
                 const status = statusSelect ? statusSelect.value : "TODO";
                 const priority = getPriority();
                 const milestones = getMilestones();
 
-                if (!currentUser) {
-                    setMessage("Add your email so we can set created_by.");
-                    return;
-                }
                 if (!title) {
                     setMessage("Task Summary is required.");
                     return;
@@ -593,9 +617,9 @@
                     const res = await fetch(`${API_BASE}/api/tasks`, {
                         method: "POST",
                         headers: {
-                            "Content-Type": "application/json",
-                            "X-User-Email": currentUser
+                            "Content-Type": "application/json"
                         },
+                        credentials: "include",
                         body: JSON.stringify(payload)
                     });
 
@@ -608,15 +632,9 @@
 
                     setMessage("Task created successfully.", false);
                     form.reset();
-                    if (currentUser) {
-                        localStorage.setItem("ynot_user_email", currentUser);
-                    }
-                    if (currentUserInput) {
-                        currentUserInput.value = currentUser;
-                    }
                     resetMilestones();
-                    loadIssueNumber(currentUser);
-                    loadUsers(currentUser);
+                    loadIssueNumber();
+                    loadUsers();
                 } catch (error) {
                     setMessage("Network error while creating task.");
                 } finally {
@@ -628,11 +646,30 @@
             });
         }
 
-        window.addEventListener("load", () => {
-            const email = currentUserInput ? currentUserInput.value.trim() : "";
-            if (email) {
-                loadUsers(email);
-                loadIssueNumber(email);
+        const navLinks = [
+            { el: navDashboard, href: "/dashboard" },
+            { el: navCreate, href: "/create-task" },
+            { el: navResources, href: "/resource-hub" },
+            { el: navTeam, href: "/resource-hub" },
+            { el: navSettings, href: "/settings" },
+        ];
+
+        navLinks.forEach(({ el, href }) => {
+            if (!el) {
+                return;
+            }
+            el.addEventListener("click", (event) => {
+                event.preventDefault();
+                window.location.href = href;
+            });
+        });
+
+        window.addEventListener("load", async () => {
+            try {
+                await ensureAuth();
+                await Promise.all([loadUsers(), loadIssueNumber()]);
+            } catch (error) {
+                // ensureAuth will redirect if not logged in
             }
             updateMilestoneProgress();
         });

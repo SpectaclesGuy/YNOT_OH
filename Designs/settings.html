@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YNOT - Settings</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "brand-yellow": "#FFD600",
+                        "brand-black": "#121212",
+                        "surface": "#F8F8F6",
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface font-sans text-brand-black min-h-screen">
+    <header class="border-b border-stone-200 bg-white/80 backdrop-blur-sm">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 py-4 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="flex items-center justify-center bg-brand-yellow rounded-lg size-10 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] border-2 border-brand-black text-brand-black font-black text-xl rotate-3">
+                    Y
+                </div>
+                <div>
+                    <p class="text-xs font-semibold text-stone-500 uppercase tracking-wide">YNOT Organising Hub</p>
+                    <h1 class="text-xl font-black">Settings</h1>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <button id="back-dashboard" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-stone-200 text-stone-700 hover:border-brand-black hover:text-brand-black text-sm font-bold transition-all">
+                    <span class="material-symbols-outlined text-[18px]">dashboard</span>
+                    Dashboard
+                </button>
+                <button id="logout-btn" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-stone-200 text-stone-600 hover:text-red-500 text-sm font-bold transition-all">
+                    <span class="material-symbols-outlined text-[18px]">logout</span>
+                    Log Out
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <section class="lg:col-span-2 space-y-6">
+                <div class="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-bold">Profile</h2>
+                        <span id="profile-status" class="text-xs font-semibold text-stone-500">Loading...</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <p class="text-xs font-semibold text-stone-500 uppercase tracking-wide">Name</p>
+                            <p id="profile-name" class="text-base font-bold text-brand-black">—</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-stone-500 uppercase tracking-wide">Email</p>
+                            <p id="profile-email" class="text-base font-bold text-brand-black">—</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-stone-200 rounded-xl p-6 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-lg font-bold">Preferences</h2>
+                        <button id="reset-prefs" class="text-xs font-bold text-stone-500 hover:text-brand-black transition-colors">Reset</button>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold text-stone-700">Default task sort</label>
+                            <select id="pref-sort" class="w-full rounded-lg border border-stone-200 px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-brand-yellow/60 focus:border-brand-yellow">
+                                <option value="-created_at">Newest first</option>
+                                <option value="created_at">Oldest first</option>
+                                <option value="priority">Priority</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-semibold text-stone-700">Show completed in lists</p>
+                                <p class="text-xs text-stone-500">Include DONE tasks by default</p>
+                            </div>
+                            <label class="inline-flex items-center cursor-pointer">
+                                <input id="pref-show-done" type="checkbox" class="sr-only peer" />
+                                <div class="w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:bg-brand-yellow relative">
+                                    <div class="absolute left-1 top-1 size-4 bg-white rounded-full transition-all peer-checked:translate-x-5 shadow"></div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="space-y-4">
+                <div class="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-bold">Theme</h2>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-semibold text-stone-700">Dark mode</p>
+                            <p class="text-xs text-stone-500">Toggle dark UI for this device</p>
+                        </div>
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input id="pref-theme" type="checkbox" class="sr-only peer" />
+                            <div class="w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:bg-brand-yellow relative">
+                                <div class="absolute left-1 top-1 size-4 bg-white rounded-full transition-all peer-checked:translate-x-5 shadow"></div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE = "http://localhost:8000";
+        const profileName = document.getElementById("profile-name");
+        const profileEmail = document.getElementById("profile-email");
+        const profileStatus = document.getElementById("profile-status");
+        const sortSelect = document.getElementById("pref-sort");
+        const showDoneToggle = document.getElementById("pref-show-done");
+        const themeToggle = document.getElementById("pref-theme");
+        const resetPrefsBtn = document.getElementById("reset-prefs");
+        const logoutBtn = document.getElementById("logout-btn");
+        const backDashboard = document.getElementById("back-dashboard");
+
+        const storage = {
+            set(key, value) {
+                localStorage.setItem(key, JSON.stringify(value));
+            },
+            get(key, fallback = null) {
+                const raw = localStorage.getItem(key);
+                if (!raw) return fallback;
+                try {
+                    return JSON.parse(raw);
+                } catch (e) {
+                    return fallback;
+                }
+            },
+            remove(key) {
+                localStorage.removeItem(key);
+            }
+        };
+
+        function applyTheme(dark) {
+            document.documentElement.classList.toggle("dark", !!dark);
+            document.body.classList.toggle("bg-brand-black", !!dark);
+            document.body.classList.toggle("text-white", !!dark);
+        }
+
+        async function loadProfile() {
+            try {
+                const res = await fetch(`${API_BASE}/auth/me`, { credentials: "include" });
+                if (!res.ok) {
+                    profileStatus.textContent = "Not signed in";
+                    return;
+                }
+                const payload = await res.json();
+                const user = payload.data || {};
+                profileName.textContent = user.name || "—";
+                profileEmail.textContent = user.email || "—";
+                profileStatus.textContent = "Signed in";
+            } catch (error) {
+                profileStatus.textContent = "Error";
+            }
+        }
+
+        function loadPreferences() {
+            const sort = storage.get("ynot_pref_sort", "-created_at");
+            const showDone = storage.get("ynot_pref_show_done", true);
+            const theme = storage.get("ynot_pref_theme_dark", false);
+            if (sortSelect) sortSelect.value = sort;
+            if (showDoneToggle) showDoneToggle.checked = !!showDone;
+            if (themeToggle) themeToggle.checked = !!theme;
+            applyTheme(theme);
+        }
+
+        function bindPreferences() {
+            if (sortSelect) {
+                sortSelect.addEventListener("change", () => {
+                    storage.set("ynot_pref_sort", sortSelect.value);
+                });
+            }
+            if (showDoneToggle) {
+                showDoneToggle.addEventListener("change", () => {
+                    storage.set("ynot_pref_show_done", showDoneToggle.checked);
+                });
+            }
+            if (themeToggle) {
+                themeToggle.addEventListener("change", () => {
+                    storage.set("ynot_pref_theme_dark", themeToggle.checked);
+                    applyTheme(themeToggle.checked);
+                });
+            }
+            if (resetPrefsBtn) {
+                resetPrefsBtn.addEventListener("click", () => {
+                    storage.remove("ynot_pref_sort");
+                    storage.remove("ynot_pref_show_done");
+                    storage.remove("ynot_pref_theme_dark");
+                    loadPreferences();
+                });
+            }
+        }
+
+        function bindNav() {
+            if (backDashboard) {
+                backDashboard.addEventListener("click", () => {
+                    window.location.href = "/dashboard";
+                });
+            }
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", async () => {
+                    try {
+                        await fetch(`${API_BASE}/auth/logout`, {
+                            method: "POST",
+                            credentials: "include",
+                        });
+                    } finally {
+                        window.location.href = "/auth/login";
+                    }
+                });
+            }
+        }
+
+        window.addEventListener("load", async () => {
+            bindNav();
+            bindPreferences();
+            loadPreferences();
+            await loadProfile();
+        });
+    </script>
+</body>
+</html>

@@ -53,9 +53,8 @@
 <label class="text-xs font-bold uppercase tracking-wide text-stone-500">Email</label>
 <input class="mt-2 w-full rounded-lg border border-stone-200 px-4 py-3 text-sm font-semibold focus:ring-2 focus:ring-brand-yellow/50 focus:border-brand-yellow" id="register-email" placeholder="you@ynot.org" type="email" required/>
 </div>
-<div>
-<label class="text-xs font-bold uppercase tracking-wide text-stone-500">Your Name</label>
-<input class="mt-2 w-full rounded-lg border border-stone-200 px-4 py-3 text-sm font-semibold focus:ring-2 focus:ring-brand-yellow/50 focus:border-brand-yellow" id="register-name" placeholder="Alex Johnson" type="text"/>
+<div class="rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs text-amber-800">
+Your Thapar.edu email will be used for this portal.
 </div>
 <p class="text-xs text-red-600 hidden" id="register-message"></p>
 <button class="w-full rounded-lg bg-brand-black text-white py-3 text-sm font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-0.5 transition-all" type="submit">Open Dashboard</button>
@@ -66,8 +65,16 @@
 <script>
         const form = document.getElementById("register-form");
         const emailInput = document.getElementById("register-email");
-        const nameInput = document.getElementById("register-name");
         const message = document.getElementById("register-message");
+
+        function deriveName(email) {
+            const local = email.split("@", 1)[0].replace(/\./g, " ").replace(/_/g, " ");
+            return local
+                .split(" ")
+                .filter(Boolean)
+                .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+                .join(" ");
+        }
 
         function setMessage(text) {
             if (!message) {
@@ -86,14 +93,20 @@
             form.addEventListener("submit", (event) => {
                 event.preventDefault();
                 const email = emailInput ? emailInput.value.trim() : "";
-                const name = nameInput ? nameInput.value.trim() : "";
                 if (!email) {
                     setMessage("Email is required.");
                     return;
                 }
+                if (!email.toLowerCase().endsWith("@thapar.edu")) {
+                    setMessage("Only thapar.edu email accounts are allowed.");
+                    return;
+                }
                 localStorage.setItem("ynot_user_email", email);
-                if (name) {
-                    localStorage.setItem("ynot_user_name", name);
+                const derivedName = deriveName(email);
+                if (derivedName) {
+                    localStorage.setItem("ynot_user_name", derivedName);
+                } else {
+                    localStorage.removeItem("ynot_user_name");
                 }
                 window.location.href = "/dashboard";
             });

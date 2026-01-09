@@ -76,7 +76,7 @@ Back to Board
 <h2 class="text-lg font-bold mb-4">Assignment</h2>
 <div class="flex flex-col gap-3">
 <label class="text-xs font-bold uppercase tracking-wide text-stone-500">Your Email</label>
-<input class="w-full rounded-lg border border-stone-200 px-3 py-2 text-sm" id="current-user-email" placeholder="you@ynot.org" type="email"/>
+<input class="w-full rounded-lg border border-stone-200 px-3 py-2 text-sm" id="current-user-email" placeholder="you@ynot.org" type="email" readonly/>
 <label class="text-xs font-bold uppercase tracking-wide text-stone-500">Assigned To</label>
 <input class="w-full rounded-lg border border-stone-200 px-3 py-2 text-sm" id="assigned-to-input" placeholder="assignee@ynot.org" type="email"/>
 </div>
@@ -129,6 +129,37 @@ Back to Board
 
         const params = new URLSearchParams(window.location.search);
         const taskId = params.get("id");
+        let currentUser = null;
+
+        function redirectToLogin() {
+            const next = encodeURIComponent(window.location.pathname + window.location.search);
+            window.location.href = `/auth/login?next=${next}`;
+        }
+
+        async function fetchCurrentUser() {
+            const res = await fetch(`${API_BASE}/auth/me`, { credentials: "include" });
+            if (!res.ok) {
+                throw new Error("Not authenticated");
+            }
+            const payload = await res.json();
+            return payload.data;
+        }
+
+        async function ensureAuth() {
+            if (currentUser) {
+                return currentUser;
+            }
+            try {
+                currentUser = await fetchCurrentUser();
+                if (currentUserInput) {
+                    currentUserInput.value = currentUser.email || "";
+                }
+                return currentUser;
+            } catch (error) {
+                redirectToLogin();
+                throw error;
+            }
+        }
 
         function setMessage(text, isError = true) {
             if (!formMessage) {
@@ -264,14 +295,10 @@ Back to Board
                 setMessage("Missing task id in URL.");
                 return;
             }
-            const email = currentUserInput ? currentUserInput.value.trim() : "";
-            if (!email) {
-                setMessage("Add your email to load the task.");
-                return;
-            }
+            await ensureAuth();
             try {
                 const res = await fetch(`${API_BASE}/api/tasks/${taskId}`, {
-                    headers: { "X-User-Email": email }
+                    credentials: "include"
                 });
                 if (!res.ok) {
                     setMessage("Failed to load task.");
@@ -307,11 +334,7 @@ Back to Board
                 setMessage("Missing task id in URL.");
                 return;
             }
-            const email = currentUserInput ? currentUserInput.value.trim() : "";
-            if (!email) {
-                setMessage("Add your email to save changes.");
-                return;
-            }
+            await ensureAuth();
             const payload = {
                 title: titleInput.value.trim(),
                 description: descriptionInput.value.trim() || null,
@@ -325,9 +348,9 @@ Back to Board
                 const res = await fetch(`${API_BASE}/api/tasks/${taskId}`, {
                     method: "PATCH",
                     headers: {
-                        "Content-Type": "application/json",
-                        "X-User-Email": email
+                        "Content-Type": "application/json"
                     },
+                    credentials: "include",
                     body: JSON.stringify(payload)
                 });
                 if (!res.ok) {
@@ -351,23 +374,12 @@ Back to Board
             saveBtn.addEventListener("click", saveTask);
         }
 
-        if (currentUserInput) {
-            const storedEmail = localStorage.getItem("ynot_user_email");
-            if (storedEmail) {
-                currentUserInput.value = storedEmail;
-            }
-            currentUserInput.addEventListener("change", () => {
-                const email = currentUserInput.value.trim();
-                if (email) {
-                    localStorage.setItem("ynot_user_email", email);
-                }
-                loadTask();
-            });
-        }
-
-        window.addEventListener("load", () => {
-            if (currentUserInput && currentUserInput.value.trim()) {
-                loadTask();
+        window.addEventListener("load", async () => {
+            try {
+                await ensureAuth();
+                await loadTask();
+            } catch (error) {
+                // ensureAuth will redirect if not logged in
             }
         });
     </script>
