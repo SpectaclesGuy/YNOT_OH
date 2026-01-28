@@ -71,35 +71,44 @@
 </div>
 </div>
 <nav class="flex flex-col gap-2">
-<a class="flex items-center gap-4 px-4 py-3 rounded-2xl text-zinc-600 hover:bg-zinc-100 transition-all group" href="#">
+<a id="nav-dashboard" class="flex items-center gap-4 px-4 py-3 rounded-2xl text-zinc-600 hover:bg-zinc-100 transition-all group" href="/dashboard">
 <span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">dashboard</span>
 <span class="text-sm font-bold">Dashboard</span>
 </a>
-<a class="flex items-center gap-4 px-4 py-3 rounded-2xl text-zinc-600 hover:bg-zinc-100 transition-all group" href="#">
+<a id="nav-tasks" class="flex items-center gap-4 px-4 py-3 rounded-2xl text-zinc-600 hover:bg-zinc-100 transition-all group" href="/create-task">
 <span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">assignment</span>
 <span class="text-sm font-bold">Tasks</span>
 </a>
-<a class="flex items-center gap-4 px-4 py-3 rounded-2xl bg-primary text-black shadow-soft font-bold transform scale-[1.02]" href="#">
+<a class="flex items-center gap-4 px-4 py-3 rounded-2xl bg-primary text-black shadow-soft font-bold transform scale-[1.02]" href="/resource-hub">
 <span class="material-symbols-outlined filled text-2xl">folder_open</span>
 <span class="text-sm">Resources</span>
 </a>
-<a class="flex items-center gap-4 px-4 py-3 rounded-2xl text-zinc-600 hover:bg-zinc-100 transition-all group" href="#">
+<a id="nav-settings" class="flex items-center gap-4 px-4 py-3 rounded-2xl text-zinc-600 hover:bg-zinc-100 transition-all group" href="/settings">
 <span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">settings</span>
 <span class="text-sm font-bold">Settings</span>
 </a>
 </nav>
 </div>
-<div class="mt-8 pt-6 border-t border-zinc-100">
-<div class="flex items-center gap-3 p-2 rounded-2xl hover:bg-zinc-50 transition-colors cursor-pointer">
+<div class="mt-8 pt-6 border-t border-zinc-100 relative">
+<button id="profile-toggle" class="flex items-center gap-3 p-2 rounded-2xl hover:bg-zinc-50 transition-colors cursor-pointer w-full">
 <div class="relative">
-<div class="size-10 rounded-full bg-cover bg-center border-2 border-white shadow-sm" data-alt="User profile picture of current logged in admin" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCAtMzQaEIDQ-kSezVE-igch8QWPeUSzq79ERwRc3fr0ax1rXG_MQs3xAPq1UXtGWp_vmat3SncSgFTjE7hHlRY2bPh6XGIAhXMMo5nR97koElLUlUt8G228V5yde9xDLPp3Jer_q4AgMH_xPLX28UjWsoqp6t9GKQynRBC5UUiVXotE9UvZy8tBARbjcTxxYDC8dgR1Jl1sxfiDjlYnz8I56MJJmzPHzrIa_gtjL8msp_JTMBLDr6aXq1VfQeWTzuqJEvqrBF06A');"></div>
+<div id="profile-avatar" class="size-10 rounded-full bg-cover bg-center border-2 border-white shadow-sm" data-alt="User profile picture"></div>
 <div class="absolute bottom-0 right-0 size-3 rounded-full bg-green-500 border-2 border-white"></div>
 </div>
-<div class="flex flex-col">
-<p class="text-sm font-bold text-black">Alex Morgan</p>
-<p class="text-xs text-zinc-500 font-medium">Administrator</p>
+<div class="flex flex-col text-left">
+<p id="profile-name" class="text-sm font-bold text-black">—</p>
+<p id="profile-email" class="text-xs text-zinc-500 font-medium truncate">—</p>
 </div>
 <span class="material-symbols-outlined ml-auto text-zinc-400">expand_more</span>
+</button>
+<div id="profile-menu" class="hidden absolute left-0 right-0 bg-white border border-zinc-200 rounded-xl shadow-lg z-20 p-3" style="bottom: calc(100% + 8px);">
+<p class="text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-1">Account</p>
+<p id="profile-menu-name" class="text-sm font-bold text-black">—</p>
+<p id="profile-menu-email" class="text-xs text-zinc-600 break-all mb-3">—</p>
+<button id="profile-logout" class="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-black text-white text-sm font-bold hover:bg-zinc-800 transition-colors">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+Log Out
+</button>
 </div>
 </div>
 </aside>
@@ -110,7 +119,7 @@
 <h2 class="text-4xl md:text-5xl font-black tracking-tight text-black">Central Resources</h2>
 <p class="text-zinc-500 text-lg font-medium">Manage and share assets for the upcoming hackathon.</p>
 </div>
-<button class="flex shrink-0 items-center gap-2 bg-black hover:bg-zinc-800 text-white px-6 py-3.5 rounded-2xl font-bold shadow-xl transition-all active:scale-95 group">
+<button id="upload-btn" class="flex shrink-0 items-center gap-2 bg-black hover:bg-zinc-800 text-white px-6 py-3.5 rounded-2xl font-bold shadow-xl transition-all active:scale-95 group">
 <span class="material-symbols-outlined text-primary group-hover:rotate-12 transition-transform">cloud_upload</span>
 <span>Upload Resource</span>
 </button>
@@ -120,20 +129,20 @@
 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
 <span class="material-symbols-outlined text-zinc-400 group-focus-within:text-black transition-colors">search</span>
 </div>
-<input class="block w-full pl-12 pr-4 py-3.5 border-2 border-zinc-100 rounded-2xl bg-zinc-50 text-black placeholder-zinc-400 font-medium focus:border-black focus:ring-0 focus:bg-white transition-all sm:text-sm shadow-sm" placeholder="Search by file name, uploader, or date..." type="text"/>
+<input id="search-input" class="block w-full pl-12 pr-4 py-3.5 border-2 border-zinc-100 rounded-2xl bg-zinc-50 text-black placeholder-zinc-400 font-medium focus:border-black focus:ring-0 focus:bg-white transition-all sm:text-sm shadow-sm" placeholder="Search by file name, uploader, or date..." type="text"/>
 </div>
 <div class="flex gap-2 overflow-x-auto pb-2 xl:pb-0 no-scrollbar items-center">
 <span class="text-xs font-bold text-zinc-400 uppercase tracking-wider pl-2 hidden sm:block mr-2">Filters:</span>
-<button class="whitespace-nowrap px-5 py-2 rounded-xl bg-primary text-black text-sm font-bold border-2 border-transparent shadow-sm">
+<button data-category="all" class="filter-pill whitespace-nowrap px-5 py-2 rounded-xl bg-primary text-black text-sm font-bold border-2 border-transparent shadow-sm">
                             All Files
                         </button>
-<button class="whitespace-nowrap px-5 py-2 rounded-xl bg-white hover:bg-zinc-50 text-zinc-600 hover:text-black text-sm font-bold transition-colors border-2 border-zinc-100 hover:border-zinc-300">
+<button data-category="deck" class="filter-pill whitespace-nowrap px-5 py-2 rounded-xl bg-white hover:bg-zinc-50 text-zinc-600 hover:text-black text-sm font-bold transition-colors border-2 border-zinc-100 hover:border-zinc-300">
                             Decks (PDF)
                         </button>
-<button class="whitespace-nowrap px-5 py-2 rounded-xl bg-white hover:bg-zinc-50 text-zinc-600 hover:text-black text-sm font-bold transition-colors border-2 border-zinc-100 hover:border-zinc-300">
+<button data-category="image" class="filter-pill whitespace-nowrap px-5 py-2 rounded-xl bg-white hover:bg-zinc-50 text-zinc-600 hover:text-black text-sm font-bold transition-colors border-2 border-zinc-100 hover:border-zinc-300">
                             Images
                         </button>
-<button class="whitespace-nowrap px-5 py-2 rounded-xl bg-white hover:bg-zinc-50 text-zinc-600 hover:text-black text-sm font-bold transition-colors border-2 border-zinc-100 hover:border-zinc-300">
+<button data-category="sheet" class="filter-pill whitespace-nowrap px-5 py-2 rounded-xl bg-white hover:bg-zinc-50 text-zinc-600 hover:text-black text-sm font-bold transition-colors border-2 border-zinc-100 hover:border-zinc-300">
                             Spreadsheets
                         </button>
 </div>
@@ -151,170 +160,18 @@
 <th class="px-6 py-5 text-right" scope="col">Actions</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-zinc-100">
-<tr class="group hover:bg-yellow-50/50 transition-colors">
-<td class="px-6 py-4">
-<div class="flex items-center justify-center size-12 rounded-2xl bg-white border-2 border-zinc-100 text-red-500 shadow-sm group-hover:border-red-200 group-hover:scale-105 transition-all">
-<span class="material-symbols-outlined">picture_as_pdf</span>
-</div>
-</td>
-<td class="px-6 py-4">
-<div class="flex flex-col gap-0.5">
-<span class="text-black font-bold text-base">Sponsorship_Deck_v3.pdf</span>
-<span class="text-xs text-zinc-500 font-medium">Version 3.2 - Final Draft</span>
-</div>
-</td>
-<td class="px-6 py-4">
-<div class="flex items-center gap-3">
-<div class="size-8 rounded-full bg-cover bg-center ring-2 ring-white shadow-sm" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCDW44eUO40zgNnBi_n5qi6ZMThcGjkFnwo-lmzM4exYKLe0G91cQgET5eBq_JqfM4cJ9djBPumHidMXJ8VgtCVosai5ujpkVR4bAf9BD-8tmSdQJoFigHybLYO6-kTyloXwGt4djRMAOc83qdsgiOkm1XyVNFhp4SasuaeE6c7tf08bmgJKIk8iHATOM9PjFHLLrQOfELft4cWfUTq78AGVjYAs6_44XdduIMMs4MaTkke9CZ27Xe8XIl6Qr9mvftcbNyhKAcxbQ');"></div>
-<span class="text-zinc-700 font-semibold">Sarah Chen</span>
-</div>
-</td>
-<td class="px-6 py-4 text-zinc-500 font-medium">Oct 24, 2023</td>
-<td class="px-6 py-4 text-zinc-500 font-mono text-xs bg-zinc-100 px-2 py-1 rounded-md w-fit mx-6 text-center">2.4 MB</td>
-<td class="px-6 py-4 text-right">
-<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="text-black bg-primary hover:bg-primary-hover p-2.5 rounded-xl transition-colors shadow-sm" title="Download">
-<span class="material-symbols-outlined text-lg">download</span>
-</button>
-<button class="text-zinc-400 hover:text-black hover:bg-zinc-100 p-2.5 rounded-xl transition-colors" title="More options">
-<span class="material-symbols-outlined text-lg">more_vert</span>
-</button>
-</div>
-</td>
-</tr>
-<tr class="group hover:bg-yellow-50/50 transition-colors">
-<td class="px-6 py-4">
-<div class="flex items-center justify-center size-12 rounded-2xl bg-white border-2 border-zinc-100 text-blue-500 shadow-sm group-hover:border-blue-200 group-hover:scale-105 transition-all">
-<span class="material-symbols-outlined">image</span>
-</div>
-</td>
-<td class="px-6 py-4">
-<div class="flex flex-col gap-0.5">
-<span class="text-black font-bold text-base">Venue_Map_Final.png</span>
-<span class="text-xs text-zinc-500 font-medium">Floor 1 &amp; 2 layout</span>
-</div>
-</td>
-<td class="px-6 py-4">
-<div class="flex items-center gap-3">
-<div class="size-8 rounded-full bg-cover bg-center ring-2 ring-white shadow-sm" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB-wzCiKaSGbd7yZiREMG9cgBAp55VpZ5zQoJDg67FVvFCrQ4E52a3wVrS2ISd_3YhUClTj3ux8wjl2dljQ97m-U2VkyRC6CL8BD6V_Ag9rZrem3GyrW2jp1pptcqkR76G6EOSYnBoIfapzM4kDsunqnGD_mQXSyp0AXe6mlB5mSqFuIFyrNvFBKqztSJaGY5njU7714WJ9GWO44ET7npuRXB6oXb1SBPIkUJpv5sKOeEIE7F_syATw4brMz1LwTiWfPgIzWIxEvw');"></div>
-<span class="text-zinc-700 font-semibold">Mike Ross</span>
-</div>
-</td>
-<td class="px-6 py-4 text-zinc-500 font-medium">Oct 22, 2023</td>
-<td class="px-6 py-4 text-zinc-500 font-mono text-xs bg-zinc-100 px-2 py-1 rounded-md w-fit mx-6 text-center">4.1 MB</td>
-<td class="px-6 py-4 text-right">
-<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="text-black bg-primary hover:bg-primary-hover p-2.5 rounded-xl transition-colors shadow-sm" title="Download">
-<span class="material-symbols-outlined text-lg">download</span>
-</button>
-<button class="text-zinc-400 hover:text-black hover:bg-zinc-100 p-2.5 rounded-xl transition-colors" title="More options">
-<span class="material-symbols-outlined text-lg">more_vert</span>
-</button>
-</div>
-</td>
-</tr>
-<tr class="group hover:bg-yellow-50/50 transition-colors">
-<td class="px-6 py-4">
-<div class="flex items-center justify-center size-12 rounded-2xl bg-white border-2 border-zinc-100 text-green-600 shadow-sm group-hover:border-green-200 group-hover:scale-105 transition-all">
-<span class="material-symbols-outlined">table_chart</span>
-</div>
-</td>
-<td class="px-6 py-4">
-<div class="flex flex-col gap-0.5">
-<span class="text-black font-bold text-base">Volunteer_Schedule.xlsx</span>
-<span class="text-xs text-zinc-500 font-medium">Shift assignments Q4</span>
-</div>
-</td>
-<td class="px-6 py-4">
-<div class="flex items-center gap-3">
-<div class="size-8 rounded-full bg-cover bg-center ring-2 ring-white shadow-sm" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAcTBkqvHr62n-_RmkQtNeGQlk_Ha0H0ehtv0JEL_Kczp1Kc_w8SwXZiGv330omFxLnxGAoxbPJJevb8J824pUfvto86hMET8LYtxF1c04wiqO3CudiQYoxKjNFM_tV0kjP-mmRCKXq3zIk2DeZ0_Kp_ghS_nkpcDFVbDWF_2qnLSfsqCAbPan97S_IQtMjnXvwAVPeW6aZrVsgKIGmRIXJNE95UrvXCYFXPenFjK1tmkoxB6YNiFjXvXar1tw5-9fwr-u9shLzng');"></div>
-<span class="text-zinc-700 font-semibold">Jessica Pearson</span>
-</div>
-</td>
-<td class="px-6 py-4 text-zinc-500 font-medium">Oct 20, 2023</td>
-<td class="px-6 py-4 text-zinc-500 font-mono text-xs bg-zinc-100 px-2 py-1 rounded-md w-fit mx-6 text-center">1.2 MB</td>
-<td class="px-6 py-4 text-right">
-<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="text-black bg-primary hover:bg-primary-hover p-2.5 rounded-xl transition-colors shadow-sm" title="Download">
-<span class="material-symbols-outlined text-lg">download</span>
-</button>
-<button class="text-zinc-400 hover:text-black hover:bg-zinc-100 p-2.5 rounded-xl transition-colors" title="More options">
-<span class="material-symbols-outlined text-lg">more_vert</span>
-</button>
-</div>
-</td>
-</tr>
-<tr class="group hover:bg-yellow-50/50 transition-colors">
-<td class="px-6 py-4">
-<div class="flex items-center justify-center size-12 rounded-2xl bg-white border-2 border-zinc-100 text-orange-500 shadow-sm group-hover:border-orange-200 group-hover:scale-105 transition-all">
-<span class="material-symbols-outlined">folder_zip</span>
-</div>
-</td>
-<td class="px-6 py-4">
-<div class="flex flex-col gap-0.5">
-<span class="text-black font-bold text-base">Assets_Bundle_2024.zip</span>
-<span class="text-xs text-zinc-500 font-medium">Logos and fonts package</span>
-</div>
-</td>
-<td class="px-6 py-4">
-<div class="flex items-center gap-3">
-<div class="size-8 rounded-full bg-cover bg-center ring-2 ring-white shadow-sm" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBm6NSqLTXituMZL0cc_HGU1np1XNKQd8ABO4nmX_EfObCgukk0cZK9GReioAO9Kluayl0XJZMQqBunW3IZtwW0xFs1BtF-Lnd_mRpzT_l1Q97qWPvcmGAds-pEIQG6ibXfo_jm3Y2rflbFAjF9DPicOZXCQPjD7D4opA9pU-JfVwJ638Tk9ENm8KxbxaTjydLFWgR0t5Fy0j-_QPRV1-mkFQa2pMubjXflxg_ET-NZOWxtUEl0CrnZ8GiQ6oOeZlvTuIVZ9vpqfg');"></div>
-<span class="text-zinc-700 font-semibold">David Kim</span>
-</div>
-</td>
-<td class="px-6 py-4 text-zinc-500 font-medium">Oct 18, 2023</td>
-<td class="px-6 py-4 text-zinc-500 font-mono text-xs bg-zinc-100 px-2 py-1 rounded-md w-fit mx-6 text-center">15.8 MB</td>
-<td class="px-6 py-4 text-right">
-<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="text-black bg-primary hover:bg-primary-hover p-2.5 rounded-xl transition-colors shadow-sm" title="Download">
-<span class="material-symbols-outlined text-lg">download</span>
-</button>
-<button class="text-zinc-400 hover:text-black hover:bg-zinc-100 p-2.5 rounded-xl transition-colors" title="More options">
-<span class="material-symbols-outlined text-lg">more_vert</span>
-</button>
-</div>
-</td>
-</tr>
-<tr class="group hover:bg-yellow-50/50 transition-colors">
-<td class="px-6 py-4">
-<div class="flex items-center justify-center size-12 rounded-2xl bg-white border-2 border-zinc-100 text-blue-600 shadow-sm group-hover:border-blue-200 group-hover:scale-105 transition-all">
-<span class="material-symbols-outlined">description</span>
-</div>
-</td>
-<td class="px-6 py-4">
-<div class="flex flex-col gap-0.5">
-<span class="text-black font-bold text-base">Judging_Criteria.docx</span>
-<span class="text-xs text-zinc-500 font-medium">Official Rubric</span>
-</div>
-</td>
-<td class="px-6 py-4">
-<div class="flex items-center gap-3">
-<div class="size-8 rounded-full bg-cover bg-center ring-2 ring-white shadow-sm" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCNxtw0CM0P20AfCDTRnn0Dyg7FaCSbYdXCSDAN8tq64zlUNYwsZ4WQQgcFyXjhc-omg2VGLlW1QAzqehoeiNzv-iSyqbFyvQe-CHHphnl_A0Gmz-ZjMFjC6UHCATVzpNu9tuhl1UDP5dC1cfs4onWRIIp-ju6PyC_6cKRV2dA1-B-tqCo-S6VvqFxEmA-SoRts1vcq2Jm8VnHtIpeB03wyw8kMwt-TfEzGo3cQyS8P8Vom-n0xWRWRajyj9cCkHxbuNxMpbgPZig');"></div>
-<span class="text-zinc-700 font-semibold">Sarah Chen</span>
-</div>
-</td>
-<td class="px-6 py-4 text-zinc-500 font-medium">Oct 15, 2023</td>
-<td class="px-6 py-4 text-zinc-500 font-mono text-xs bg-zinc-100 px-2 py-1 rounded-md w-fit mx-6 text-center">0.8 MB</td>
-<td class="px-6 py-4 text-right">
-<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="text-black bg-primary hover:bg-primary-hover p-2.5 rounded-xl transition-colors shadow-sm" title="Download">
-<span class="material-symbols-outlined text-lg">download</span>
-</button>
-<button class="text-zinc-400 hover:text-black hover:bg-zinc-100 p-2.5 rounded-xl transition-colors" title="More options">
-<span class="material-symbols-outlined text-lg">more_vert</span>
-</button>
-</div>
-</td>
+<tbody id="resource-rows" class="divide-y divide-zinc-100">
+<tr id="resource-empty">
+<td colspan="6" class="px-6 py-6 text-center text-sm text-zinc-500">No resources yet.</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="flex items-center justify-between px-6 py-5 border-t border-zinc-100 bg-zinc-50">
-<p class="text-sm text-zinc-500 font-medium">Showing <span class="text-black font-bold">1</span> to <span class="text-black font-bold">5</span> of <span class="text-black font-bold">128</span> results</p>
+<p class="text-sm text-zinc-500 font-medium">Showing <span id="res-start" class="text-black font-bold">0</span> to <span id="res-end" class="text-black font-bold">0</span> of <span id="res-total" class="text-black font-bold">0</span> results</p>
 <div class="flex gap-3">
-<button class="px-4 py-2 text-sm font-bold rounded-xl border border-zinc-200 text-zinc-500 bg-white hover:bg-zinc-50 hover:text-black hover:border-zinc-300 disabled:opacity-50 transition-all" disabled="">Previous</button>
-<button class="px-4 py-2 text-sm font-bold rounded-xl border border-zinc-200 text-zinc-500 bg-white hover:bg-zinc-50 hover:text-black hover:border-zinc-300 transition-all">Next</button>
+<button id="res-prev" class="px-4 py-2 text-sm font-bold rounded-xl border border-zinc-200 text-zinc-500 bg-white hover:bg-zinc-50 hover:text-black hover:border-zinc-300 disabled:opacity-50 transition-all" disabled="">Previous</button>
+<button id="res-next" class="px-4 py-2 text-sm font-bold rounded-xl border border-zinc-200 text-zinc-500 bg-white hover:bg-zinc-50 hover:text-black hover:border-zinc-300 disabled:opacity-50 transition-all">Next</button>
 </div>
 </div>
 </div>
@@ -322,4 +179,421 @@
 </main>
 </div>
 
+<div id="upload-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center px-4 py-8 hidden z-50">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-xl border-2 border-zinc-200">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100">
+            <div>
+                <p class="text-xs font-semibold text-zinc-500 uppercase tracking-wide">Add Resource</p>
+                <h3 class="text-xl font-bold text-black">Upload or link a file</h3>
+            </div>
+            <button id="upload-close" class="text-zinc-400 hover:text-black">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <form id="upload-form" class="px-6 py-5 space-y-4">
+            <div class="flex flex-col gap-2">
+                <label class="text-sm font-semibold text-zinc-700">Title *</label>
+                <input id="upload-title" class="w-full rounded-xl border border-zinc-200 px-3 py-2.5 text-sm font-medium focus:ring-2 focus:ring-primary focus:border-primary" required />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="text-sm font-semibold text-zinc-700">Description</label>
+                <textarea id="upload-description" class="w-full rounded-xl border border-zinc-200 px-3 py-2.5 text-sm font-medium focus:ring-2 focus:ring-primary focus:border-primary" rows="3" placeholder="What is this resource?"></textarea>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-semibold text-zinc-700">Category</label>
+                    <select id="upload-category" class="w-full rounded-xl border border-zinc-200 px-3 py-2.5 text-sm font-semibold focus:ring-2 focus:ring-primary focus:border-primary">
+                        <option value="deck">Deck (PDF)</option>
+                        <option value="image">Image</option>
+                        <option value="sheet">Spreadsheet</option>
+                        <option value="doc">Document</option>
+                        <option value="archive">Archive</option>
+                        <option value="other" selected>Other</option>
+                    </select>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-semibold text-zinc-700">Tags (comma separated)</label>
+                    <input id="upload-tags" class="w-full rounded-xl border border-zinc-200 px-3 py-2.5 text-sm font-medium focus:ring-2 focus:ring-primary focus:border-primary" placeholder="e.g. agenda, judges" />
+                </div>
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="text-sm font-semibold text-zinc-700">External URL (optional)</label>
+                <input id="upload-url" class="w-full rounded-xl border border-zinc-200 px-3 py-2.5 text-sm font-medium focus:ring-2 focus:ring-primary focus:border-primary" placeholder="https://example.com/resource" />
+                <p class="text-xs text-zinc-500">Provide a URL for external assets. You can also upload a file below.</p>
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="text-sm font-semibold text-zinc-700">Upload File (optional)</label>
+                <input id="upload-file" type="file" class="w-full text-sm" />
+                <p class="text-xs text-zinc-500">If both URL and file are provided, the file will be stored and linked.</p>
+            </div>
+            <p id="upload-error" class="text-sm font-semibold text-red-600 hidden"></p>
+            <div class="flex items-center justify-end gap-3 pt-2 border-t border-zinc-100 mt-2">
+                <button type="button" id="upload-cancel" class="px-4 py-2 text-sm font-bold rounded-xl border border-zinc-200 text-zinc-600 hover:text-black hover:border-zinc-300">Cancel</button>
+                <button type="submit" id="upload-submit" class="px-5 py-2 rounded-xl bg-black text-white font-bold hover:bg-zinc-800 transition-colors">Save Resource</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const API_BASE = "http://localhost:8000";
+    const resourceRows = document.getElementById("resource-rows");
+    const searchInput = document.getElementById("search-input");
+    const filterPills = document.querySelectorAll(".filter-pill");
+    const uploadBtn = document.getElementById("upload-btn");
+    const uploadModal = document.getElementById("upload-modal");
+    const uploadClose = document.getElementById("upload-close");
+    const uploadCancel = document.getElementById("upload-cancel");
+    const uploadForm = document.getElementById("upload-form");
+    const uploadError = document.getElementById("upload-error");
+    const uploadTitle = document.getElementById("upload-title");
+    const uploadDescription = document.getElementById("upload-description");
+    const uploadCategory = document.getElementById("upload-category");
+    const uploadTags = document.getElementById("upload-tags");
+    const uploadUrl = document.getElementById("upload-url");
+    const uploadFile = document.getElementById("upload-file");
+    const navDashboard = document.getElementById("nav-dashboard");
+    const navTasks = document.getElementById("nav-tasks");
+    const navSettings = document.getElementById("nav-settings");
+    const resStart = document.getElementById("res-start");
+    const resEnd = document.getElementById("res-end");
+    const resTotal = document.getElementById("res-total");
+    const resPrev = document.getElementById("res-prev");
+    const resNext = document.getElementById("res-next");
+    const profileName = document.getElementById("profile-name");
+    const profileEmail = document.getElementById("profile-email");
+    const profileAvatar = document.getElementById("profile-avatar");
+    const profileToggle = document.getElementById("profile-toggle");
+    const profileMenu = document.getElementById("profile-menu");
+    const profileMenuName = document.getElementById("profile-menu-name");
+    const profileMenuEmail = document.getElementById("profile-menu-email");
+    const profileLogout = document.getElementById("profile-logout");
+
+    let resources = [];
+    let activeCategory = "all";
+    let searchTerm = "";
+    let searchTimer;
+    let totalCount = 0;
+    let limit = 10;
+    let skip = 0;
+
+    function redirectToLogin() {
+        window.location.href = "/auth/login";
+    }
+
+    async function ensureAuth() {
+        const res = await fetch(`${API_BASE}/auth/me`, { credentials: "include" });
+        if (!res.ok) {
+            redirectToLogin();
+            throw new Error("Not authenticated");
+        }
+        const payload = await res.json();
+        const user = payload.data || {};
+        if (profileName) profileName.textContent = user.name || (user.email || "—");
+        if (profileEmail) profileEmail.textContent = user.email || "—";
+        if (profileMenuName) profileMenuName.textContent = user.name || (user.email || "—");
+        if (profileMenuEmail) profileMenuEmail.textContent = user.email || "—";
+        if (profileAvatar) {
+            profileAvatar.style.backgroundImage = user.avatar
+                ? `url('${user.avatar}')`
+                : `url('https://ui-avatars.com/api/?name=${encodeURIComponent(user.email || "user")}&background=fbbf24&color=000')`;
+        }
+        return payload;
+    }
+
+    function formatSize(bytes) {
+        if (bytes === null || bytes === undefined) return "—";
+        const sizes = ["B", "KB", "MB", "GB"];
+        if (bytes === 0) return "0 B";
+        const i = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), sizes.length - 1);
+        return `${(bytes / Math.pow(1024, i)).toFixed(1)} ${sizes[i]}`;
+    }
+
+    function formatDate(value) {
+        if (!value) return "—";
+        const d = new Date(value);
+        return d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+    }
+
+    function categoryIcon(cat) {
+        switch (cat) {
+            case "deck":
+                return { icon: "picture_as_pdf", color: "text-red-500" };
+            case "image":
+                return { icon: "image", color: "text-blue-500" };
+            case "sheet":
+                return { icon: "table_chart", color: "text-green-600" };
+            case "doc":
+                return { icon: "description", color: "text-blue-600" };
+            case "archive":
+                return { icon: "folder_zip", color: "text-orange-500" };
+            default:
+                return { icon: "insert_drive_file", color: "text-zinc-500" };
+        }
+    }
+
+    function clearRows() {
+        resourceRows.innerHTML = "";
+    }
+
+    function renderEmpty() {
+        const row = document.createElement("tr");
+        row.innerHTML = `<td colspan="6" class="px-6 py-6 text-center text-sm text-zinc-500">No resources yet.</td>`;
+        resourceRows.appendChild(row);
+    }
+
+    function renderResources(list) {
+        clearRows();
+        if (!list || list.length === 0) {
+            renderEmpty();
+            return;
+        }
+        list.forEach((item) => {
+            const { icon, color } = categoryIcon(item.category);
+            const tr = document.createElement("tr");
+            tr.className = "group hover:bg-yellow-50/50 transition-colors";
+            const downloadAvailable = item.file_path;
+            tr.innerHTML = `
+                <td class="px-6 py-4">
+                    <div class="flex items-center justify-center size-12 rounded-2xl bg-white border-2 border-zinc-100 ${color} shadow-sm group-hover:scale-105 transition-all">
+                        <span class="material-symbols-outlined">${icon}</span>
+                    </div>
+                </td>
+                <td class="px-6 py-4">
+                    <div class="flex flex-col gap-0.5">
+                        <span class="text-black font-bold text-base break-all">${item.title || "Untitled"}</span>
+                        <span class="text-xs text-zinc-500 font-medium truncate">${item.description || ""}</span>
+                    </div>
+                </td>
+                <td class="px-6 py-4">
+                    <div class="flex items-center gap-3">
+                        <div class="size-8 rounded-full bg-cover bg-center ring-2 ring-white shadow-sm" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCAtMzQaEIDQ-kSezVE-igch8QWPeUSzq79ERwRc3fr0ax1rXG_MQs3xAPq1UXtGWp_vmat3SncSgFTjE7hHlRY2bPh6XGIAhXMMo5nR97koElLUlUt8G228V5yde9xDLPp3Jer_q4AgMH_xPLX28UjWsoqp6t9GKQynRBC5UUiVXotE9UvZy8tBARbjcTxxYDC8dgR1Jl1sxfiDjlYnz8I56MJJmzPHzrIa_gtjL8msp_JTMBLDr6aXq1VfQeWTzuqJEvqrBF06A');"></div>
+                        <span class="text-zinc-700 font-semibold truncate" title="${item.uploaded_by || ""}">${item.uploaded_by || "—"}</span>
+                    </div>
+                </td>
+                <td class="px-6 py-4 text-zinc-500 font-medium">${formatDate(item.created_at)}</td>
+                <td class="px-6 py-4 text-zinc-500 font-mono text-xs bg-zinc-100 px-2 py-1 rounded-md w-fit mx-6 text-center">${formatSize(item.size_bytes)}</td>
+                <td class="px-6 py-4 text-right">
+                    <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        ${downloadAvailable ? `<button class="download-btn text-black bg-primary hover:bg-primary-hover p-2.5 rounded-xl transition-colors shadow-sm" data-id="${item.id || item._id}">
+                            <span class="material-symbols-outlined text-lg">download</span>
+                        </button>` : ""}
+                        ${item.url ? `<a href="${item.url}" target="_blank" rel="noopener" class="text-zinc-500 hover:text-black p-2.5 rounded-xl transition-colors" title="Open link">
+                            <span class="material-symbols-outlined text-lg">open_in_new</span>
+                        </a>` : ""}
+                        <button class="delete-btn text-zinc-400 hover:text-red-600 hover:bg-red-50 p-2.5 rounded-xl transition-colors" data-id="${item.id || item._id}" title="Delete">
+                            <span class="material-symbols-outlined text-lg">delete</span>
+                        </button>
+                    </div>
+                </td>
+            `;
+            resourceRows.appendChild(tr);
+        });
+        document.querySelectorAll(".download-btn").forEach((btn) => {
+            btn.addEventListener("click", async () => {
+                const id = btn.getAttribute("data-id");
+                if (!id) return;
+                window.location.href = `/api/resources/${id}/download`;
+            });
+        });
+        document.querySelectorAll(".delete-btn").forEach((btn) => {
+            btn.addEventListener("click", async () => {
+                const id = btn.getAttribute("data-id");
+                if (!id) return;
+                const confirmDelete = confirm("Delete this resource?");
+                if (!confirmDelete) return;
+                const res = await fetch(`${API_BASE}/api/resources/${id}`, {
+                    method: "DELETE",
+                    credentials: "include",
+                });
+                if (res.ok) {
+                    await loadResources();
+                }
+            });
+        });
+    }
+
+    async function loadResources() {
+        const params = new URLSearchParams();
+        if (activeCategory && activeCategory !== "all") {
+            params.set("category", activeCategory);
+        }
+        if (searchTerm) {
+            params.set("q", searchTerm);
+        }
+        params.set("sort", "-created_at");
+        params.set("limit", String(limit));
+        params.set("skip", String(skip));
+        const res = await fetch(`${API_BASE}/api/resources?${params.toString()}`, {
+            credentials: "include",
+        });
+        if (!res.ok) {
+            renderEmpty();
+            return;
+        }
+        const payload = await res.json();
+        resources = payload.data || [];
+        totalCount = payload.total || resources.length;
+        renderResources(resources);
+        const start = totalCount === 0 ? 0 : skip + 1;
+        const end = Math.min(skip + resources.length, totalCount);
+        if (resStart) resStart.textContent = String(start);
+        if (resEnd) resEnd.textContent = String(end);
+        if (resTotal) resTotal.textContent = String(totalCount);
+        if (resPrev) resPrev.disabled = skip <= 0;
+        if (resNext) resNext.disabled = end >= totalCount;
+    }
+
+    function setActiveFilter(category) {
+        activeCategory = category;
+        filterPills.forEach((pill) => {
+            const cat = pill.getAttribute("data-category");
+            const isActive = cat === category;
+            pill.classList.toggle("bg-primary", isActive);
+            pill.classList.toggle("text-black", isActive);
+            pill.classList.toggle("border-transparent", isActive);
+            pill.classList.toggle("bg-white", !isActive);
+            pill.classList.toggle("text-zinc-600", !isActive);
+        });
+    }
+
+    function bindFilters() {
+        filterPills.forEach((pill) => {
+            pill.addEventListener("click", () => {
+                const cat = pill.getAttribute("data-category") || "all";
+                setActiveFilter(cat);
+                skip = 0;
+                loadResources();
+            });
+        });
+        if (searchInput) {
+            searchInput.addEventListener("input", () => {
+                clearTimeout(searchTimer);
+                searchTimer = setTimeout(() => {
+                    searchTerm = searchInput.value.trim();
+                    skip = 0;
+                    loadResources();
+                }, 300);
+            });
+        }
+    }
+
+    function openModal() {
+        uploadModal.classList.remove("hidden");
+    }
+
+    function closeModal() {
+        uploadModal.classList.add("hidden");
+        uploadForm.reset();
+        uploadError.classList.add("hidden");
+        uploadError.textContent = "";
+    }
+
+    function bindUpload() {
+        if (uploadBtn) uploadBtn.addEventListener("click", openModal);
+        if (uploadClose) uploadClose.addEventListener("click", closeModal);
+        if (uploadCancel) uploadCancel.addEventListener("click", closeModal);
+        if (uploadForm) {
+            uploadForm.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                uploadError.classList.add("hidden");
+                const formData = new FormData();
+                formData.append("title", uploadTitle.value.trim());
+                formData.append("description", uploadDescription.value.trim());
+                formData.append("category", uploadCategory.value);
+                formData.append("tags", uploadTags.value.trim());
+                const urlValue = uploadUrl.value.trim();
+                const fileSelected = uploadFile.files && uploadFile.files[0];
+                if (urlValue) {
+                    formData.append("url", urlValue);
+                }
+                if (fileSelected) {
+                    formData.append("file", uploadFile.files[0]);
+                }
+                if (!urlValue && !fileSelected) {
+                    uploadError.textContent = "Add a file or a link before saving.";
+                    uploadError.classList.remove("hidden");
+                    return;
+                }
+                const res = await fetch(`${API_BASE}/api/resources`, {
+                    method: "POST",
+                    body: formData,
+                    credentials: "include",
+                });
+                if (!res.ok) {
+                    const err = await res.json().catch(() => ({}));
+                    uploadError.textContent = err.detail || "Failed to upload resource.";
+                    uploadError.classList.remove("hidden");
+                    return;
+                }
+                closeModal();
+                skip = 0;
+                await loadResources();
+            });
+        }
+    }
+
+    function bindNav() {
+        if (navDashboard) navDashboard.addEventListener("click", (e) => { e.preventDefault(); window.location.href = "/dashboard"; });
+        if (navTasks) navTasks.addEventListener("click", (e) => { e.preventDefault(); window.location.href = "/create-task"; });
+        if (navSettings) navSettings.addEventListener("click", (e) => { e.preventDefault(); window.location.href = "/settings"; });
+
+        if (profileToggle && profileMenu) {
+            profileToggle.addEventListener("click", () => {
+                profileMenu.classList.toggle("hidden");
+            });
+            document.addEventListener("click", (e) => {
+                if (!profileMenu || !profileToggle) return;
+                const target = e.target;
+                if (profileMenu.contains(target) || profileToggle.contains(target)) {
+                    return;
+                }
+                profileMenu.classList.add("hidden");
+            });
+        }
+        if (profileLogout) {
+            profileLogout.addEventListener("click", async () => {
+                try {
+                    await fetch(`${API_BASE}/auth/logout`, {
+                        method: "POST",
+                        credentials: "include",
+                    });
+                } finally {
+                    window.location.href = "/auth/login";
+                }
+            });
+        }
+    }
+
+    function bindPagination() {
+        if (resPrev) {
+            resPrev.addEventListener("click", () => {
+                if (skip <= 0) return;
+                skip = Math.max(0, skip - limit);
+                loadResources();
+            });
+        }
+        if (resNext) {
+            resNext.addEventListener("click", () => {
+                if (skip + limit >= totalCount) return;
+                skip += limit;
+                loadResources();
+            });
+        }
+    }
+
+    window.addEventListener("load", async () => {
+        try {
+            await ensureAuth();
+            bindNav();
+            bindFilters();
+            bindUpload();
+            bindPagination();
+            setActiveFilter("all");
+            await loadResources();
+        } catch (error) {
+            // ensureAuth will redirect if needed
+        }
+    });
+</script>
 </body></html>

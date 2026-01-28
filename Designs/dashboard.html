@@ -46,6 +46,12 @@
                 -ms-overflow-style: none;
                 scrollbar-width: none;
             }
+            /* Done column: single scrollable list */
+            #done-list {
+                max-height: 650px; /* show roughly 3 cards, scroll for the rest */
+                overflow-y: auto;
+                padding-right: 4px;
+            }
         }
     </style>
 </head>
@@ -74,7 +80,7 @@
 </nav>
 </div>
 <div class="mt-auto p-4 border-t border-stone-200/80">
-<button class="w-full flex items-center justify-center gap-2 rounded-lg h-9 px-4 hover:bg-white text-stone-600 hover:text-red-500 text-sm font-semibold transition-colors">
+<button id="logout-btn" class="w-full flex items-center justify-center gap-2 rounded-lg h-9 px-4 hover:bg-white text-stone-600 hover:text-red-500 text-sm font-semibold transition-colors">
 <span class="material-symbols-outlined text-[18px]">logout</span>
 <span>Log Out</span>
 </button>
@@ -114,9 +120,9 @@
 <div class="flex flex-col gap-1 w-full sm:w-auto">
 <div class="flex items-center gap-2 w-full sm:w-auto">
 <label class="text-xs font-bold text-stone-500 uppercase tracking-wide hidden sm:block" for="current-user-email">User</label>
-<input class="w-full sm:w-64 bg-white border border-stone-200 rounded-lg py-2 px-3 text-sm text-brand-black placeholder:text-stone-400 focus:ring-2 focus:ring-brand-yellow/50 focus:border-brand-yellow transition-all shadow-sm" id="current-user-email" placeholder="you@ynot.org" type="email"/>
+<input class="w-full sm:w-64 bg-white border border-stone-200 rounded-lg py-2 px-3 text-sm text-brand-black placeholder:text-stone-400 focus:ring-2 focus:ring-brand-yellow/50 focus:border-brand-yellow transition-all shadow-sm" id="current-user-email" placeholder="you@ynot.org" type="email" readonly/>
 </div>
-<p class="text-xs text-red-600 hidden" id="error-message">Add your email to load tasks.</p>
+<p class="text-xs text-red-600 hidden" id="error-message">Sign in to load tasks.</p>
 </div>
 <button class="px-3 py-2 rounded-lg bg-white border border-stone-200 text-stone-600 hover:border-brand-black hover:text-brand-black text-xs font-bold transition-all shadow-sm" id="refresh-btn" type="button">
                         Refresh
@@ -228,6 +234,39 @@
         const teamView = document.getElementById("team-view");
         const teamList = document.getElementById("team-list");
         const teamRefresh = document.getElementById("team-refresh");
+        const logoutBtn = document.getElementById("logout-btn");
+        let currentUser = null;
+
+        function redirectToLogin() {
+            const next = encodeURIComponent(window.location.pathname);
+            window.location.href = `/auth/login?next=${next}`;
+        }
+
+        async function fetchCurrentUser() {
+            const res = await fetch(`${API_BASE}/auth/me`, { credentials: "include" });
+            if (!res.ok) {
+                throw new Error("Not authenticated");
+            }
+            const payload = await res.json();
+            return payload.data;
+        }
+
+        async function ensureAuth() {
+            if (currentUser) {
+                return currentUser;
+            }
+            try {
+                currentUser = await fetchCurrentUser();
+                if (emailInput) {
+                    emailInput.value = currentUser.email || "";
+                }
+                setError("");
+                return currentUser;
+            } catch (error) {
+                redirectToLogin();
+                throw error;
+            }
+        }
 
         let allTasks = [];
         const activeFilters = {
@@ -359,7 +398,9 @@
         }
 
         function applyFilters(tasks) {
-            const email = emailInput ? emailInput.value.trim() : "";
+            const email = currentUser && currentUser.email
+                ? currentUser.email
+                : (emailInput ? emailInput.value.trim() : "");
             return tasks.filter((task) => {
                 if (activeFilters.myTasks && email && task.assigned_to !== email) {
                     return false;
@@ -445,9 +486,9 @@
         }
 
         async function advanceTask(taskId, currentStatus) {
-            const email = emailInput ? emailInput.value.trim() : "";
-            if (!email || !taskId) {
-                setError("Add your email to update tasks.");
+            await ensureAuth();
+            if (!taskId) {
+                setError("Missing task id.");
                 return;
             }
             const nextStatus = currentStatus === "TODO" ? "IN_PROGRESS" : "DONE";
@@ -455,9 +496,9 @@
                 const res = await fetch(`${API_BASE}/api/tasks/${taskId}`, {
                     method: "PATCH",
                     headers: {
-                        "Content-Type": "application/json",
-                        "X-User-Email": email
+                        "Content-Type": "application/json"
                     },
+                    credentials: "include",
                     body: JSON.stringify({ status: nextStatus })
                 });
                 if (!res.ok) {
@@ -479,14 +520,8 @@
         }
 
         async function loadTasks() {
-            const email = emailInput ? emailInput.value.trim() : "";
-            if (!email) {
-                setError("Add your email to load tasks.");
-                clearLists();
-                return;
-            }
+            await ensureAuth();
             setError("");
-            localStorage.setItem("ynot_user_email", email);
 
             const params = new URLSearchParams();
             const q = searchInput ? searchInput.value.trim() : "";
@@ -496,9 +531,7 @@
             params.set("sort", "-created_at");
 
             const res = await fetch(`${API_BASE}/api/tasks?${params.toString()}`, {
-                headers: {
-                    "X-User-Email": email
-                }
+                credentials: "include"
             });
 
             if (!res.ok) {
@@ -585,14 +618,10 @@
         }
 
         async function loadUsers() {
-            const email = emailInput ? emailInput.value.trim() : "";
-            if (!email) {
-                clearTeamList();
-                return;
-            }
+            await ensureAuth();
             try {
                 const res = await fetch(`${API_BASE}/api/users`, {
-                    headers: { "X-User-Email": email }
+                    credentials: "include"
                 });
                 if (!res.ok) {
                     clearTeamList();
@@ -659,25 +688,29 @@
             teamRefresh.addEventListener("click", loadUsers);
         }
 
-        if (emailInput) {
-            const storedEmail = localStorage.getItem("ynot_user_email");
-            if (storedEmail) {
-                emailInput.value = storedEmail;
-            }
-            emailInput.addEventListener("change", () => {
-                loadTasks();
-                if (teamView && !teamView.classList.contains("hidden")) {
-                    loadUsers();
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", async (event) => {
+                event.preventDefault();
+                try {
+                    await fetch(`${API_BASE}/auth/logout`, {
+                        method: "POST",
+                        credentials: "include"
+                    });
+                } finally {
+                    window.location.href = "/auth/login";
                 }
             });
         }
 
-        window.addEventListener("load", () => {
-            if (emailInput && emailInput.value.trim()) {
-                loadTasks();
+        window.addEventListener("load", async () => {
+            try {
+                await ensureAuth();
+                await loadTasks();
+                setActiveView("board");
+                updateFilterStyles();
+            } catch (error) {
+                // ensureAuth will redirect if not logged in
             }
-            setActiveView("board");
-            updateFilterStyles();
         });
     </script>
 </body></html>

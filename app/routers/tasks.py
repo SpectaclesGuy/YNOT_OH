@@ -2,8 +2,9 @@ from __future__ import annotations
 
 from typing import Optional
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 
+from app.core.auth import get_current_user
 from app.core.db import mongo_client
 from app.models.task import (
     DeleteResponse,
@@ -20,12 +21,6 @@ from app.repositories.task_repo import TaskRepository
 router = APIRouter(prefix="/api/tasks", tags=["tasks"])
 
 
-def get_current_user(x_user_email: Optional[str] = Header(default=None, alias="X-User-Email")) -> str:
-    if not x_user_email:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing X-User-Email")
-    return x_user_email
-
-
 def get_repo() -> TaskRepository:
     return TaskRepository(mongo_client.db)
 
@@ -33,10 +28,10 @@ def get_repo() -> TaskRepository:
 @router.post("", response_model=TaskResponse, status_code=status.HTTP_201_CREATED)
 async def create_task(
     payload: TaskCreate,
-    current_user: str = Depends(get_current_user),
+    current_user: dict = Depends(get_current_user),
     repo: TaskRepository = Depends(get_repo),
 ) -> TaskResponse:
-    task = await repo.create_task(payload, created_by=current_user)
+    task = await repo.create_task(payload, created_by=current_user["email"])
     return TaskResponse(data=TaskOut(**task))
 
 
@@ -47,7 +42,7 @@ async def list_tasks(
     created_by: Optional[str] = Query(default=None),
     q: Optional[str] = Query(default=None),
     sort: str = Query(default="-created_at"),
-    current_user: str = Depends(get_current_user),
+    current_user: dict = Depends(get_current_user),
     repo: TaskRepository = Depends(get_repo),
 ) -> TaskListResponse:
     _ = current_user
@@ -76,7 +71,7 @@ async def list_tasks(
 
 @router.get("/next-issue", response_model=NextIssueResponse)
 async def next_issue_number(
-    current_user: str = Depends(get_current_user),
+    current_user: dict = Depends(get_current_user),
     repo: TaskRepository = Depends(get_repo),
 ) -> NextIssueResponse:
     _ = current_user
@@ -87,7 +82,7 @@ async def next_issue_number(
 @router.get("/{task_id}", response_model=TaskResponse)
 async def get_task(
     task_id: str,
-    current_user: str = Depends(get_current_user),
+    current_user: dict = Depends(get_current_user),
     repo: TaskRepository = Depends(get_repo),
 ) -> TaskResponse:
     _ = current_user
@@ -101,7 +96,7 @@ async def get_task(
 async def update_task(
     task_id: str,
     payload: TaskUpdate,
-    current_user: str = Depends(get_current_user),
+    current_user: dict = Depends(get_current_user),
     repo: TaskRepository = Depends(get_repo),
 ) -> TaskResponse:
     _ = current_user
@@ -114,7 +109,7 @@ async def update_task(
 @router.delete("/{task_id}", response_model=DeleteResponse)
 async def delete_task(
     task_id: str,
-    current_user: str = Depends(get_current_user),
+    current_user: dict = Depends(get_current_user),
     repo: TaskRepository = Depends(get_repo),
 ) -> DeleteResponse:
     _ = current_user
